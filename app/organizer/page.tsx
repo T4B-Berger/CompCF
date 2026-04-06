@@ -23,12 +23,12 @@ type RegistrationItem = {
   created_at: string
   athlete_id: string
   event_id: string
-  profiles: {
+  athlete: {
     id: string
     email: string
     role: string
   }[]
-  events: {
+  event: {
     id: string
     name: string
     start_date: string
@@ -77,12 +77,12 @@ export default function OrganizerPage() {
         created_at,
         athlete_id,
         event_id,
-        profiles (
+        athlete:profiles!registrations_athlete_id_fkey (
           id,
           email,
           role
         ),
-        events (
+        event:events!registrations_event_id_fkey (
           id,
           name,
           start_date,
@@ -241,7 +241,7 @@ export default function OrganizerPage() {
 
       {registrations.map((registration) => (
         <div key={registration.id}>
-          Event: {registration.events?.[0]?.name} — Athlete: {registration.profiles?.[0]?.email} — Status: {registration.status}
+          Event: {registration.event?.[0]?.name} — Athlete: {registration.athlete?.[0]?.email} — Status: {registration.status}
         </div>
       ))}
     </div>

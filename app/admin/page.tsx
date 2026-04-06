@@ -19,13 +19,21 @@ type EventItem = {
 
 type RegistrationItem = {
   id: string
+  event_id: string
+  athlete_id: string
   status: string
   created_at: string
-  profiles: {
+  athlete: {
+    id: string
     email: string
+    role: string
   }[]
-  events: {
+  event: {
+    id: string
     name: string
+    start_date: string
+    end_date: string
+    status: string
   }[]
 }
 
@@ -63,13 +71,21 @@ export default function AdminPage() {
       .from('registrations')
       .select(`
         id,
+        event_id,
+        athlete_id,
         status,
         created_at,
-        profiles (
-          email
+        athlete:profiles!registrations_athlete_id_fkey (
+          id,
+          email,
+          role
         ),
-        events (
-          name
+        event:events!registrations_event_id_fkey (
+          id,
+          name,
+          start_date,
+          end_date,
+          status
         )
       `)
       .order('created_at', { ascending: false })
@@ -182,7 +198,7 @@ export default function AdminPage() {
       <h2>Registrations</h2>
       {registrations.map((registration) => (
         <div key={registration.id}>
-          {registration.events?.[0]?.name} — {registration.profiles?.[0]?.email} — {registration.status}
+          {registration.event?.[0]?.name} — {registration.athlete?.[0]?.email} — {registration.status}
         </div>
       ))}
     </div>
