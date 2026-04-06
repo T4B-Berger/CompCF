@@ -34,6 +34,15 @@ export default function OrganizerPage() {
     setProfile(data)
   }
 
+  const loadEvents = async () => {
+    const { data } = await supabase
+      .from('events')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    setEvents(data || [])
+  }
+
   useEffect(() => {
     const checkUser = async () => {
       const { data } = await supabase.auth.getUser()
@@ -41,6 +50,7 @@ export default function OrganizerPage() {
 
       if (data.user) {
         await loadProfile(data.user.id)
+        await loadEvents()
       }
     }
 
@@ -59,6 +69,7 @@ export default function OrganizerPage() {
 
       if (data.user) {
         await loadProfile(data.user.id)
+        await loadEvents()
       }
     }
   }
@@ -68,15 +79,6 @@ export default function OrganizerPage() {
     setUser(null)
     setProfile(null)
     setEvents([])
-  }
-
-  const loadEvents = async () => {
-    const { data } = await supabase
-      .from('events')
-      .select('*')
-      .order('created_at', { ascending: false })
-
-    setEvents(data || [])
   }
 
   const publishEvent = async (eventId: string) => {
@@ -140,11 +142,12 @@ export default function OrganizerPage() {
       <hr />
 
       <button onClick={createEvent}>Create Event</button>
-      <button onClick={loadEvents}>Load Events</button>
+
+      <hr />
 
       {events.map((event) => (
         <div key={event.id}>
-          {event.name} — {event.status}{' '}
+          {event.name} — {event.start_date} → {event.end_date} — {event.status}{' '}
           {event.status === 'draft' && (
             <button onClick={() => publishEvent(event.id)}>Publish</button>
           )}
