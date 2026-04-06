@@ -17,6 +17,18 @@ type EventItem = {
   end_date: string
 }
 
+type RegistrationItem = {
+  id: string
+  status: string
+  created_at: string
+  profiles: {
+    email: string
+  }[]
+  events: {
+    name: string
+  }[]
+}
+
 export default function AdminPage() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
@@ -24,6 +36,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState('')
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [events, setEvents] = useState<EventItem[]>([])
+  const [registrations, setRegistrations] = useState<RegistrationItem[]>([])
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -46,8 +59,24 @@ export default function AdminPage() {
       .select('*')
       .order('created_at', { ascending: false })
 
+    const { data: registrationsData } = await supabase
+      .from('registrations')
+      .select(`
+        id,
+        status,
+        created_at,
+        profiles (
+          email
+        ),
+        events (
+          name
+        )
+      `)
+      .order('created_at', { ascending: false })
+
     setProfiles(profilesData || [])
     setEvents(eventsData || [])
+    setRegistrations((registrationsData as RegistrationItem[]) || [])
   }
 
   useEffect(() => {
@@ -84,6 +113,7 @@ export default function AdminPage() {
     setProfile(null)
     setProfiles([])
     setEvents([])
+    setRegistrations([])
   }
 
   useEffect(() => {
@@ -144,6 +174,15 @@ export default function AdminPage() {
       {events.map((event) => (
         <div key={event.id}>
           {event.name} — {event.start_date} → {event.end_date} — {event.status}
+        </div>
+      ))}
+
+      <hr />
+
+      <h2>Registrations</h2>
+      {registrations.map((registration) => (
+        <div key={registration.id}>
+          {registration.events?.[0]?.name} — {registration.profiles?.[0]?.email} — {registration.status}
         </div>
       ))}
     </div>
