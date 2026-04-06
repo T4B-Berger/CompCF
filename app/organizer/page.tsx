@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 
 type EventItem = {
@@ -11,13 +11,41 @@ type EventItem = {
   status: string
 }
 
+type Profile = {
+  id: string
+  email: string
+  role: string
+}
+
 export default function OrganizerPage() {
+  const [user, setUser] = useState<any>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [name, setName] = useState('Test Event')
-  const [startDate, setStartDate] = useState('2026-01-01')
-  const [endDate, setEndDate] = useState('2026-01-02')
   const [events, setEvents] = useState<EventItem[]>([])
+
+  const loadProfile = async (userId: string) => {
+    const { data } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single()
+
+    setProfile(data)
+  }
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data } = await supabase.auth.getUser()
+      setUser(data.user)
+
+      if (data.user) {
+        await loadProfile(data.user.id)
+      }
+    }
+
+    checkUser()
+  }, [])
 
   const login = async () => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -25,83 +53,98 @@ export default function OrganizerPage() {
       password,
     })
 
-    console.log('LOGIN ERROR:', error)
+    if (!error) {
+      const { data } = await supabase.auth.getUser()
+      setUser(data.user)
+
+      if (data.user) {
+        await loadProfile(data.user.id)
+      }
+    }
   }
 
-  const createEvent = async () => {
-    const { data: userData } = await supabase.auth.getUser()
-    const userId = userData.user?.id
-
-    const { error } = await supabase.from('events').insert([
-      {
-        name,
-        organizer_id: userId,
-        start_date: startDate,
-        end_date: endDate,
-      },
-    ])
-
-    console.log('CREATE ERROR:', error)
+  const logout = async () => {
+    await supabase.auth.signOut()
+    setUser(null)
+    setProfile(null)
+    setEvents([])
   }
 
   const loadEvents = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('events')
       .select('*')
       .order('created_at', { ascending: false })
 
-    console.log('LOAD ERROR:', error)
     setEvents(data || [])
   }
 
   const publishEvent = async (eventId: string) => {
-    const { error } = await supabase
-      .from('events')
-      .update({ status: 'published' })
-      .eq('id', eventId)
-
-    console.log('PUBLISH ERROR:', error)
+    await supabase.from('events').update({ status: 'published' }).eq('id', eventId)
     await loadEvents()
+  }
+
+  const createEvent = async () => {
+    if (!user) return
+
+    await supabase.from('events').insert([
+      {
+        name: 'New Event',
+        organizer_id: user.id,
+        start_date: '2026-01-01',
+        end_date: '2026-01-02',
+      },
+    ])
+
+    await loadEvents()
+  }
+
+  if (!user) {
+    return (
+      <div style={{ padding: 40 }}>
+        <h1>Login</h1>
+
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="email"
+        />
+        <br />
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          placeholder="password"
+        />
+        <br />
+        <button onClick={login}>Login</button>
+      </div>
+    )
+  }
+
+  if (!profile || profile.role !== 'organizer') {
+    return (
+      <div style={{ padding: 40 }}>
+        <h1>Access denied</h1>
+        <button onClick={logout}>Logout</button>
+      </div>
+    )
   }
 
   return (
     <div style={{ padding: 40 }}>
       <h1>Organizer Area</h1>
 
-      <input
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <input
-        placeholder="password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <button onClick={login}>Login</button>
+      <button onClick={logout}>Logout</button>
 
       <hr />
 
-      <h2>Create Event</h2>
-      <input value={name} onChange={(e) => setName(e.target.value)} />
-      <br />
-      <input value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-      <br />
-      <input value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-      <br />
       <button onClick={createEvent}>Create Event</button>
-
-      <hr />
-
-      <h2>My Events</h2>
       <button onClick={loadEvents}>Load Events</button>
 
       {events.map((event) => (
         <div key={event.id}>
-          {event.name} — {event.start_date} → {event.end_date} — {event.status}{' '}
+          {event.name} — {event.status}{' '}
           {event.status === 'draft' && (
             <button onClick={() => publishEvent(event.id)}>Publish</button>
           )}
