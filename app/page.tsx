@@ -12,6 +12,14 @@ export default function Home() {
       </div>
 
       <div style={{ marginTop: 10 }}>
+        <Link href="/athlete">Athlete area</Link>
+      </div>
+
+      <div style={{ marginTop: 10 }}>
+        <Link href="/admin">Admin area</Link>
+      </div>
+
+      <div style={{ marginTop: 10 }}>
         <Link href="/events">Public events</Link>
       </div>
     </div>

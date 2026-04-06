@@ -20,6 +20,7 @@ type EventItem = {
 type RegistrationDetail = {
   id: string
   event_id: string
+  category_id: string
   athlete_id: string
   status: string
   created_at: string
@@ -27,6 +28,12 @@ type RegistrationDetail = {
   event_start_date: string
   event_end_date: string
   event_status: string
+  category_name: string
+  category_type: string
+  category_level: string
+  team_size: number
+  female_count_required: number
+  male_count_required: number
   athlete_email: string
   athlete_role: string
 }
@@ -174,7 +181,7 @@ export default function AdminPage() {
       <h2>Registrations</h2>
       {registrations.map((registration) => (
         <div key={registration.id}>
-          {registration.event_name} — {registration.athlete_email} — {registration.status}
+          {registration.event_name} — {registration.category_name} — {registration.athlete_email} — {registration.status}
         </div>
       ))}
     </div>
