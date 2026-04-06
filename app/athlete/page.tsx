@@ -3,6 +3,12 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 
+type Profile = {
+  id: string
+  email: string
+  role: string
+}
+
 type EventItem = {
   id: string
   name: string
@@ -11,23 +17,12 @@ type EventItem = {
   status: string
 }
 
-type Profile = {
-  id: string
-  email: string
-  role: string
-}
-
 type RegistrationItem = {
   id: string
+  event_id: string
+  athlete_id: string
   status: string
   created_at: string
-  athlete_id: string
-  event_id: string
-  profiles: {
-    id: string
-    email: string
-    role: string
-  } | null
   events: {
     id: string
     name: string
@@ -37,17 +32,13 @@ type RegistrationItem = {
   } | null
 }
 
-export default function OrganizerPage() {
+export default function AthletePage() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [events, setEvents] = useState<EventItem[]>([])
   const [registrations, setRegistrations] = useState<RegistrationItem[]>([])
-
-  const [eventName, setEventName] = useState('')
-  const [startDate, setStartDate] = useState('')
-  const [endDate, setEndDate] = useState('')
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -59,11 +50,12 @@ export default function OrganizerPage() {
     setProfile(data)
   }
 
-  const loadEvents = async () => {
+  const loadPublishedEvents = async () => {
     const { data } = await supabase
       .from('events')
       .select('*')
-      .order('created_at', { ascending: false })
+      .eq('status', 'published')
+      .order('start_date', { ascending: true })
 
     setEvents(data || [])
   }
@@ -73,15 +65,10 @@ export default function OrganizerPage() {
       .from('registrations')
       .select(`
         id,
+        event_id,
+        athlete_id,
         status,
         created_at,
-        athlete_id,
-        event_id,
-        profiles (
-          id,
-          email,
-          role
-        ),
         events (
           id,
           name,
@@ -102,7 +89,7 @@ export default function OrganizerPage() {
 
       if (data.user) {
         await loadProfile(data.user.id)
-        await loadEvents()
+        await loadPublishedEvents()
         await loadRegistrations()
       }
     }
@@ -121,7 +108,7 @@ export default function OrganizerPage() {
 
       if (data.user) {
         await loadProfile(data.user.id)
-        await loadEvents()
+        await loadPublishedEvents()
         await loadRegistrations()
       }
     }
@@ -135,35 +122,25 @@ export default function OrganizerPage() {
     setRegistrations([])
   }
 
-  const publishEvent = async (eventId: string) => {
-    await supabase.from('events').update({ status: 'published' }).eq('id', eventId)
-    await loadEvents()
-  }
-
-  const createEvent = async () => {
+  const registerToEvent = async (eventId: string) => {
     if (!user) return
-    if (!eventName || !startDate || !endDate) return
 
-    await supabase.from('events').insert([
+    const { error } = await supabase.from('registrations').insert([
       {
-        name: eventName,
-        organizer_id: user.id,
-        start_date: startDate,
-        end_date: endDate,
+        event_id: eventId,
+        athlete_id: user.id,
       },
     ])
 
-    setEventName('')
-    setStartDate('')
-    setEndDate('')
+    console.log('REGISTRATION ERROR:', error)
 
-    await loadEvents()
+    await loadRegistrations()
   }
 
   if (!user) {
     return (
       <div style={{ padding: 40 }}>
-        <h1>Login</h1>
+        <h1>Athlete Login</h1>
 
         <input
           value={email}
@@ -183,7 +160,7 @@ export default function OrganizerPage() {
     )
   }
 
-  if (!profile || profile.role !== 'organizer') {
+  if (!profile || profile.role !== 'athlete') {
     return (
       <div style={{ padding: 40 }}>
         <h1>Access denied</h1>
@@ -194,54 +171,27 @@ export default function OrganizerPage() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Organizer Area</h1>
-
+      <h1>Athlete Area</h1>
       <button onClick={logout}>Logout</button>
 
       <hr />
 
-      <h2>Create Event</h2>
-
-      <input
-        value={eventName}
-        onChange={(e) => setEventName(e.target.value)}
-        placeholder="event name"
-      />
-      <br />
-      <input
-        value={startDate}
-        onChange={(e) => setStartDate(e.target.value)}
-        placeholder="YYYY-MM-DD"
-      />
-      <br />
-      <input
-        value={endDate}
-        onChange={(e) => setEndDate(e.target.value)}
-        placeholder="YYYY-MM-DD"
-      />
-      <br />
-      <button onClick={createEvent}>Create Event</button>
-
-      <hr />
-
-      <h2>My Events</h2>
+      <h2>Published Events</h2>
 
       {events.map((event) => (
         <div key={event.id}>
-          {event.name} — {event.start_date} → {event.end_date} — {event.status}{' '}
-          {event.status === 'draft' && (
-            <button onClick={() => publishEvent(event.id)}>Publish</button>
-          )}
+          {event.name} — {event.start_date} → {event.end_date}{' '}
+          <button onClick={() => registerToEvent(event.id)}>Register</button>
         </div>
       ))}
 
       <hr />
 
-      <h2>Participants</h2>
+      <h2>My Registrations</h2>
 
       {registrations.map((registration) => (
         <div key={registration.id}>
-          Event: {registration.events?.name} — Athlete: {registration.profiles?.email} — Status: {registration.status}
+          {registration.events?.name} — {registration.events?.start_date} → {registration.events?.end_date} — {registration.status}
         </div>
       ))}
     </div>
