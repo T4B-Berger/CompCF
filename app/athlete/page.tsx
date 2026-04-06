@@ -17,19 +17,18 @@ type EventItem = {
   status: string
 }
 
-type RegistrationItem = {
+type RegistrationDetail = {
   id: string
   event_id: string
   athlete_id: string
   status: string
   created_at: string
-  event: {
-    id: string
-    name: string
-    start_date: string
-    end_date: string
-    status: string
-  }[]
+  event_name: string
+  event_start_date: string
+  event_end_date: string
+  event_status: string
+  athlete_email: string
+  athlete_role: string
 }
 
 export default function AthletePage() {
@@ -38,7 +37,7 @@ export default function AthletePage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [events, setEvents] = useState<EventItem[]>([])
-  const [registrations, setRegistrations] = useState<RegistrationItem[]>([])
+  const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -62,24 +61,15 @@ export default function AthletePage() {
 
   const loadRegistrations = async () => {
     const { data } = await supabase
-      .from('registrations')
-      .select(`
-        id,
-        event_id,
-        athlete_id,
-        status,
-        created_at,
-        event:events!registrations_event_id_fkey (
-          id,
-          name,
-          start_date,
-          end_date,
-          status
-        )
-      `)
+      .from('registration_details')
+      .select('*')
       .order('created_at', { ascending: false })
 
-    setRegistrations((data as RegistrationItem[]) || [])
+    const ownRegistrations = (data || []).filter(
+      (item) => item.athlete_id === user?.id
+    )
+
+    setRegistrations(ownRegistrations as RegistrationDetail[])
   }
 
   useEffect(() => {
@@ -90,12 +80,17 @@ export default function AthletePage() {
       if (data.user) {
         await loadProfile(data.user.id)
         await loadPublishedEvents()
-        await loadRegistrations()
       }
     }
 
     checkUser()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      loadRegistrations()
+    }
+  }, [user])
 
   const login = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -109,7 +104,6 @@ export default function AthletePage() {
       if (data.user) {
         await loadProfile(data.user.id)
         await loadPublishedEvents()
-        await loadRegistrations()
       }
     }
   }
@@ -191,7 +185,7 @@ export default function AthletePage() {
 
       {registrations.map((registration) => (
         <div key={registration.id}>
-          {registration.event?.[0]?.name} — {registration.event?.[0]?.start_date} → {registration.event?.[0]?.end_date} — {registration.status}
+          {registration.event_name} — {registration.event_start_date} → {registration.event_end_date} — {registration.status}
         </div>
       ))}
     </div>

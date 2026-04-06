@@ -17,24 +17,18 @@ type EventItem = {
   end_date: string
 }
 
-type RegistrationItem = {
+type RegistrationDetail = {
   id: string
   event_id: string
   athlete_id: string
   status: string
   created_at: string
-  athlete: {
-    id: string
-    email: string
-    role: string
-  }[]
-  event: {
-    id: string
-    name: string
-    start_date: string
-    end_date: string
-    status: string
-  }[]
+  event_name: string
+  event_start_date: string
+  event_end_date: string
+  event_status: string
+  athlete_email: string
+  athlete_role: string
 }
 
 export default function AdminPage() {
@@ -44,7 +38,7 @@ export default function AdminPage() {
   const [password, setPassword] = useState('')
   const [profiles, setProfiles] = useState<Profile[]>([])
   const [events, setEvents] = useState<EventItem[]>([])
-  const [registrations, setRegistrations] = useState<RegistrationItem[]>([])
+  const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -68,31 +62,13 @@ export default function AdminPage() {
       .order('created_at', { ascending: false })
 
     const { data: registrationsData } = await supabase
-      .from('registrations')
-      .select(`
-        id,
-        event_id,
-        athlete_id,
-        status,
-        created_at,
-        athlete:profiles!registrations_athlete_id_fkey (
-          id,
-          email,
-          role
-        ),
-        event:events!registrations_event_id_fkey (
-          id,
-          name,
-          start_date,
-          end_date,
-          status
-        )
-      `)
+      .from('registration_details')
+      .select('*')
       .order('created_at', { ascending: false })
 
     setProfiles(profilesData || [])
     setEvents(eventsData || [])
-    setRegistrations((registrationsData as RegistrationItem[]) || [])
+    setRegistrations((registrationsData as RegistrationDetail[]) || [])
   }
 
   useEffect(() => {
@@ -198,7 +174,7 @@ export default function AdminPage() {
       <h2>Registrations</h2>
       {registrations.map((registration) => (
         <div key={registration.id}>
-          {registration.event?.[0]?.name} — {registration.athlete?.[0]?.email} — {registration.status}
+          {registration.event_name} — {registration.athlete_email} — {registration.status}
         </div>
       ))}
     </div>

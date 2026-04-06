@@ -17,24 +17,18 @@ type Profile = {
   role: string
 }
 
-type RegistrationItem = {
+type RegistrationDetail = {
   id: string
+  event_id: string
+  athlete_id: string
   status: string
   created_at: string
-  athlete_id: string
-  event_id: string
-  athlete: {
-    id: string
-    email: string
-    role: string
-  }[]
-  event: {
-    id: string
-    name: string
-    start_date: string
-    end_date: string
-    status: string
-  }[]
+  event_name: string
+  event_start_date: string
+  event_end_date: string
+  event_status: string
+  athlete_email: string
+  athlete_role: string
 }
 
 export default function OrganizerPage() {
@@ -43,7 +37,7 @@ export default function OrganizerPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [events, setEvents] = useState<EventItem[]>([])
-  const [registrations, setRegistrations] = useState<RegistrationItem[]>([])
+  const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
 
   const [eventName, setEventName] = useState('')
   const [startDate, setStartDate] = useState('')
@@ -70,29 +64,16 @@ export default function OrganizerPage() {
 
   const loadRegistrations = async () => {
     const { data } = await supabase
-      .from('registrations')
-      .select(`
-        id,
-        status,
-        created_at,
-        athlete_id,
-        event_id,
-        athlete:profiles!registrations_athlete_id_fkey (
-          id,
-          email,
-          role
-        ),
-        event:events!registrations_event_id_fkey (
-          id,
-          name,
-          start_date,
-          end_date,
-          status
-        )
-      `)
+      .from('registration_details')
+      .select('*')
       .order('created_at', { ascending: false })
 
-    setRegistrations((data as RegistrationItem[]) || [])
+    const ownEventIds = new Set(events.map((event) => event.id))
+    const ownRegistrations = (data || []).filter((item) =>
+      ownEventIds.has(item.event_id)
+    )
+
+    setRegistrations(ownRegistrations as RegistrationDetail[])
   }
 
   useEffect(() => {
@@ -103,12 +84,19 @@ export default function OrganizerPage() {
       if (data.user) {
         await loadProfile(data.user.id)
         await loadEvents()
-        await loadRegistrations()
       }
     }
 
     checkUser()
   }, [])
+
+  useEffect(() => {
+    if (events.length > 0) {
+      loadRegistrations()
+    } else {
+      setRegistrations([])
+    }
+  }, [events])
 
   const login = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -122,7 +110,6 @@ export default function OrganizerPage() {
       if (data.user) {
         await loadProfile(data.user.id)
         await loadEvents()
-        await loadRegistrations()
       }
     }
   }
@@ -241,7 +228,7 @@ export default function OrganizerPage() {
 
       {registrations.map((registration) => (
         <div key={registration.id}>
-          Event: {registration.event?.[0]?.name} — Athlete: {registration.athlete?.[0]?.email} — Status: {registration.status}
+          {registration.event_name} — {registration.athlete_email} — {registration.status}
         </div>
       ))}
     </div>
