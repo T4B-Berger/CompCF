@@ -27,14 +27,14 @@ type RegistrationItem = {
     id: string
     email: string
     role: string
-  } | null
+  }[]
   events: {
     id: string
     name: string
     start_date: string
     end_date: string
     status: string
-  } | null
+  }[]
 }
 
 export default function OrganizerPage() {
@@ -241,7 +241,7 @@ export default function OrganizerPage() {
 
       {registrations.map((registration) => (
         <div key={registration.id}>
-          Event: {registration.events?.name} — Athlete: {registration.profiles?.email} — Status: {registration.status}
+          Event: {registration.events?.[0]?.name} — Athlete: {registration.profiles?.[0]?.email} — Status: {registration.status}
         </div>
       ))}
     </div>

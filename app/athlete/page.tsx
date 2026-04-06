@@ -29,7 +29,7 @@ type RegistrationItem = {
     start_date: string
     end_date: string
     status: string
-  } | null
+  }[]
 }
 
 export default function AthletePage() {
@@ -191,7 +191,7 @@ export default function AthletePage() {
 
       {registrations.map((registration) => (
         <div key={registration.id}>
-          {registration.events?.name} — {registration.events?.start_date} → {registration.events?.end_date} — {registration.status}
+          {registration.events?.[0]?.name} — {registration.events?.[0]?.start_date} → {registration.events?.[0]?.end_date} — {registration.status}
         </div>
       ))}
     </div>
