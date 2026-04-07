@@ -15,6 +15,8 @@ import {
   Eye,
   Zap,
 } from 'lucide-react'
+import { SiteHeader } from '../components/marketing/site-header'
+import { SiteFooter } from '../components/marketing/site-footer'
 
 type Feature = {
   title: string
@@ -83,7 +85,7 @@ const steps: Step[] = [
     number: '02',
     title: 'Publier catégories et tarifs',
     description:
-      'Chaque catégorie porte ses règles, ses formats et ses pricing tiers selon dates ou quotas.',
+      'Chaque catégorie porte ses règles, ses formats et ses paliers tarifaires selon dates ou quotas.',
     icon: BadgeDollarSign,
   },
   {
@@ -147,23 +149,10 @@ const previewEvents: PreviewEvent[] = [
     categories: [
       { name: 'Scaled Men', price: '29€', tag: 'Early Bird' },
       { name: 'Scaled Women', price: '29€', tag: 'Early Bird' },
-      { name: 'Team of 4 FFHH', price: '149€', tag: 'Limited spots' },
+      { name: 'Team of 4 FFHH', price: '149€', tag: 'Places limitées' },
     ],
   },
 ]
-
-function UnicornMark() {
-  return (
-    <div className="relative h-14 w-14 shrink-0">
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-fuchsia-500 via-pink-500 to-sky-500 shadow-lg shadow-fuchsia-500/25" />
-      <div className="absolute left-1/2 top-1.5 h-4 w-2 -translate-x-1/2 -rotate-12 rounded-full bg-gradient-to-b from-yellow-300 to-amber-500" />
-      <div className="absolute inset-[4px] rounded-[14px] bg-slate-950/90" />
-      <div className="absolute left-1/2 top-1/2 h-6 w-8 -translate-x-1/2 -translate-y-1/2 rounded-[999px] bg-gradient-to-r from-pink-400 to-sky-400" />
-      <div className="absolute left-[18px] top-[20px] h-1.5 w-1.5 rounded-full bg-slate-950" />
-      <div className="absolute right-[14px] top-[21px] h-2 w-3 rotate-[20deg] rounded-full border-2 border-slate-950 border-l-0 border-t-0" />
-    </div>
-  )
-}
 
 function SectionTitle({
   eyebrow,
@@ -200,43 +189,14 @@ export default function HomePage() {
         </div>
       </div>
 
-      <header className="border-b border-white/10">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <div className="flex items-center gap-3">
-            <UnicornMark />
-            <div>
-              <div className="text-lg font-semibold tracking-tight text-white">
-                CompCF
-              </div>
-              <div className="text-sm text-slate-400">
-                CrossFit competition platform
-              </div>
-            </div>
-          </div>
-
-          <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
-            <Link className="transition hover:text-white" href="/events">
-              Events
-            </Link>
-            <Link className="transition hover:text-white" href="/organizer">
-              Organizer
-            </Link>
-            <Link className="transition hover:text-white" href="/athlete">
-              Athlete
-            </Link>
-            <Link className="transition hover:text-white" href="/admin">
-              Admin
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 lg:px-8 lg:pb-28 lg:pt-24">
         <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/25 bg-white/5 px-4 py-2 text-sm text-slate-200 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              Publication, inscriptions, catégories, pricing tiers
+              Publication, inscriptions, catégories, paliers tarifaires
             </div>
 
             <h1 className="mt-8 max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
@@ -271,16 +231,16 @@ export default function HomePage() {
 
             <div className="mt-10 flex flex-wrap gap-3 text-sm text-slate-300">
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-                Events publiés
+                Événements publiés
               </span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-                Categories & divisions
+                Catégories & divisions
               </span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-                Early bird & pricing tiers
+                Early bird & tarifs
               </span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-                Ready for live scoring
+                Prêt pour le scoring live
               </span>
             </div>
           </div>
@@ -292,7 +252,7 @@ export default function HomePage() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                      Featured event
+                      Événement mis en avant
                     </div>
                     <div className="mt-2 text-2xl font-semibold text-white">
                       Unicorn Throwdown
@@ -302,7 +262,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="rounded-full border border-fuchsia-400/25 bg-fuchsia-500/10 px-3 py-1 text-xs font-medium text-fuchsia-200">
-                    Published
+                    Publié
                   </div>
                 </div>
 
@@ -314,7 +274,7 @@ export default function HomePage() {
                           Individual RX Women
                         </div>
                         <div className="mt-1 text-sm text-slate-400">
-                          Early Bird active · capacity by tier
+                          Early Bird actif · capacité par palier
                         </div>
                       </div>
                       <div className="text-right">
@@ -331,7 +291,7 @@ export default function HomePage() {
                           Team of 2 FH
                         </div>
                         <div className="mt-1 text-sm text-slate-400">
-                          Standardized team category
+                          Catégorie team standardisée
                         </div>
                       </div>
                       <div className="text-right">
@@ -342,8 +302,8 @@ export default function HomePage() {
                   </div>
 
                   <div className="rounded-xl border border-dashed border-white/15 bg-slate-900/50 p-4 text-sm text-slate-300">
-                    Qualification flows, payments, scoring live and leaderboard
-                    are already anticipated by the product model.
+                    Qualifications, paiements, scoring live et leaderboard sont
+                    déjà anticipés par le modèle produit.
                   </div>
                 </div>
               </div>
@@ -355,7 +315,7 @@ export default function HomePage() {
       <section className="border-y border-white/10 bg-white/[0.03]">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <SectionTitle
-            eyebrow="Why CompCF"
+            eyebrow="Pourquoi CompCF"
             title="Un socle produit propre pour des compétitions mieux publiées, mieux lues, mieux gérées."
             description="CompCF ne se limite pas à afficher une liste d’événements. La plateforme structure le modèle compétition, les catégories, les inscriptions et la tarification pour rendre l’expérience plus claire dès le premier contact."
           />
@@ -363,7 +323,6 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {features.map((feature) => {
               const Icon = feature.icon
-
               return (
                 <div
                   key={feature.title}
@@ -387,7 +346,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <SectionTitle
-          eyebrow="How it works"
+          eyebrow="Comment ça marche"
           title="Un flux simple pour transformer une idée de compétition en produit exploitable."
           description="Le prototype raconte déjà un parcours net, de la création d’événement à la préparation du terrain opérationnel."
         />
@@ -395,7 +354,6 @@ export default function HomePage() {
         <div className="mt-12 grid gap-6 lg:grid-cols-4">
           {steps.map((step) => {
             const Icon = step.icon
-
             return (
               <div
                 key={step.number}
@@ -424,7 +382,7 @@ export default function HomePage() {
       <section className="border-y border-white/10 bg-gradient-to-b from-white/[0.03] to-transparent">
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <SectionTitle
-            eyebrow="Roles"
+            eyebrow="Rôles"
             title="Pensé pour l’organisateur, l’athlète et le public."
             description="Chaque acteur retrouve un parcours simple et cohérent, sans perdre la rigueur métier propre aux compétitions CrossFit."
           />
@@ -432,7 +390,6 @@ export default function HomePage() {
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {roles.map((role) => {
               const Icon = role.icon
-
               return (
                 <div
                   key={role.title}
@@ -466,7 +423,7 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <SectionTitle
-          eyebrow="Preview"
+          eyebrow="Aperçu"
           title="Un aperçu de ce que le produit rend visible."
           description="Le prototype montre déjà la structure événement, les catégories et la logique de tarification sans attendre le scoring live."
         />
@@ -487,7 +444,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="rounded-full border border-emerald-400/25 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-200">
-                  Open
+                  Ouvert
                 </div>
               </div>
 
@@ -502,7 +459,7 @@ export default function HomePage() {
                         {category.name}
                       </div>
                       <div className="mt-1 text-xs text-slate-400">
-                        Pricing tier currently available
+                        Palier tarifaire actuellement disponible
                       </div>
                     </div>
                     <div className="text-right">
@@ -527,15 +484,15 @@ export default function HomePage() {
             <div>
               <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
                 <Sparkles className="h-3.5 w-3.5" />
-                Ready to explore
+                Prêt à explorer
               </div>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 Passe d’une idée de compétition à une expérience produit qui
                 donne envie d’aller plus loin.
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-200">
-                Découvre les événements publiés, teste les parcours existants
-                et pose les bases d’une plateforme CrossFit prête à monter en
+                Découvre les événements publiés, teste les parcours existants et
+                pose les bases d’une plateforme CrossFit prête à monter en
                 puissance.
               </p>
             </div>
@@ -552,11 +509,11 @@ export default function HomePage() {
                 href="/organizer"
                 className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
               >
-                Ouvrir l’espace organizer
+                Ouvrir l’espace organisateur
               </Link>
               <div className="flex items-center justify-center gap-4 pt-2 text-sm text-slate-300">
                 <Link href="/athlete" className="hover:text-white">
-                  Athlete
+                  Athlète
                 </Link>
                 <Link href="/admin" className="hover:text-white">
                   Admin
@@ -566,6 +523,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <SiteFooter />
     </main>
   )
 }

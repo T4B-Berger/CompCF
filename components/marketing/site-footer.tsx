@@ -7,31 +7,32 @@ export function SiteFooter() {
         <div>
           <div className="font-medium text-white">CompCF</div>
           <div className="mt-1">
-            Publication, inscriptions, catégories et pricing pour les compétitions CrossFit.
+            Publication, inscriptions, catégories et tarification pour les
+            compétitions CrossFit.
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-4">
           <Link href="/" className="hover:text-white">
-            Home
+            Accueil
           </Link>
           <Link href="/events" className="hover:text-white">
-            Events
+            Événements
           </Link>
           <Link href="/organizer" className="hover:text-white">
-            Organizer
+            Organisateur
           </Link>
           <Link href="/athlete" className="hover:text-white">
-            Athlete
+            Athlète
           </Link>
           <Link href="/admin" className="hover:text-white">
             Admin
           </Link>
           <Link href="/login" className="hover:text-white">
-            Login
+            Connexion
           </Link>
           <Link href="/signup" className="hover:text-white">
-            Sign up
+            Créer un compte
           </Link>
         </div>
       </div>

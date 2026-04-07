@@ -1,4 +1,4 @@
-import { CalendarDays, BadgeDollarSign, Trophy } from 'lucide-react'
+import { BadgeDollarSign, CalendarDays, Trophy } from 'lucide-react'
 
 type PricingTier = {
   name: string
@@ -37,7 +37,7 @@ export function EventCard({
             </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5">
               <Trophy className="h-4 w-4 text-fuchsia-300" />
-              {categories.length} categories
+              {categories.length} catégories
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@ export function EventCard({
             <div className="mt-4 flex items-center justify-between">
               <div className="inline-flex items-center gap-2 text-sm text-slate-400">
                 <BadgeDollarSign className="h-4 w-4 text-sky-300" />
-                Active price
+                Prix actif
               </div>
               <div className="text-right">
                 {cat.activePrice ? (
@@ -67,7 +67,9 @@ export function EventCard({
                     </div>
                   </>
                 ) : (
-                  <div className="text-sm text-slate-400">No active price</div>
+                  <div className="text-sm text-slate-400">
+                    Aucun prix actif
+                  </div>
                 )}
               </div>
             </div>

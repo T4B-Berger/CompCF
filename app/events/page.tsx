@@ -1,12 +1,9 @@
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { supabase } from '../../lib/supabaseClient'
-import {
-  CalendarDays,
-  MapPin,
-  BadgeDollarSign,
-  ArrowRight,
-  Trophy,
-} from 'lucide-react'
+import { SiteHeader } from '../../components/marketing/site-header'
+import { SiteFooter } from '../../components/marketing/site-footer'
+import { EventCard } from '../../components/events/event-card'
 
 type PricingTier = {
   id: string
@@ -77,12 +74,14 @@ export default async function EventsPage() {
 
   if (eventsError || pricingError) {
     return (
-      <main className="min-h-screen bg-slate-950 px-6 py-16 text-slate-100 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+      <main className="min-h-screen bg-slate-950 text-slate-100">
+        <SiteHeader />
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
           <div className="rounded-3xl border border-red-500/20 bg-red-500/10 p-6 text-red-100">
-            Error loading events
+            Erreur lors du chargement des événements
           </div>
         </div>
+        <SiteFooter />
       </main>
     )
   }
@@ -105,101 +104,41 @@ export default async function EventsPage() {
         </div>
       </div>
 
+      <SiteHeader />
+
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="max-w-3xl">
           <div className="inline-flex rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">
-            Published events
+            Événements publiés
           </div>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Discover current CrossFit competitions
+            Découvre les compétitions CrossFit en cours
           </h1>
           <p className="mt-4 text-lg leading-8 text-slate-300">
-            Explore published events, compare categories and see the active
-            pricing tier currently available.
+            Explore les événements publiés, compare les catégories et consulte
+            le palier tarifaire actuellement actif.
           </p>
         </div>
 
         <div className="mt-12 grid gap-8">
           {events?.length === 0 && (
             <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-slate-300">
-              No published events yet.
+              Aucun événement publié pour le moment.
             </div>
           )}
 
           {events?.map((event: EventRow) => (
-            <div
+            <EventCard
               key={event.id}
-              className="rounded-[28px] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/30"
-            >
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                <div>
-                  <h2 className="text-2xl font-semibold text-white">
-                    {event.name}
-                  </h2>
-
-                  <div className="mt-4 flex flex-wrap gap-3 text-sm text-slate-300">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5">
-                      <CalendarDays className="h-4 w-4 text-sky-300" />
-                      {event.start_date} → {event.end_date}
-                    </div>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-900/70 px-3 py-1.5">
-                      <Trophy className="h-4 w-4 text-fuchsia-300" />
-                      {event.event_categories.length} categories
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <Link
-                    href="/athlete"
-                    className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
-                  >
-                    Athlete area
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {event.event_categories.map((cat) => {
-                  const active = getActivePrice(pricingByCategory[cat.id] || [])
-
-                  return (
-                    <div
-                      key={cat.id}
-                      className="rounded-2xl border border-white/10 bg-slate-950/70 p-5"
-                    >
-                      <div className="text-lg font-semibold text-white">
-                        {cat.name}
-                      </div>
-
-                      <div className="mt-4 flex items-center justify-between">
-                        <div className="inline-flex items-center gap-2 text-sm text-slate-400">
-                          <BadgeDollarSign className="h-4 w-4 text-sky-300" />
-                          Active price
-                        </div>
-                        <div className="text-right">
-                          {active ? (
-                            <>
-                              <div className="font-semibold text-white">
-                                {active.price_cents / 100}€
-                              </div>
-                              <div className="text-xs text-fuchsia-300">
-                                {active.name}
-                              </div>
-                            </>
-                          ) : (
-                            <div className="text-sm text-slate-400">
-                              No active price
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
+              name={event.name}
+              startDate={event.start_date}
+              endDate={event.end_date}
+              categories={event.event_categories.map((cat) => ({
+                id: cat.id,
+                name: cat.name,
+                activePrice: getActivePrice(pricingByCategory[cat.id] || []),
+              }))}
+            />
           ))}
         </div>
 
@@ -208,16 +147,19 @@ export default async function EventsPage() {
             href="/"
             className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
           >
-            Back home
+            Retour à l’accueil
           </Link>
           <Link
             href="/organizer"
-            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02]"
           >
-            Organizer space
+            Espace organisateur
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
+
+      <SiteFooter />
     </main>
   )
 }

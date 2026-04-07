@@ -31,7 +31,7 @@ export default function SignupPage() {
     }
 
     setSuccessMessage(
-      'Compte créé. Tu pourras enrichir le profil plus tard quand le flux signup évoluera.'
+      'Compte créé. Tu pourras enrichir le profil plus tard quand le flux de création de compte évoluera.'
     )
     setLoading(false)
   }
@@ -51,7 +51,7 @@ export default function SignupPage() {
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
             <div className="inline-flex rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">
-              Sign up
+              Créer un compte
             </div>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Crée ton compte et entre dans l’écosystème CompCF.
@@ -84,10 +84,10 @@ export default function SignupPage() {
               </div>
               <div>
                 <div className="text-xl font-semibold text-white">
-                  Create account
+                  Créer un compte
                 </div>
                 <div className="text-sm text-slate-400">
-                  MVP signup, extensible post-MVP
+                  Signup MVP, extensible en post-MVP
                 </div>
               </div>
             </div>
@@ -104,7 +104,7 @@ export default function SignupPage() {
                 className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder="Mot de passe"
                 type="password"
               />
 
@@ -130,7 +130,10 @@ export default function SignupPage() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between">
-              <Link href="/login" className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200">
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200"
+              >
                 J’ai déjà un compte
                 <ArrowRight className="h-4 w-4" />
               </Link>

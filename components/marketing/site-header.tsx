@@ -24,32 +24,32 @@ export function SiteHeader() {
               CompCF
             </div>
             <div className="text-sm text-slate-400">
-              CrossFit competition platform
+              Plateforme de compétitions CrossFit
             </div>
           </div>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
           <Link className="transition hover:text-white" href="/events">
-            Events
+            Événements
           </Link>
           <Link className="transition hover:text-white" href="/organizer">
-            Organizer
+            Organisateur
           </Link>
           <Link className="transition hover:text-white" href="/athlete">
-            Athlete
+            Athlète
           </Link>
           <Link className="transition hover:text-white" href="/admin">
             Admin
           </Link>
           <Link className="transition hover:text-white" href="/login">
-            Login
+            Connexion
           </Link>
           <Link
             className="rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-4 py-2 font-semibold text-white"
             href="/signup"
           >
-            Sign up
+            Créer un compte
           </Link>
         </nav>
       </div>

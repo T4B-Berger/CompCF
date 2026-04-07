@@ -9,9 +9,10 @@ import {
   LogOut,
   Plus,
   Rocket,
-  ShieldCheck,
   Users,
 } from 'lucide-react'
+import { SiteHeader } from '../../components/marketing/site-header'
+import { SiteFooter } from '../../components/marketing/site-footer'
 
 type EventItem = {
   id: string
@@ -69,7 +70,7 @@ export default function OrganizerPage() {
       .select('*')
       .order('created_at', { ascending: false })
 
-    setEvents(data || [])
+    setEvents((data || []) as EventItem[])
   }
 
   const loadRegistrations = async (currentEvents?: EventItem[]) => {
@@ -95,6 +96,7 @@ export default function OrganizerPage() {
 
       if (data.user) {
         await loadProfile(data.user.id)
+
         const { data: eventsData } = await supabase
           .from('events')
           .select('*')
@@ -154,7 +156,6 @@ export default function OrganizerPage() {
     setEventName('')
     setStartDate('')
     setEndDate('')
-
     await loadEvents()
   }
 
@@ -166,16 +167,18 @@ export default function OrganizerPage() {
   if (!user) {
     return (
       <main className="min-h-screen bg-slate-950 text-slate-100">
-        <div className="mx-auto flex min-h-screen max-w-md items-center px-6 py-16">
+        <SiteHeader />
+        <div className="mx-auto flex min-h-[calc(100vh-140px)] max-w-md items-center px-6 py-16">
           <div className="w-full rounded-[28px] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-slate-950/30">
             <div className="inline-flex rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">
-              Organizer login
+              Connexion organisateur
             </div>
             <h1 className="mt-4 text-3xl font-semibold text-white">
-              Access the organizer space
+              Accéder à l’espace organisateur
             </h1>
             <p className="mt-3 text-slate-300">
-              Create events, publish categories and follow registrations.
+              Crée des événements, publie les catégories et suis les
+              inscriptions.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -183,49 +186,56 @@ export default function OrganizerPage() {
                 className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="email"
+                placeholder="Email"
               />
               <input
                 className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
-                placeholder="password"
+                placeholder="Mot de passe"
               />
               <button
                 onClick={login}
                 className="w-full rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white"
               >
-                Login
+                Connexion
               </button>
             </div>
 
             <div className="mt-6">
               <Link href="/" className="text-sm text-sky-300 hover:text-sky-200">
-                Back home
+                Retour à l’accueil
               </Link>
             </div>
           </div>
         </div>
+        <SiteFooter />
       </main>
     )
   }
 
   if (!profile || profile.role !== 'organizer') {
     return (
-      <main className="min-h-screen bg-slate-950 px-6 py-16 text-slate-100">
-        <div className="mx-auto max-w-3xl rounded-[28px] border border-white/10 bg-white/5 p-8">
-          <h1 className="text-3xl font-semibold text-white">Access denied</h1>
-          <p className="mt-3 text-slate-300">
-            This account does not have organizer permissions.
-          </p>
-          <button
-            onClick={logout}
-            className="mt-6 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white"
-          >
-            Logout
-          </button>
+      <main className="min-h-screen bg-slate-950 text-slate-100">
+        <SiteHeader />
+        <div className="mx-auto max-w-3xl px-6 py-16">
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-8">
+            <h1 className="text-3xl font-semibold text-white">
+              Accès refusé
+            </h1>
+            <p className="mt-3 text-slate-300">
+              Ce compte ne dispose pas des permissions organisateur.
+            </p>
+            <button
+              onClick={logout}
+              className="mt-6 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white"
+            >
+              Déconnexion
+            </button>
+          </div>
         </div>
+        <SiteFooter />
       </main>
     )
   }
@@ -239,18 +249,20 @@ export default function OrganizerPage() {
         </div>
       </div>
 
+      <SiteHeader />
+
       <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="inline-flex rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">
-              Organizer dashboard
+              Tableau de bord organisateur
             </div>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white">
-              Build and manage your competitions
+              Construis et pilote tes compétitions
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-              Publish events, keep track of registrations and structure your
-              competition operations from one place.
+              Publie des événements, suis les inscriptions et structure
+              l’exploitation de ta compétition depuis un seul endroit.
             </p>
           </div>
 
@@ -259,7 +271,7 @@ export default function OrganizerPage() {
             className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
           >
             <LogOut className="h-4 w-4" />
-            Logout
+            Déconnexion
           </button>
         </div>
 
@@ -269,21 +281,27 @@ export default function OrganizerPage() {
             <div className="mt-4 text-3xl font-semibold text-white">
               {events.length}
             </div>
-            <div className="mt-1 text-sm text-slate-400">Events created</div>
+            <div className="mt-1 text-sm text-slate-400">
+              Événements créés
+            </div>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <Rocket className="h-5 w-5 text-fuchsia-300" />
             <div className="mt-4 text-3xl font-semibold text-white">
               {publishedCount}
             </div>
-            <div className="mt-1 text-sm text-slate-400">Published events</div>
+            <div className="mt-1 text-sm text-slate-400">
+              Événements publiés
+            </div>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5">
             <Users className="h-5 w-5 text-emerald-300" />
             <div className="mt-4 text-3xl font-semibold text-white">
               {registrations.length}
             </div>
-            <div className="mt-1 text-sm text-slate-400">Registrations seen</div>
+            <div className="mt-1 text-sm text-slate-400">
+              Inscriptions visibles
+            </div>
           </div>
         </div>
 
@@ -292,7 +310,7 @@ export default function OrganizerPage() {
             <div className="flex items-center gap-3">
               <Plus className="h-5 w-5 text-sky-300" />
               <h2 className="text-2xl font-semibold text-white">
-                Create an event
+                Créer un événement
               </h2>
             </div>
 
@@ -301,7 +319,7 @@ export default function OrganizerPage() {
                 className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                 value={eventName}
                 onChange={(e) => setEventName(e.target.value)}
-                placeholder="event name"
+                placeholder="Nom de l’événement"
               />
               <input
                 className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
@@ -319,7 +337,7 @@ export default function OrganizerPage() {
                 onClick={createEvent}
                 className="w-full rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white"
               >
-                Create event
+                Créer l’événement
               </button>
             </div>
           </div>
@@ -327,13 +345,15 @@ export default function OrganizerPage() {
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
             <div className="flex items-center gap-3">
               <ClipboardList className="h-5 w-5 text-fuchsia-300" />
-              <h2 className="text-2xl font-semibold text-white">My events</h2>
+              <h2 className="text-2xl font-semibold text-white">
+                Mes événements
+              </h2>
             </div>
 
             <div className="mt-6 space-y-4">
               {events.length === 0 && (
                 <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-slate-300">
-                  No events yet.
+                  Aucun événement pour le moment.
                 </div>
               )}
 
@@ -360,7 +380,7 @@ export default function OrganizerPage() {
                             : 'border border-amber-400/25 bg-amber-500/10 text-amber-200'
                         }`}
                       >
-                        {event.status}
+                        {event.status === 'published' ? 'Publié' : 'Brouillon'}
                       </span>
 
                       {event.status === 'draft' && (
@@ -368,7 +388,7 @@ export default function OrganizerPage() {
                           onClick={() => publishEvent(event.id)}
                           className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
                         >
-                          Publish
+                          Publier
                         </button>
                       )}
                     </div>
@@ -382,13 +402,15 @@ export default function OrganizerPage() {
         <div className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-6">
           <div className="flex items-center gap-3">
             <Users className="h-5 w-5 text-sky-300" />
-            <h2 className="text-2xl font-semibold text-white">Participants</h2>
+            <h2 className="text-2xl font-semibold text-white">
+              Participants
+            </h2>
           </div>
 
           <div className="mt-6 space-y-4">
             {registrations.length === 0 && (
               <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-slate-300">
-                No registrations yet.
+                Aucune inscription pour le moment.
               </div>
             )}
 
@@ -400,7 +422,7 @@ export default function OrganizerPage() {
                 <div className="grid gap-2 lg:grid-cols-4">
                   <div>
                     <div className="text-xs uppercase tracking-[0.2em] text-slate-500">
-                      Event
+                      Événement
                     </div>
                     <div className="mt-1 font-medium text-white">
                       {registration.event_name}
@@ -408,7 +430,7 @@ export default function OrganizerPage() {
                   </div>
                   <div>
                     <div className="text-xs uppercase tracking-[0.2em] text-slate-500">
-                      Category
+                      Catégorie
                     </div>
                     <div className="mt-1 font-medium text-white">
                       {registration.category_name}
@@ -416,7 +438,7 @@ export default function OrganizerPage() {
                   </div>
                   <div>
                     <div className="text-xs uppercase tracking-[0.2em] text-slate-500">
-                      Athlete
+                      Athlète
                     </div>
                     <div className="mt-1 font-medium text-white">
                       {registration.athlete_email}
@@ -424,7 +446,7 @@ export default function OrganizerPage() {
                   </div>
                   <div>
                     <div className="text-xs uppercase tracking-[0.2em] text-slate-500">
-                      Status
+                      Statut
                     </div>
                     <div className="mt-1 font-medium text-white">
                       {registration.status}
@@ -441,16 +463,18 @@ export default function OrganizerPage() {
             href="/events"
             className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white"
           >
-            Public events
+            Événements publics
           </Link>
           <Link
             href="/"
             className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white"
           >
-            Back home
+            Retour à l’accueil
           </Link>
         </div>
       </section>
+
+      <SiteFooter />
     </main>
   )
 }

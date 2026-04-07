@@ -50,14 +50,14 @@ export default function LoginPage() {
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
           <div>
             <div className="inline-flex rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-fuchsia-200">
-              Login
+              Connexion
             </div>
             <h1 className="mt-4 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
               Reprends là où ta compétition commence.
             </h1>
             <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
-              Connecte-toi pour accéder à ton espace athlète, organizer ou admin
-              selon ton rôle actuel dans CompCF.
+              Connecte-toi pour accéder à ton espace athlète, organisateur ou
+              admin selon ton rôle actuel dans CompCF.
             </p>
 
             <div className="mt-8 space-y-4 text-sm text-slate-300">
@@ -81,9 +81,11 @@ export default function LoginPage() {
                 <LogIn className="h-5 w-5 text-sky-200" />
               </div>
               <div>
-                <div className="text-xl font-semibold text-white">Sign in</div>
+                <div className="text-xl font-semibold text-white">
+                  Se connecter
+                </div>
                 <div className="text-sm text-slate-400">
-                  Email/password MVP, extensible ensuite
+                  Email / mot de passe en MVP
                 </div>
               </div>
             </div>
@@ -100,7 +102,7 @@ export default function LoginPage() {
                 className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
+                placeholder="Mot de passe"
                 type="password"
               />
 
@@ -126,7 +128,10 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-6 flex flex-col gap-3 text-sm text-slate-300 sm:flex-row sm:items-center sm:justify-between">
-              <Link href="/signup" className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200">
+              <Link
+                href="/signup"
+                className="inline-flex items-center gap-2 text-sky-300 hover:text-sky-200"
+              >
                 Créer un compte
                 <ArrowRight className="h-4 w-4" />
               </Link>
