@@ -86,6 +86,12 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 - Active pricing windows are constrained to avoid overlap per category.
 - Capacity hook fields (`max_registrations`, `waitlist_enabled`) are added for future readiness without implementing waitlist runtime behavior in this step.
 
+
+## Publish invariant enforcement baseline
+- Event publication now has a database-backed invariant gate via trigger/function on `events.status`.
+- The invariant requires: active division, active category, category->division link completeness, and exactly one currently valid active pricing tier per active category.
+- Client-side checks remain for UX clarity, but publish integrity no longer depends on client logic alone.
+
 ## 8) Next migration priorities
 1. Reconcile this baseline against a direct production/staging schema snapshot and record deltas.
 2. Add safe `updated_at` triggers if confirmed compatible with live behavior.
