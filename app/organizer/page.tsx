@@ -228,7 +228,7 @@ export default function OrganizerPage() {
       .eq('id', eventId)
 
     if (error) {
-      setPublishFeedback('Impossible de publier l’événement pour le moment.')
+      setPublishFeedback(error.message || 'Impossible de publier l’événement pour le moment.')
       return
     }
 
