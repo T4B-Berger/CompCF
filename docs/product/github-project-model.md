@@ -3,7 +3,7 @@
 Project URL: https://github.com/users/T4B-Berger/projects/1
 
 ## Fields
-- Status (currently API-available options: `Todo`, `In Progress`, `Done`; `Todo` is used as Backlog)
+- Status (`Backlog`, `Ready`, `In Progress`, `In Review`, `Blocked`, `Done`)
 - Type (Epic, Story, Task, Bug, Spike)
 - Domain
 - Persona
