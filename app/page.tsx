@@ -1,14 +1,32 @@
 import Link from 'next/link'
+import type { ComponentType } from 'react'
+import {
+  CalendarDays,
+  ClipboardList,
+  Layers3,
+  Rocket,
+  Users,
+  Trophy,
+  BadgeDollarSign,
+  Activity,
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Eye,
+  Zap,
+} from 'lucide-react'
 
 type Feature = {
   title: string
   description: string
+  icon: ComponentType<{ className?: string }>
 }
 
 type Step = {
   number: string
   title: string
   description: string
+  icon: ComponentType<{ className?: string }>
 }
 
 type Role = {
@@ -16,6 +34,7 @@ type Role = {
   description: string
   href: string
   cta: string
+  icon: ComponentType<{ className?: string }>
 }
 
 type PreviewEvent = {
@@ -29,22 +48,26 @@ const features: Feature[] = [
   {
     title: 'Événements standardisés',
     description:
-      'Crée des compétitions CrossFit comparables, structurées et lisibles dès la publication.',
+      'Publie des compétitions CrossFit comparables, structurées et immédiatement lisibles pour les athlètes comme pour les organisateurs.',
+    icon: ClipboardList,
   },
   {
     title: 'Catégories et divisions',
     description:
-      'Gère les formats individuels et team, les divisions, les catégories et les règles d’inscription.',
+      'Gère les formats individuels et team, les divisions, les catégories et les règles d’inscription sans bricolage.',
+    icon: Layers3,
   },
   {
     title: 'Tarification pilotée',
     description:
       'Affiche des tarifs clairs par catégorie avec early bird, regular et capacités par palier.',
+    icon: BadgeDollarSign,
   },
   {
     title: 'Prêt pour le live',
     description:
       'Le socle prépare la suite : qualifications, scoring live, leaderboard, planning et heats.',
+    icon: Activity,
   },
 ]
 
@@ -54,24 +77,28 @@ const steps: Step[] = [
     title: 'Créer la compétition',
     description:
       'L’organisateur définit l’événement, les dates, les catégories et le cadre de publication.',
+    icon: CalendarDays,
   },
   {
     number: '02',
     title: 'Publier catégories et tarifs',
     description:
       'Chaque catégorie porte ses règles, ses formats et ses pricing tiers selon dates ou quotas.',
+    icon: BadgeDollarSign,
   },
   {
     number: '03',
     title: 'Ouvrir les inscriptions',
     description:
       'Les athlètes consultent les événements, choisissent une catégorie et voient le bon prix actif.',
+    icon: Users,
   },
   {
     number: '04',
     title: 'Préparer l’exploitation',
     description:
       'La plateforme sert ensuite de base vers qualifications, scoring live et leaderboard.',
+    icon: Rocket,
   },
 ]
 
@@ -82,6 +109,7 @@ const roles: Role[] = [
       'Créer des événements, structurer les catégories, publier les tarifs et piloter les inscriptions.',
     href: '/organizer',
     cta: 'Gérer un événement',
+    icon: ShieldCheck,
   },
   {
     title: 'Athlète',
@@ -89,6 +117,7 @@ const roles: Role[] = [
       'Parcourir les compétitions, comparer les catégories, s’inscrire et suivre ses engagements.',
     href: '/athlete',
     cta: 'Accéder à mon espace',
+    icon: Trophy,
   },
   {
     title: 'Public',
@@ -96,6 +125,7 @@ const roles: Role[] = [
       'Découvrir les événements publiés, comprendre les formats et suivre l’activité de la compétition.',
     href: '/events',
     cta: 'Voir les événements',
+    icon: Eye,
   },
 ]
 
@@ -105,8 +135,8 @@ const previewEvents: PreviewEvent[] = [
     date: '12–13 Septembre 2026',
     location: 'Paris',
     categories: [
-      { name: 'Individual RX Men', price: '39€', tag: 'Early Bird' },
       { name: 'Individual RX Women', price: '39€', tag: 'Early Bird' },
+      { name: 'Individual RX Men', price: '39€', tag: 'Early Bird' },
       { name: 'Team of 2 FH', price: '79€', tag: 'Regular' },
     ],
   },
@@ -214,14 +244,14 @@ export default function HomePage() {
               <span className="bg-gradient-to-r from-fuchsia-400 via-pink-300 to-sky-300 bg-clip-text text-transparent">
                 CrossFit
               </span>{' '}
-              qui structure vraiment les compétitions.
+              qui donne une vraie structure aux compétitions.
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              CompCF aide les organisateurs à publier des événements
-              standardisés, gérer les catégories, ouvrir les inscriptions et
-              afficher des tarifs clairs par palier. Le tout sur une base prête
-              pour les qualifications, le scoring live et les leaderboards.
+              CompCF aide les organisateurs à publier des événements propres,
+              gérer les catégories, ouvrir les inscriptions et afficher des
+              tarifs lisibles par palier. Une base sérieuse pour passer ensuite
+              aux qualifications, au scoring live et aux leaderboards.
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -313,8 +343,7 @@ export default function HomePage() {
 
                   <div className="rounded-xl border border-dashed border-white/15 bg-slate-900/50 p-4 text-sm text-slate-300">
                     Qualification flows, payments, scoring live and leaderboard
-                    are prepared by the model and can be layered without
-                    refonte.
+                    are already anticipated by the product model.
                   </div>
                 </div>
               </div>
@@ -327,25 +356,31 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <SectionTitle
             eyebrow="Why CompCF"
-            title="Un socle produit propre pour les compétitions CrossFit."
-            description="CompCF ne se limite pas à publier une liste d’événements. La plateforme structure le modèle compétition, les catégories, les inscriptions et la tarification pour préparer une exploitation réelle."
+            title="Un socle produit propre pour des compétitions mieux publiées, mieux lues, mieux gérées."
+            description="CompCF ne se limite pas à afficher une liste d’événements. La plateforme structure le modèle compétition, les catégories, les inscriptions et la tarification pour rendre l’expérience plus claire dès le premier contact."
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="rounded-2xl border border-white/10 bg-slate-950/70 p-6"
-              >
-                <div className="mb-4 h-10 w-10 rounded-xl bg-gradient-to-br from-fuchsia-500/20 to-sky-500/20" />
-                <h3 className="text-lg font-semibold text-white">
-                  {feature.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-slate-300">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+            {features.map((feature) => {
+              const Icon = feature.icon
+
+              return (
+                <div
+                  key={feature.title}
+                  className="rounded-2xl border border-white/10 bg-slate-950/70 p-6"
+                >
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-500/20 to-sky-500/20">
+                    <Icon className="h-6 w-6 text-sky-200" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-300">
+                    {feature.description}
+                  </p>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -353,27 +388,36 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <SectionTitle
           eyebrow="How it works"
-          title="Une séquence simple pour transformer une compétition en produit exploitable."
-          description="Le prototype doit déjà raconter un parcours clair, de la création d’événement à la préparation du terrain opérationnel."
+          title="Un flux simple pour transformer une idée de compétition en produit exploitable."
+          description="Le prototype raconte déjà un parcours net, de la création d’événement à la préparation du terrain opérationnel."
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-4">
-          {steps.map((step) => (
-            <div
-              key={step.number}
-              className="rounded-2xl border border-white/10 bg-white/5 p-6"
-            >
-              <div className="text-sm font-semibold text-sky-300">
-                {step.number}
+          {steps.map((step) => {
+            const Icon = step.icon
+
+            return (
+              <div
+                key={step.number}
+                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="text-sm font-semibold text-sky-300">
+                    {step.number}
+                  </div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-500/15 to-sky-500/15">
+                    <Icon className="h-5 w-5 text-fuchsia-200" />
+                  </div>
+                </div>
+                <h3 className="mt-4 text-lg font-semibold text-white">
+                  {step.title}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-slate-300">
+                  {step.description}
+                </p>
               </div>
-              <h3 className="mt-4 text-lg font-semibold text-white">
-                {step.title}
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                {step.description}
-              </p>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </section>
 
@@ -386,25 +430,36 @@ export default function HomePage() {
           />
 
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {roles.map((role) => (
-              <div
-                key={role.title}
-                className="rounded-2xl border border-white/10 bg-slate-950/70 p-6"
-              >
-                <div className="inline-flex rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs font-medium text-slate-300">
-                  {role.title}
-                </div>
-                <p className="mt-4 text-sm leading-7 text-slate-300">
-                  {role.description}
-                </p>
-                <Link
-                  href={role.href}
-                  className="mt-6 inline-flex text-sm font-semibold text-sky-300 transition hover:text-sky-200"
+            {roles.map((role) => {
+              const Icon = role.icon
+
+              return (
+                <div
+                  key={role.title}
+                  className="rounded-2xl border border-white/10 bg-slate-950/70 p-6"
                 >
-                  {role.cta} →
-                </Link>
-              </div>
-            ))}
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-500/15 to-sky-500/15">
+                      <Icon className="h-5 w-5 text-sky-200" />
+                    </div>
+                    <div className="inline-flex rounded-full border border-slate-700 bg-slate-900 px-3 py-1 text-xs font-medium text-slate-300">
+                      {role.title}
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-sm leading-7 text-slate-300">
+                    {role.description}
+                  </p>
+                  <Link
+                    href={role.href}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-sky-300 transition hover:text-sky-200"
+                  >
+                    {role.cta}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -413,7 +468,7 @@ export default function HomePage() {
         <SectionTitle
           eyebrow="Preview"
           title="Un aperçu de ce que le produit rend visible."
-          description="Le prototype doit déjà montrer la structure événement, les catégories et la logique de tarification sans attendre tout le scoring live."
+          description="Le prototype montre déjà la structure événement, les catégories et la logique de tarification sans attendre le scoring live."
         />
 
         <div className="mt-12 grid gap-6 xl:grid-cols-2">
@@ -470,12 +525,13 @@ export default function HomePage() {
         <div className="overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-r from-fuchsia-600/20 via-violet-500/10 to-sky-500/20 p-8 shadow-2xl shadow-fuchsia-950/20 sm:p-10">
           <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <div className="inline-flex rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/90">
+                <Sparkles className="h-3.5 w-3.5" />
                 Ready to explore
               </div>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                Passe d’une idée de compétition à une expérience produit
-                crédible.
+                Passe d’une idée de compétition à une expérience produit qui
+                donne envie d’aller plus loin.
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-200">
                 Découvre les événements publiés, teste les parcours existants
@@ -487,8 +543,9 @@ export default function HomePage() {
             <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
               <Link
                 href="/events"
-                className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-100"
               >
+                <Zap className="h-4 w-4" />
                 Explorer les événements
               </Link>
               <Link
