@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CompCF
 
-## Getting Started
+CompCF is an open-source CrossFit competition platform focused on a practical MVP delivery path.
 
-First, run the development server:
+This repository currently includes:
+- a Next.js application shell
+- Supabase schema and policy baselines
+- organizer publish guardrails
+- athlete profile/readiness baseline
+- athlete registration flow v1 (with server-side validation)
+- planning and delivery documentation used by the GitHub Project workflow
 
+## Current stack
+- **Frontend/App**: Next.js (App Router), React, TypeScript, Tailwind CSS
+- **Backend/Data**: Supabase (Postgres + Auth + RLS + SQL migrations)
+- **CI**: GitHub Actions baseline workflow (`.github/workflows/ci-baseline.yml`)
+
+## Repository layout
+- `app/` — application routes and UI pages
+- `components/` — reusable UI components
+- `lib/` — client helpers (`supabaseClient`, auth/readiness helpers)
+- `supabase/migrations/` — schema, constraints, policies, and SQL functions
+- `docs/` — product, delivery, and contributor documentation
+
+## What is implemented today (MVP baseline)
+- Role/profile baseline with RLS policy scaffolding
+- Event + division + category + pricing-tier data foundations
+- Publish invariant enforcement on organizer event publication
+- Athlete email verification and profile readiness guardrails
+- Athlete registration creation flow v1:
+  - published event/category discovery
+  - active pricing-tier visibility
+  - server-side registration creation via SQL function
+  - duplicate prevention and readiness/publish checks
+
+## Not implemented yet
+- Payment handling
+- Team/duo registration flow
+- Waitlist promotion flow
+- Advanced registration lifecycle/state machine
+- Scoring execution runtime and live leaderboard operations
+
+## Local setup
+### Prerequisites
+- Node.js 20+
+- npm
+- A Supabase project (for real auth/data flows)
+
+### Install
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run locally
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open `http://localhost:3000`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Useful checks
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Environment variables
+Create `.env.local` with:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If these are missing, authenticated/runtime data features will not work correctly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Documentation entry points
+- Contributor onboarding and safety: `docs/contributing.md`
+- Database baseline and migration intent: `docs/database-baseline.md`
+- Product planning docs: `docs/product/`
+- Project model and field conventions: `docs/product/github-project-model.md`
+- Execution sequence and readiness queue: `docs/product/execution-plan.md`
 
-## Deploy on Vercel
+## Current state vs planned state
+- **Current state** = what is implemented in app code + migrations on `main`
+- **Planned state** = backlog/roadmap documentation under `docs/product/*`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+When in doubt, treat runtime code and SQL migrations as source of truth, and planning docs as intent.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+Please read `docs/contributing.md` before submitting changes.
