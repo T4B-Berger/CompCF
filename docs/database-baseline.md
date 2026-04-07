@@ -38,6 +38,7 @@ Excluded on purpose in this baseline:
 - `category_pricing_tiers.category_id -> event_categories.id`
 - `registrations.event_id -> events.id`
 - `registrations.category_id -> event_categories.id`
+- `registrations.pricing_tier_id -> category_pricing_tiers.id`
 - `registrations.athlete_id -> profiles.id`
 - `registration_details` joins `registrations + events + event_categories + profiles`
 
@@ -51,7 +52,8 @@ Excluded on purpose in this baseline:
 - uniqueness:
   - `profiles.email` unique
   - per-event division/category name uniqueness
-  - one registration per `(event_id, category_id, athlete_id)`
+- one registration per `(event_id, category_id, athlete_id)`
+- registration pricing traceability via `registrations.pricing_tier_id`
 
 ## 6) Policy notes
 RLS baseline is included for all listed tables with scope aligned to current app roles:
@@ -96,6 +98,11 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 ## Athlete profile baseline
 - `profiles` includes minimal athlete onboarding fields for registration readiness: `first_name`, `last_name`, `date_of_birth`, `affiliate`, `city`, `country`.
 - This is intentionally a minimal MVP profile baseline (no social/community profile expansion).
+
+## Registration pricing-tier traceability baseline
+- `registrations` now stores the canonical `pricing_tier_id` selected at creation time.
+- Registration creation logic resolves the currently valid active tier server-side and persists that foreign key.
+- `registration_details` surfaces pricing-tier fields (`pricing_tier_name`, `pricing_tier_price_cents`) for athlete/organizer visibility.
 
 ## 8) Next migration priorities
 1. Reconcile this baseline against a direct production/staging schema snapshot and record deltas.

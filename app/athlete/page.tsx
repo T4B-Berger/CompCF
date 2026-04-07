@@ -44,6 +44,7 @@ type RegistrationDetail = {
   id: string
   event_id: string
   category_id: string
+  pricing_tier_id?: string | null
   athlete_id: string
   status: string
   created_at: string
@@ -52,6 +53,8 @@ type RegistrationDetail = {
   event_end_date: string
   event_status: string
   category_name: string
+  pricing_tier_name?: string | null
+  pricing_tier_price_cents?: number | null
   athlete_email: string
 }
 
@@ -737,6 +740,12 @@ export default function AthletePage() {
                   <div className="mt-2 text-sm text-slate-300">
                     {registration.category_name}
                   </div>
+                  {registration.pricing_tier_name && (
+                    <div className="mt-1 text-xs text-slate-400">
+                      {registration.pricing_tier_name} ·{' '}
+                      {((registration.pricing_tier_price_cents || 0) / 100).toFixed(2)} €
+                    </div>
+                  )}
                   <div className="mt-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
                     {registration.status}
                   </div>
