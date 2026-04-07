@@ -96,7 +96,7 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 
 
 ## Athlete profile baseline
-- `profiles` includes minimal athlete onboarding fields for registration readiness: `first_name`, `last_name`, `date_of_birth`, `affiliate`, `city`, `country`.
+- `profiles` includes minimal athlete onboarding fields for registration readiness: `first_name`, `last_name`, `date_of_birth`, `affiliate`, `city`, `country`, `profile_photo_url`.
 - This is intentionally a minimal MVP profile baseline (no social/community profile expansion).
 
 ## Registration pricing-tier traceability baseline
