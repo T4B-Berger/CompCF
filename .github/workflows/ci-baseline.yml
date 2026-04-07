@@ -1,0 +1,78 @@
+name: CI Baseline
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  baseline-sanity:
+    name: Baseline sanity (blocking)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies (lockfile)
+        run: npm ci
+
+      - name: Verify npm scripts surface
+        run: npm run
+
+  lint-visibility:
+    name: Lint visibility (non-blocking)
+    runs-on: ubuntu-latest
+    needs: baseline-sanity
+    continue-on-error: true
+
+    # Non-blocking by design: repository has known lint debt.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies (lockfile)
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+  build-visibility:
+    name: Build visibility (non-blocking)
+    runs-on: ubuntu-latest
+    needs: baseline-sanity
+    continue-on-error: true
+
+    # Non-blocking by design: build can be environment/network sensitive
+    # due to external font fetching in current app setup.
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies (lockfile)
+        run: npm ci
+
+      - name: Build app (placeholder public env only)
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder-anon-key
+        run: npm run build
