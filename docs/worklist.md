@@ -1,211 +1,205 @@
-# CompCF Worklist (Baseline-driven)
+# CompCF Execution Worklist
 
-This worklist is intentionally pragmatic and based on what is verifiably present in the repository today.
+This worklist is ordered for implementation, not theme grouping. It prioritizes domain correctness before feature surface expansion.
 
 ---
 
-## MVP
+## MVP (true execution order)
 
-### 1) Establish database source of truth in-repo
-- **Why it matters:** current Supabase tables/views are referenced but not versioned in codebase; this blocks safe evolution.
-- **Module:** data platform / Supabase
+### 1) Version Supabase schema and policies in-repo
+- **Why it matters:** current domain cannot be safely evolved without a versioned DB source of truth.
+- **Module:** data platform
 - **Type:** database
 - **Priority:** P0
 - **Estimated complexity:** M
 - **Dependencies:** none
 - **Recommended implementation order:** 1
 
-### 2) Document and enforce auth/role model (profiles + access rules)
-- **Why it matters:** role-gated pages exist, but durable security requires explicit policy documentation and enforcement plan.
-- **Module:** auth & authorization
+### 2) Formalize role matrix (organizer/staff/judge/athlete/team captain/public)
+- **Why it matters:** permissions must be explicit before workflow implementation.
+- **Module:** auth + authorization
 - **Type:** backend
 - **Priority:** P0
-- **Estimated complexity:** M
+- **Estimated complexity:** S
 - **Dependencies:** item 1
 - **Recommended implementation order:** 2
 
-### 3) Implement registration creation flow (athlete -> event/category)
-- **Why it matters:** registrations are displayed but not created through a visible user flow in repo.
-- **Module:** registrations
-- **Type:** product
+### 3) Implement event divisions and categories source-of-truth
+- **Why it matters:** registration is invalid without reliable division/category structure.
+- **Module:** competition setup
+- **Type:** database
 - **Priority:** P0
 - **Estimated complexity:** M
 - **Dependencies:** items 1, 2
 - **Recommended implementation order:** 3
 
-### 4) Organizer event/category management hardening
-- **Why it matters:** organizer can create/publish events, but category/division management is missing for standardized publishing.
-- **Module:** organizer dashboard
-- **Type:** frontend
-- **Priority:** P0
-- **Estimated complexity:** M
-- **Dependencies:** items 1, 2
-- **Recommended implementation order:** 4
-
-### 5) Pricing tier CRUD and validation rules
-- **Why it matters:** public events read active pricing tiers; organizer-side maintenance is needed to make feature complete.
+### 4) Implement category pricing tier reliability (windows, priority, capacity hooks)
+- **Why it matters:** registration price and eligibility depend on correct tier logic.
 - **Module:** pricing
 - **Type:** backend
 - **Priority:** P0
 - **Estimated complexity:** M
-- **Dependencies:** items 1, 4
+- **Dependencies:** item 3
+- **Recommended implementation order:** 4
+
+### 5) Organizer setup workflow hardening (event -> division -> category -> pricing -> publish)
+- **Why it matters:** ensures published events are structurally valid before athletes register.
+- **Module:** organizer dashboard
+- **Type:** frontend
+- **Priority:** P0
+- **Estimated complexity:** M
+- **Dependencies:** items 3, 4
 - **Recommended implementation order:** 5
 
-### 6) Error handling and UX feedback pass on data writes
-- **Why it matters:** create/publish actions lack robust feedback/retry patterns, hurting reliability perception.
-- **Module:** shared UX patterns
+### 6) Build athlete registration creation flow with eligibility validation
+- **Why it matters:** core product value requires end-to-end registration, not only listing visibility.
+- **Module:** registrations
+- **Type:** product
+- **Priority:** P0
+- **Estimated complexity:** M
+- **Dependencies:** items 2, 3, 4, 5
+- **Recommended implementation order:** 6
+
+### 7) Registration lifecycle states and organizer visibility tooling
+- **Why it matters:** organizer needs actionable status management (pending/confirmed/cancelled/etc.).
+- **Module:** registrations
+- **Type:** backend
+- **Priority:** P1
+- **Estimated complexity:** M
+- **Dependencies:** item 6
+- **Recommended implementation order:** 7
+
+### 8) Baseline operational resilience (error UX + guardrails + logging hooks)
+- **Why it matters:** current write paths are optimistic and fragile under failure.
+- **Module:** shared app behavior
 - **Type:** frontend
 - **Priority:** P1
 - **Estimated complexity:** S
-- **Dependencies:** none
-- **Recommended implementation order:** 6
+- **Dependencies:** items 5, 6
+- **Recommended implementation order:** 8
 
-### 7) Add baseline automated checks (lint + smoke test workflow)
-- **Why it matters:** no CI means regressions are likely as multiple contributors iterate.
+### 9) CI baseline (lint + build + minimal smoke checks)
+- **Why it matters:** sustained iteration needs a regression gate.
 - **Module:** repo hygiene
 - **Type:** infra
 - **Priority:** P1
 - **Estimated complexity:** S
 - **Dependencies:** none
-- **Recommended implementation order:** 7
+- **Recommended implementation order:** 9
 
-### 8) Consolidate repository docs (single authoritative README + setup)
-- **Why it matters:** dual README files create confusion and onboarding friction.
-- **Module:** documentation
+### 10) Documentation consolidation for contributor onboarding
+- **Why it matters:** current duplicated README state slows contributors and increases misalignment.
+- **Module:** docs
 - **Type:** docs
 - **Priority:** P1
 - **Estimated complexity:** S
 - **Dependencies:** none
-- **Recommended implementation order:** 8
-
-### 9) Introduce typed Supabase schema bindings
-- **Why it matters:** reduces runtime query mismatch risk and improves developer velocity.
-- **Module:** data access
-- **Type:** backend
-- **Priority:** P1
-- **Estimated complexity:** S
-- **Dependencies:** item 1
-- **Recommended implementation order:** 9
-
-### 10) Add lightweight data-access boundary layer
-- **Why it matters:** direct queries in pages are fast for MVP but increase coupling and duplication.
-- **Module:** application architecture
-- **Type:** backend
-- **Priority:** P1
-- **Estimated complexity:** M
-- **Dependencies:** items 1, 9
 - **Recommended implementation order:** 10
 
 ---
 
 ## Post-MVP
 
-### 11) Qualification workflow foundation
-- **Why it matters:** explicitly part of product trajectory after core publication/registration.
-- **Module:** qualification
-- **Type:** product
-- **Priority:** P1
-- **Estimated complexity:** L
-- **Dependencies:** items 1, 2, 3, 4
-- **Recommended implementation order:** 11
-
-### 12) Competition programming model (WOD definitions + standards)
-- **Why it matters:** prerequisite for scoring and schedule coherence.
-- **Module:** event programming
+### 11) Workout model and standards (WOD types, units, tie-break fields)
+- **Why it matters:** scoring requires canonical workout definition.
+- **Module:** competition programming
 - **Type:** backend
 - **Priority:** P1
 - **Estimated complexity:** L
-- **Dependencies:** items 1, 4
-- **Recommended implementation order:** 12
+- **Dependencies:** items 1, 3
+- **Recommended implementation order:** 11
 
-### 13) Schedule/heats/lanes management
-- **Why it matters:** core operational feature for event-day execution.
+### 12) Phases, heats, lanes, and assignment workflow
+- **Why it matters:** competition-day operations require structured progression.
 - **Module:** operations
 - **Type:** product
 - **Priority:** P1
 - **Estimated complexity:** L
-- **Dependencies:** items 1, 12
-- **Recommended implementation order:** 13
+- **Dependencies:** item 11
+- **Recommended implementation order:** 12
 
-### 14) Judge workflows for score input and correction
-- **Why it matters:** enables controlled, accountable score capture.
+### 13) Judge workflow (assignment, score entry, correction request)
+- **Why it matters:** score capture must be role-based and auditable.
 - **Module:** judge tooling
 - **Type:** frontend
 - **Priority:** P1
 - **Estimated complexity:** L
-- **Dependencies:** items 2, 12, 13
-- **Recommended implementation order:** 14
+- **Dependencies:** items 2, 11, 12
+- **Recommended implementation order:** 13
 
-### 15) Live leaderboard pipeline and publication
-- **Why it matters:** key product value for spectators and athletes.
-- **Module:** scoring/leaderboard
+### 14) Scoring engine and leaderboard derivation
+- **Why it matters:** core CompCF outcome is reliable rankings.
+- **Module:** scoring + leaderboard
 - **Type:** backend
 - **Priority:** P1
 - **Estimated complexity:** L
-- **Dependencies:** items 12, 14
+- **Dependencies:** items 11, 13
+- **Recommended implementation order:** 14
+
+### 15) Qualification and cut rules across phases
+- **Why it matters:** many CrossFit events depend on phase progression and eliminations.
+- **Module:** competition rules
+- **Type:** product
+- **Priority:** P1
+- **Estimated complexity:** L
+- **Dependencies:** items 11, 12, 14
 - **Recommended implementation order:** 15
 
-### 16) Audit trail/version history for score updates
-- **Why it matters:** essential for trust and dispute resolution.
+### 16) Score governance and dispute/audit tooling
+- **Why it matters:** official results need traceable correction history.
 - **Module:** governance
 - **Type:** database
 - **Priority:** P1
 - **Estimated complexity:** M
-- **Dependencies:** items 1, 14
+- **Dependencies:** items 13, 14
 - **Recommended implementation order:** 16
 
 ---
 
-## Out of scope (this phase)
+## Out of scope (this pass)
 
-### 17) Payment processing integration (Stripe)
-- **Why it matters:** monetization and paid registrations are important, but intentionally deferred.
+### 17) Stripe/payment integration
+- **Why it matters:** important but intentionally deferred until registration model is stable.
 - **Module:** payments
 - **Type:** backend
 - **Priority:** P2
 - **Estimated complexity:** L
-- **Dependencies:** item 3 stabilization + pricing rules clarity
+- **Dependencies:** items 4, 6, 7 stabilized
 - **Recommended implementation order:** 17
 
-### 18) Major visual redesign
-- **Why it matters:** current UI is coherent enough for functional MVP iteration.
-- **Module:** design system
+### 18) Major UI redesign
+- **Why it matters:** functional domain completion is higher value than visual redesign now.
+- **Module:** design
 - **Type:** frontend
 - **Priority:** P2
 - **Estimated complexity:** L
-- **Dependencies:** product workflow stabilization
+- **Dependencies:** MVP workflow completion
 - **Recommended implementation order:** 18
 
-### 19) Large architectural rewrite (service decomposition)
-- **Why it matters:** premature for current scope/size and would slow delivery.
+### 19) Large architecture rewrite
+- **Why it matters:** premature before real scale constraints are observed.
 - **Module:** architecture
 - **Type:** backend
 - **Priority:** P2
 - **Estimated complexity:** L
-- **Dependencies:** proven scale constraints
+- **Dependencies:** production usage evidence
 - **Recommended implementation order:** 19
 
 ---
 
 ## Next 5 best tasks
-1. Establish DB schema/migrations and policy baseline in-repo (Item 1).
-2. Document + enforce auth/role model tied to DB policies (Item 2).
-3. Implement athlete registration creation flow end-to-end (Item 3).
-4. Add organizer category/division management to support standardization (Item 4).
-5. Implement pricing tier management + constraints (Item 5).
+1. Version Supabase schema + policies in-repo.
+2. Formalize and enforce complete role matrix.
+3. Make divisions/categories canonical and constrained.
+4. Harden pricing tier semantics.
+5. Implement organizer setup flow validation before publish.
 
 ---
 
 ## Safe first implementation candidate for Codex
-**Candidate:** Item 8 — Consolidate repository docs (single authoritative README + setup).
+**Candidate:** Task 2 — formalize role matrix in docs + policy checklist.
 
-**Why safe first:**
-- documentation-only
-- zero production behavior change
-- reduces contributor confusion immediately
-- low coupling with uncertain schema/auth decisions
-
-**Suggested small deliverable:**
-- keep one canonical README
-- add setup/env section for Supabase public vars
-- add explicit current capability matrix (implemented vs planned)
+**Why this is safe and high leverage:**
+- no runtime behavior change required initially
+- unblocks predictable permission design for all upcoming modules
+- reduces rework risk in organizer, registration, and judge features
