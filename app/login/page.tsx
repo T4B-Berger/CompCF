@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ArrowRight, LogIn } from 'lucide-react'
 import { supabase } from '../../lib/supabaseClient'
+import { isEmailVerified } from '../../lib/authVerification'
 import { SiteHeader } from '../../components/marketing/site-header'
 import { SiteFooter } from '../../components/marketing/site-footer'
 
@@ -19,13 +20,30 @@ export default function LoginPage() {
     setErrorMessage('')
     setSuccessMessage('')
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
 
     if (error) {
-      setErrorMessage(error.message)
+      if (
+        error.message.toLowerCase().includes('email not confirmed') ||
+        error.message.toLowerCase().includes('email not verified')
+      ) {
+        setErrorMessage(
+          'Ton email n’est pas encore vérifié. Ouvre le lien reçu par email avant de te connecter.'
+        )
+      } else {
+        setErrorMessage(error.message)
+      }
+      setLoading(false)
+      return
+    }
+
+    if (!isEmailVerified(data.user)) {
+      setErrorMessage(
+        'Ton email n’est pas encore vérifié. Ouvre le lien reçu par email avant de te connecter.'
+      )
       setLoading(false)
       return
     }

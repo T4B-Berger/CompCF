@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
+import { isEmailVerified } from '../../lib/authVerification'
 import {
   CalendarDays,
   LogOut,
@@ -50,6 +51,7 @@ export default function AthletePage() {
   const [password, setPassword] = useState('')
   const [events, setEvents] = useState<EventItem[]>([])
   const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
+  const [requiresVerification, setRequiresVerification] = useState(false)
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -89,6 +91,11 @@ export default function AthletePage() {
       setUser(data.user)
 
       if (data.user) {
+        if (!isEmailVerified(data.user)) {
+          setRequiresVerification(true)
+          return
+        }
+
         await loadProfile(data.user.id)
         await loadPublishedEvents()
         await loadRegistrations(data.user.id)
@@ -108,6 +115,11 @@ export default function AthletePage() {
       setUser(data.user)
 
       if (data.user) {
+        if (!isEmailVerified(data.user)) {
+          setRequiresVerification(true)
+          return
+        }
+
         await loadProfile(data.user.id)
         await loadPublishedEvents()
         await loadRegistrations(data.user.id)
@@ -118,6 +130,7 @@ export default function AthletePage() {
   const logout = async () => {
     await supabase.auth.signOut()
     setUser(null)
+    setRequiresVerification(false)
     setProfile(null)
     setEvents([])
     setRegistrations([])
@@ -176,6 +189,32 @@ export default function AthletePage() {
   }
 
   if (!profile || profile.role !== 'athlete') {
+    if (requiresVerification) {
+      return (
+        <main className="min-h-screen bg-slate-950 text-slate-100">
+          <SiteHeader />
+          <div className="mx-auto max-w-3xl px-6 py-16">
+            <div className="rounded-[28px] border border-amber-400/25 bg-amber-500/10 p-8">
+              <h1 className="text-3xl font-semibold text-white">
+                Vérification email requise
+              </h1>
+              <p className="mt-3 text-slate-200">
+                Vérifie ton email via le lien reçu avant d’accéder au parcours
+                athlète et aux futures inscriptions.
+              </p>
+              <button
+                onClick={logout}
+                className="mt-6 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
+              >
+                Déconnexion
+              </button>
+            </div>
+          </div>
+          <SiteFooter />
+        </main>
+      )
+    }
+
     return (
       <main className="min-h-screen bg-slate-950 text-slate-100">
         <SiteHeader />
