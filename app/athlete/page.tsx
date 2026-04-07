@@ -2,8 +2,13 @@
 
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
+import type { User } from '@supabase/supabase-js'
 import { supabase } from '../../lib/supabaseClient'
 import { isEmailVerified } from '../../lib/authVerification'
+import {
+  getRegistrationReadiness,
+  type RegistrationReadinessCode,
+} from '../../lib/registrationReadiness'
 import {
   CalendarDays,
   LogOut,
@@ -50,8 +55,16 @@ type RegistrationDetail = {
   athlete_email: string
 }
 
+const readinessMessages: Record<RegistrationReadinessCode, string> = {
+  email_not_verified: 'Vérifie ton email pour activer les futures inscriptions.',
+  missing_first_name: 'Ajoute ton prénom dans le profil athlète.',
+  missing_last_name: 'Ajoute ton nom dans le profil athlète.',
+  missing_date_of_birth: 'Ajoute ta date de naissance dans le profil athlète.',
+  missing_country: 'Ajoute ton pays de résidence dans le profil athlète.',
+}
+
 export default function AthletePage() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -187,15 +200,17 @@ export default function AthletePage() {
   }
 
   const upcomingRegistrations = useMemo(() => registrations.length, [registrations])
-  const profileReadiness = useMemo(() => {
-    const required = [
-      profileForm.firstName,
-      profileForm.lastName,
-      profileForm.dateOfBirth,
-      profileForm.country,
-    ]
-    return required.every((value) => value.trim().length > 0)
-  }, [profileForm])
+  const registrationReadiness = useMemo(() => {
+    return getRegistrationReadiness({
+      isEmailVerified: isEmailVerified(user),
+      profile: {
+        firstName: profileForm.firstName,
+        lastName: profileForm.lastName,
+        dateOfBirth: profileForm.dateOfBirth,
+        country: profileForm.country,
+      },
+    })
+  }, [profileForm, user])
 
   if (!user) {
     return (
@@ -375,15 +390,36 @@ export default function AthletePage() {
             </div>
             <span
               className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                profileReadiness
+                registrationReadiness.ready
                   ? 'border border-emerald-400/25 bg-emerald-500/10 text-emerald-200'
                   : 'border border-amber-400/25 bg-amber-500/10 text-amber-200'
               }`}
             >
-              {profileReadiness
+              {registrationReadiness.ready
                 ? 'Profil prêt pour la suite'
                 : 'Profil incomplet pour l’inscription'}
             </span>
+          </div>
+
+          <div
+            className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${
+              registrationReadiness.ready
+                ? 'border-emerald-400/25 bg-emerald-500/10 text-emerald-100'
+                : 'border-amber-400/25 bg-amber-500/10 text-amber-100'
+            }`}
+          >
+            <p className="font-semibold">
+              {registrationReadiness.ready
+                ? 'Tu es prêt pour le futur flux d’inscription.'
+                : 'Pré-requis à compléter avant le futur flux d’inscription :'}
+            </p>
+            {!registrationReadiness.ready && (
+              <ul className="mt-2 list-disc space-y-1 pl-5">
+                {registrationReadiness.missing.map((code) => (
+                  <li key={code}>{readinessMessages[code]}</li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
