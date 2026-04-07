@@ -17,6 +17,14 @@
 - CI baseline (lint + build + smoke checks)
 - Documentation consolidation and contributor onboarding
 
+## Auth & athlete profile maturation block (registration realism)
+- #115 Email verification baseline
+- #116 Auth UX hardening
+- #117 Athlete profile baseline
+- #118 Registration readiness guardrails
+
+Placement intent: after role/division/category/pricing/organizer foundations and before considering athlete registration flow complete.
+
 ## Volunteer seed (required 12)
 - Volunteer application intake flow
 - Volunteer profile with skills and availability
