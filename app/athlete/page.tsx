@@ -44,6 +44,7 @@ type RegistrationDetail = {
   id: string
   event_id: string
   category_id: string
+  pricing_tier_id?: string | null
   athlete_id: string
   status: string
   created_at: string
@@ -52,7 +53,31 @@ type RegistrationDetail = {
   event_end_date: string
   event_status: string
   category_name: string
+  pricing_tier_name?: string | null
+  pricing_tier_price_cents?: number | null
   athlete_email: string
+}
+
+type CategoryItem = {
+  id: string
+  event_id: string
+  name: string
+  is_active: boolean
+}
+
+type PricingTierItem = {
+  id: string
+  category_id: string
+  name: string
+  price_cents: number
+  starts_at?: string | null
+  ends_at?: string | null
+  sort_order: number
+  is_active: boolean
+}
+
+type RegistrationRpcResult = {
+  id: string
 }
 
 const readinessMessages: Record<RegistrationReadinessCode, string> = {
@@ -72,6 +97,9 @@ export default function AthletePage() {
   const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
   const [requiresVerification, setRequiresVerification] = useState(false)
   const [profileFeedback, setProfileFeedback] = useState('')
+  const [registrationFeedback, setRegistrationFeedback] = useState('')
+  const [registrationError, setRegistrationError] = useState('')
+  const [submittingCategoryId, setSubmittingCategoryId] = useState<string | null>(null)
   const [profileForm, setProfileForm] = useState({
     firstName: '',
     lastName: '',
@@ -136,6 +164,55 @@ export default function AthletePage() {
     setEvents((data || []) as EventItem[])
   }
 
+  const loadEventCategories = async (eventIds: string[]) => {
+    if (eventIds.length === 0) return {}
+
+    const { data: categories } = await supabase
+      .from('event_categories')
+      .select('id, event_id, name, is_active')
+      .in('event_id', eventIds)
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true })
+
+    const categoryRows = (categories || []) as CategoryItem[]
+    const categoryIds = categoryRows.map((category) => category.id)
+
+    if (categoryIds.length === 0) return {}
+
+    const { data: pricingTiers } = await supabase
+      .from('category_pricing_tiers')
+      .select('id, category_id, name, price_cents, starts_at, ends_at, sort_order, is_active')
+      .in('category_id', categoryIds)
+      .eq('is_active', true)
+      .order('sort_order', { ascending: true })
+
+    const now = new Date()
+    const activeTierByCategory = new Map<string, PricingTierItem>()
+
+    ;((pricingTiers || []) as PricingTierItem[]).forEach((tier) => {
+      const startsAtValid = !tier.starts_at || new Date(tier.starts_at) <= now
+      const endsAtValid = !tier.ends_at || new Date(tier.ends_at) >= now
+      if (!startsAtValid || !endsAtValid) return
+
+      const current = activeTierByCategory.get(tier.category_id)
+      if (!current || tier.sort_order < current.sort_order) {
+        activeTierByCategory.set(tier.category_id, tier)
+      }
+    })
+
+    return categoryRows.reduce<Record<string, Array<CategoryItem & { pricingTier: PricingTierItem | null }>>>(
+      (acc, category) => {
+        if (!acc[category.event_id]) acc[category.event_id] = []
+        acc[category.event_id].push({
+          ...category,
+          pricingTier: activeTierByCategory.get(category.id) || null,
+        })
+        return acc
+      },
+      {}
+    )
+  }
+
   const loadRegistrations = async (userId: string) => {
     const { data } = await supabase
       .from('registration_details')
@@ -146,6 +223,50 @@ export default function AthletePage() {
       (item) => item.athlete_id === userId
     )
     setRegistrations(ownRegistrations as RegistrationDetail[])
+  }
+
+  const createRegistration = async (eventId: string, categoryId: string) => {
+    if (!user || !registrationReadiness.ready) {
+      setRegistrationError('Complète les pré-requis de readiness avant de t’inscrire.')
+      return
+    }
+
+    setRegistrationFeedback('')
+    setRegistrationError('')
+    setSubmittingCategoryId(categoryId)
+
+    const { data, error } = await supabase.rpc('create_athlete_registration', {
+      p_event_id: eventId,
+      p_category_id: categoryId,
+    })
+
+    if (error) {
+      const message = error.message || ''
+      if (message.includes('REGISTRATION_ALREADY_EXISTS')) {
+        setRegistrationError('Tu es déjà inscrit à cette catégorie pour cet événement.')
+      } else if (message.includes('NO_ACTIVE_PRICING_TIER')) {
+        setRegistrationError('Cette catégorie ne propose pas de tarif actif pour le moment.')
+      } else if (message.includes('EVENT_NOT_PUBLISHED') || message.includes('CATEGORY_NOT_ELIGIBLE')) {
+        setRegistrationError('Cette catégorie n’est plus disponible pour l’inscription.')
+      } else if (message.includes('PROFILE_INCOMPLETE') || message.includes('EMAIL_NOT_VERIFIED')) {
+        setRegistrationError('Ton compte n’est pas encore prêt pour l’inscription.')
+      } else {
+        setRegistrationError('Impossible de finaliser l’inscription pour le moment.')
+      }
+      setSubmittingCategoryId(null)
+      return
+    }
+
+    const created = (data || null) as RegistrationRpcResult | null
+    if (!created?.id) {
+      setRegistrationError('Impossible de finaliser l’inscription pour le moment.')
+      setSubmittingCategoryId(null)
+      return
+    }
+
+    await loadRegistrations(user.id)
+    setRegistrationFeedback('Inscription créée avec succès.')
+    setSubmittingCategoryId(null)
   }
 
   useEffect(() => {
@@ -200,17 +321,30 @@ export default function AthletePage() {
   }
 
   const upcomingRegistrations = useMemo(() => registrations.length, [registrations])
-  const registrationReadiness = useMemo(() => {
-    return getRegistrationReadiness({
-      isEmailVerified: isEmailVerified(user),
-      profile: {
-        firstName: profileForm.firstName,
-        lastName: profileForm.lastName,
-        dateOfBirth: profileForm.dateOfBirth,
-        country: profileForm.country,
-      },
-    })
-  }, [profileForm, user])
+  const registrationsByEventAndCategory = useMemo(() => {
+    return new Set(registrations.map((item) => `${item.event_id}:${item.category_id}`))
+  }, [registrations])
+  const [categoriesByEvent, setCategoriesByEvent] = useState<
+    Record<string, Array<CategoryItem & { pricingTier: PricingTierItem | null }>>
+  >({})
+  const registrationReadiness = getRegistrationReadiness({
+    isEmailVerified: isEmailVerified(user),
+    profile: {
+      firstName: profileForm.firstName,
+      lastName: profileForm.lastName,
+      dateOfBirth: profileForm.dateOfBirth,
+      country: profileForm.country,
+    },
+  })
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      const grouped = await loadEventCategories(events.map((event) => event.id))
+      setCategoriesByEvent(grouped)
+    }
+
+    loadCategories()
+  }, [events])
 
   if (!user) {
     return (
@@ -482,6 +616,16 @@ export default function AthletePage() {
               {profileFeedback}
             </div>
           )}
+          {registrationFeedback && (
+            <div className="mt-4 rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+              {registrationFeedback}
+            </div>
+          )}
+          {registrationError && (
+            <div className="mt-4 rounded-xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+              {registrationError}
+            </div>
+          )}
 
           <button
             onClick={saveProfile}
@@ -518,6 +662,53 @@ export default function AthletePage() {
                   <div className="mt-2 text-sm text-slate-400">
                     {event.start_date} → {event.end_date}
                   </div>
+                  <div className="mt-4 space-y-3">
+                    {(categoriesByEvent[event.id] || []).length === 0 && (
+                      <div className="rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3 text-sm text-slate-300">
+                        Catégories indisponibles pour le moment.
+                      </div>
+                    )}
+                    {(categoriesByEvent[event.id] || []).map((category) => {
+                      const isAlreadyRegistered = registrationsByEventAndCategory.has(
+                        `${event.id}:${category.id}`
+                      )
+                      const disabled =
+                        !registrationReadiness.ready ||
+                        !category.pricingTier ||
+                        isAlreadyRegistered
+
+                      return (
+                        <div
+                          key={category.id}
+                          className="rounded-xl border border-white/10 bg-slate-900/70 p-4"
+                        >
+                          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <div>
+                              <div className="text-sm font-semibold text-white">
+                                {category.name}
+                              </div>
+                              <div className="mt-1 text-xs text-slate-300">
+                                {category.pricingTier
+                                  ? `${category.pricingTier.name} · ${(category.pricingTier.price_cents / 100).toFixed(2)} €`
+                                  : 'Aucun tarif actif'}
+                              </div>
+                            </div>
+                            <button
+                              onClick={() => createRegistration(event.id, category.id)}
+                              disabled={disabled || submittingCategoryId === category.id}
+                              className="rounded-lg bg-gradient-to-r from-fuchsia-500 to-sky-500 px-4 py-2 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
+                            >
+                              {isAlreadyRegistered
+                                ? 'Déjà inscrit'
+                                : submittingCategoryId === category.id
+                                  ? 'Inscription...'
+                                  : 'M’inscrire'}
+                            </button>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               ))}
             </div>
@@ -549,6 +740,12 @@ export default function AthletePage() {
                   <div className="mt-2 text-sm text-slate-300">
                     {registration.category_name}
                   </div>
+                  {registration.pricing_tier_name && (
+                    <div className="mt-1 text-xs text-slate-400">
+                      {registration.pricing_tier_name} ·{' '}
+                      {((registration.pricing_tier_price_cents || 0) / 100).toFixed(2)} €
+                    </div>
+                  )}
                   <div className="mt-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
                     {registration.status}
                   </div>
