@@ -34,6 +34,7 @@ type Step = {
 type Role = {
   title: string
   description: string
+  bullets: string[]
   href: string
   cta: string
   icon: ComponentType<{ className?: string }>
@@ -48,27 +49,27 @@ type PreviewEvent = {
 
 const features: Feature[] = [
   {
-    title: 'Événements standardisés',
+    title: 'Publication standardisée',
     description:
-      'Publie des compétitions CrossFit comparables, structurées et immédiatement lisibles pour les athlètes comme pour les organisateurs.',
+      'Publie des compétitions CrossFit avec une structure claire et cohérente, facile à lire pour les athlètes comme pour les équipes organisatrices.',
     icon: ClipboardList,
   },
   {
-    title: 'Catégories et divisions',
+    title: 'Divisions et catégories maîtrisées',
     description:
-      'Gère les formats individuels et team, les divisions, les catégories et les règles d’inscription sans bricolage.',
+      'Cadre les formats individuels et team, les niveaux et les catégories pour éviter les inscriptions ambiguës.',
     icon: Layers3,
   },
   {
-    title: 'Tarification pilotée',
+    title: 'Tarifs lisibles par catégorie',
     description:
-      'Affiche des tarifs clairs par catégorie avec early bird, regular et capacités par palier.',
+      'Affiche un prix actif compréhensible à chaque étape (early bird, regular, places limitées) sans zone grise.',
     icon: BadgeDollarSign,
   },
   {
-    title: 'Prêt pour le live',
+    title: 'Base opérationnelle pour le jour J',
     description:
-      'Le socle prépare la suite : qualifications, scoring live, leaderboard, planning et heats.',
+      'Le socle prépare les prochaines briques produit : planning, scoring, leaderboard, judging et coordination staff.',
     icon: Activity,
   },
 ]
@@ -76,30 +77,30 @@ const features: Feature[] = [
 const steps: Step[] = [
   {
     number: '01',
-    title: 'Créer la compétition',
+    title: 'Créer un événement propre',
     description:
-      'L’organisateur définit l’événement, les dates, les catégories et le cadre de publication.',
+      'L’organisateur renseigne le cadre de la compétition : dates, lieu, divisions et catégories actives.',
     icon: CalendarDays,
   },
   {
     number: '02',
-    title: 'Publier catégories et tarifs',
+    title: 'Structurer catégories et tarifs',
     description:
-      'Chaque catégorie porte ses règles, ses formats et ses paliers tarifaires selon dates ou quotas.',
+      'Chaque catégorie est rattachée à une division et dispose d’un tarif actif valide pour une publication fiable.',
     icon: BadgeDollarSign,
   },
   {
     number: '03',
-    title: 'Ouvrir les inscriptions',
+    title: 'Ouvrir les inscriptions sereinement',
     description:
-      'Les athlètes consultent les événements, choisissent une catégorie et voient le bon prix actif.',
+      'Les athlètes comprennent immédiatement où s’inscrire, dans quelle catégorie et à quel tarif.',
     icon: Users,
   },
   {
     number: '04',
-    title: 'Préparer l’exploitation',
+    title: 'Préparer les opérations compétition',
     description:
-      'La plateforme sert ensuite de base vers qualifications, scoring live et leaderboard.',
+      'CompCF sert de fondation pour le planning, le judging, le scoring, le leaderboard et le pilotage terrain.',
     icon: Rocket,
   },
 ]
@@ -108,7 +109,11 @@ const roles: Role[] = [
   {
     title: 'Organisateur',
     description:
-      'Créer des événements, structurer les catégories, publier les tarifs et piloter les inscriptions.',
+      'Publie des compétitions structurées et réduit les erreurs avant ouverture des inscriptions.',
+    bullets: [
+      'Divisions, catégories et prix cohérents avant publication',
+      'Meilleure lisibilité pour les athlètes dès la page événement',
+    ],
     href: '/organizer',
     cta: 'Gérer un événement',
     icon: ShieldCheck,
@@ -116,15 +121,47 @@ const roles: Role[] = [
   {
     title: 'Athlète',
     description:
-      'Parcourir les compétitions, comparer les catégories, s’inscrire et suivre ses engagements.',
+      'Trouve rapidement une compétition, comprend sa catégorie et s’inscrit sans friction.',
+    bullets: [
+      'Tarifs et formats plus clairs',
+      'Moins d’incertitude avant validation de l’inscription',
+    ],
     href: '/athlete',
     cta: 'Accéder à mon espace',
     icon: Trophy,
   },
   {
-    title: 'Public',
+    title: 'Judge & staff',
     description:
-      'Découvrir les événements publiés, comprendre les formats et suivre l’activité de la compétition.',
+      'Bénéficie d’une base de données compétition propre pour préparer l’organisation du terrain.',
+    bullets: [
+      'Structure exploitable pour le judging et les opérations',
+      'Meilleure transition vers planning, heats et workflows équipe',
+    ],
+    href: '/organizer',
+    cta: 'Préparer l’opérationnel',
+    icon: Users,
+  },
+  {
+    title: 'Volontaire',
+    description:
+      'Comprend plus facilement la structure de la compétition et les catégories à accompagner.',
+    bullets: [
+      'Repères clairs pour les missions terrain',
+      'Moins de confusion le jour de l’événement',
+    ],
+    href: '/events',
+    cta: 'Voir le format événement',
+    icon: CalendarDays,
+  },
+  {
+    title: 'Public & supporters',
+    description:
+      'Suit des événements mieux présentés, avec des catégories compréhensibles et une lecture plus fluide.',
+    bullets: [
+      'Vision claire du format de compétition',
+      'Parcours plus simple avant puis pendant l’événement',
+    ],
     href: '/events',
     cta: 'Voir les événements',
     icon: Eye,
@@ -196,22 +233,22 @@ export default function HomePage() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/25 bg-white/5 px-4 py-2 text-sm text-slate-200 backdrop-blur">
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              Publication, inscriptions, catégories, paliers tarifaires
+              Plateforme dédiée aux compétitions CrossFit
             </div>
 
             <h1 className="mt-8 max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
-              La plateforme{' '}
+              Organise et publie des compétitions{' '}
               <span className="bg-gradient-to-r from-fuchsia-400 via-pink-300 to-sky-300 bg-clip-text text-transparent">
                 CrossFit
               </span>{' '}
-              qui donne une vraie structure aux compétitions.
+              avec une structure claire dès le départ.
             </h1>
 
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
-              CompCF aide les organisateurs à publier des événements propres,
-              gérer les catégories, ouvrir les inscriptions et afficher des
-              tarifs lisibles par palier. Une base sérieuse pour passer ensuite
-              aux qualifications, au scoring live et aux leaderboards.
+              CompCF aide les organisateurs à structurer divisions, catégories
+              et tarifs, puis à ouvrir les inscriptions sur des bases solides.
+              La plateforme prépare aussi la suite opérationnelle : planning,
+              scoring, leaderboard, judging et coordination staff.
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -219,13 +256,13 @@ export default function HomePage() {
                 href="/events"
                 className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition hover:scale-[1.02]"
               >
-                Voir les événements
+                Voir les compétitions publiées
               </Link>
               <Link
                 href="/organizer"
                 className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
-                Créer ou gérer un événement
+                Ouvrir l’espace organisateur
               </Link>
             </div>
 
@@ -240,7 +277,7 @@ export default function HomePage() {
                 Early bird & tarifs
               </span>
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
-                Prêt pour le scoring live
+                Scoring & ops en préparation
               </span>
             </div>
           </div>
@@ -316,8 +353,8 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <SectionTitle
             eyebrow="Pourquoi CompCF"
-            title="Un socle produit propre pour des compétitions mieux publiées, mieux lues, mieux gérées."
-            description="CompCF ne se limite pas à afficher une liste d’événements. La plateforme structure le modèle compétition, les catégories, les inscriptions et la tarification pour rendre l’expérience plus claire dès le premier contact."
+            title="Un produit métier pensé pour les compétitions CrossFit, pas un simple site vitrine."
+            description="CompCF standardise la publication, clarifie l’inscription et sécurise la structure événement avant mise en ligne. Résultat : moins d’ambiguïtés pour l’organisateur, plus de confiance pour les participants."
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -347,8 +384,8 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <SectionTitle
           eyebrow="Comment ça marche"
-          title="Un flux simple pour transformer une idée de compétition en produit exploitable."
-          description="Le prototype raconte déjà un parcours net, de la création d’événement à la préparation du terrain opérationnel."
+          title="Un flux simple, de la création à l’ouverture des inscriptions."
+          description="Le parcours actuel pose une base claire pour publier proprement, puis préparer les opérations compétition."
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-4">
@@ -383,11 +420,11 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
           <SectionTitle
             eyebrow="Rôles"
-            title="Pensé pour l’organisateur, l’athlète et le public."
-            description="Chaque acteur retrouve un parcours simple et cohérent, sans perdre la rigueur métier propre aux compétitions CrossFit."
+            title="Une valeur concrète pour chaque acteur de la compétition."
+            description="CompCF répond aux besoins de l’organisateur, des athlètes, des juges, des bénévoles et du public avec une même base structurée."
           />
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
             {roles.map((role) => {
               const Icon = role.icon
               return (
@@ -407,6 +444,14 @@ export default function HomePage() {
                   <p className="mt-4 text-sm leading-7 text-slate-300">
                     {role.description}
                   </p>
+                  <ul className="mt-4 space-y-2 text-xs leading-6 text-slate-300">
+                    {role.bullets.map((bullet) => (
+                      <li key={bullet} className="flex gap-2">
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-sky-300" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
                   <Link
                     href={role.href}
                     className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-sky-300 transition hover:text-sky-200"
@@ -423,9 +468,9 @@ export default function HomePage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         <SectionTitle
-          eyebrow="Aperçu"
-          title="Un aperçu de ce que le produit rend visible."
-          description="Le prototype montre déjà la structure événement, les catégories et la logique de tarification sans attendre le scoring live."
+          eyebrow="Crédibilité opérationnelle"
+          title="Ce qui est déjà solide aujourd’hui, et ce qui arrive ensuite."
+          description="CompCF couvre déjà le cœur de la publication et de l’inscription. Le même socle prépare les modules scoring, leaderboard, planning et gestion terrain."
         />
 
         <div className="mt-12 grid gap-6 xl:grid-cols-2">
@@ -487,13 +532,13 @@ export default function HomePage() {
                 Prêt à explorer
               </div>
               <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                Passe d’une idée de compétition à une expérience produit qui
-                donne envie d’aller plus loin.
+                Lance une compétition CrossFit avec une base sérieuse, claire
+                et prête à évoluer.
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-200">
-                Découvre les événements publiés, teste les parcours existants et
-                pose les bases d’une plateforme CrossFit prête à monter en
-                puissance.
+                Publie mieux aujourd’hui, prépare le jour J pour demain, et
+                offre une expérience plus fiable à chaque profil impliqué dans
+                la compétition.
               </p>
             </div>
 
