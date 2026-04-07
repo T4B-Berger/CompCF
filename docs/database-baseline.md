@@ -92,6 +92,11 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 - The invariant requires: active division, active category, category->division link completeness, and exactly one currently valid active pricing tier per active category.
 - Client-side checks remain for UX clarity, but publish integrity no longer depends on client logic alone.
 
+
+## Athlete profile baseline
+- `profiles` includes minimal athlete onboarding fields for registration readiness: `first_name`, `last_name`, `date_of_birth`, `affiliate`, `city`, `country`.
+- This is intentionally a minimal MVP profile baseline (no social/community profile expansion).
+
 ## 8) Next migration priorities
 1. Reconcile this baseline against a direct production/staging schema snapshot and record deltas.
 2. Add safe `updated_at` triggers if confirmed compatible with live behavior.

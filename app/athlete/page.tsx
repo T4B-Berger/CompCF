@@ -19,6 +19,12 @@ type Profile = {
   id: string
   email: string
   role: string
+  first_name?: string | null
+  last_name?: string | null
+  date_of_birth?: string | null
+  affiliate?: string | null
+  city?: string | null
+  country?: string | null
 }
 
 type EventItem = {
@@ -52,6 +58,15 @@ export default function AthletePage() {
   const [events, setEvents] = useState<EventItem[]>([])
   const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
   const [requiresVerification, setRequiresVerification] = useState(false)
+  const [profileFeedback, setProfileFeedback] = useState('')
+  const [profileForm, setProfileForm] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    affiliate: '',
+    city: '',
+    country: '',
+  })
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -61,6 +76,41 @@ export default function AthletePage() {
       .single()
 
     setProfile(data)
+    if (data) {
+      setProfileForm({
+        firstName: data.first_name || '',
+        lastName: data.last_name || '',
+        dateOfBirth: data.date_of_birth || '',
+        affiliate: data.affiliate || '',
+        city: data.city || '',
+        country: data.country || '',
+      })
+    }
+  }
+
+  const saveProfile = async () => {
+    if (!user) return
+    setProfileFeedback('')
+
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        first_name: profileForm.firstName || null,
+        last_name: profileForm.lastName || null,
+        date_of_birth: profileForm.dateOfBirth || null,
+        affiliate: profileForm.affiliate || null,
+        city: profileForm.city || null,
+        country: profileForm.country || null,
+      })
+      .eq('id', user.id)
+
+    if (error) {
+      setProfileFeedback('Impossible de sauvegarder le profil pour le moment.')
+      return
+    }
+
+    await loadProfile(user.id)
+    setProfileFeedback('Profil athlète mis à jour.')
   }
 
   const loadPublishedEvents = async () => {
@@ -137,6 +187,15 @@ export default function AthletePage() {
   }
 
   const upcomingRegistrations = useMemo(() => registrations.length, [registrations])
+  const profileReadiness = useMemo(() => {
+    const required = [
+      profileForm.firstName,
+      profileForm.lastName,
+      profileForm.dateOfBirth,
+      profileForm.country,
+    ]
+    return required.every((value) => value.trim().length > 0)
+  }, [profileForm])
 
   if (!user) {
     return (
@@ -302,6 +361,98 @@ export default function AthletePage() {
               Événements publiés
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold text-white">
+                Profil athlète
+              </h2>
+              <p className="mt-2 text-sm text-slate-300">
+                Baseline MVP pour préparer un parcours d’inscription crédible.
+              </p>
+            </div>
+            <span
+              className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                profileReadiness
+                  ? 'border border-emerald-400/25 bg-emerald-500/10 text-emerald-200'
+                  : 'border border-amber-400/25 bg-amber-500/10 text-amber-200'
+              }`}
+            >
+              {profileReadiness
+                ? 'Profil prêt pour la suite'
+                : 'Profil incomplet pour l’inscription'}
+            </span>
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <input
+              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+              placeholder="Prénom"
+              value={profileForm.firstName}
+              onChange={(e) =>
+                setProfileForm((prev) => ({ ...prev, firstName: e.target.value }))
+              }
+            />
+            <input
+              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+              placeholder="Nom"
+              value={profileForm.lastName}
+              onChange={(e) =>
+                setProfileForm((prev) => ({ ...prev, lastName: e.target.value }))
+              }
+            />
+            <input
+              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+              placeholder="Date de naissance"
+              type="date"
+              value={profileForm.dateOfBirth}
+              onChange={(e) =>
+                setProfileForm((prev) => ({
+                  ...prev,
+                  dateOfBirth: e.target.value,
+                }))
+              }
+            />
+            <input
+              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+              placeholder="Pays"
+              value={profileForm.country}
+              onChange={(e) =>
+                setProfileForm((prev) => ({ ...prev, country: e.target.value }))
+              }
+            />
+            <input
+              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+              placeholder="Affiliate / Box (optionnel)"
+              value={profileForm.affiliate}
+              onChange={(e) =>
+                setProfileForm((prev) => ({ ...prev, affiliate: e.target.value }))
+              }
+            />
+            <input
+              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+              placeholder="Ville (optionnel)"
+              value={profileForm.city}
+              onChange={(e) =>
+                setProfileForm((prev) => ({ ...prev, city: e.target.value }))
+              }
+            />
+          </div>
+
+          {profileFeedback && (
+            <div className="mt-4 rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
+              {profileFeedback}
+            </div>
+          )}
+
+          <button
+            onClick={saveProfile}
+            className="mt-6 rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white"
+          >
+            Enregistrer mon profil
+          </button>
         </div>
 
         <div className="mt-10 grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
