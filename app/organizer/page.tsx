@@ -53,6 +53,7 @@ export default function OrganizerPage() {
   const [eventName, setEventName] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
+  const [publishFeedback, setPublishFeedback] = useState<string | null>(null)
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -135,8 +136,103 @@ export default function OrganizerPage() {
     setRegistrations([])
   }
 
+  const validateEventBeforePublish = async (eventId: string) => {
+    const failures: string[] = []
+    const now = new Date()
+
+    const { data: divisionsData } = await supabase
+      .from('event_divisions')
+      .select('id')
+      .eq('event_id', eventId)
+      .eq('is_active', true)
+
+    if (!divisionsData || divisionsData.length === 0) {
+      failures.push('Ajoute au moins une division active avant publication.')
+    }
+
+    const { data: categoriesData } = await supabase
+      .from('event_categories')
+      .select('id, division_id, is_active')
+      .eq('event_id', eventId)
+
+    const activeCategories = (categoriesData || []).filter((c) => c.is_active)
+
+    if (activeCategories.length === 0) {
+      failures.push('Ajoute au moins une catégorie active avant publication.')
+    }
+
+    const missingDivisionLink = activeCategories.filter((c) => !c.division_id)
+    if (missingDivisionLink.length > 0) {
+      failures.push('Chaque catégorie active doit être liée à une division.')
+    }
+
+    if (activeCategories.length > 0) {
+      const categoryIds = activeCategories.map((c) => c.id)
+      const { data: pricingData } = await supabase
+        .from('category_pricing_tiers')
+        .select('category_id, starts_at, ends_at, is_active')
+        .in('category_id', categoryIds)
+        .eq('is_active', true)
+
+      const pricingByCategory = new Map<string, number>()
+
+      ;(pricingData || []).forEach((tier) => {
+        const startsAt = tier.starts_at ? new Date(tier.starts_at) : null
+        const endsAt = tier.ends_at ? new Date(tier.ends_at) : null
+
+        const withinWindow =
+          (!startsAt || startsAt <= now) && (!endsAt || endsAt >= now)
+
+        if (withinWindow) {
+          pricingByCategory.set(
+            tier.category_id,
+            (pricingByCategory.get(tier.category_id) || 0) + 1
+          )
+        }
+      })
+
+      const missingPricing = activeCategories.filter(
+        (c) => !pricingByCategory.get(c.id)
+      )
+      if (missingPricing.length > 0) {
+        failures.push(
+          'Chaque catégorie active doit avoir un palier tarifaire actif dans une fenêtre valide.'
+        )
+      }
+
+      const ambiguousPricing = [...pricingByCategory.entries()].filter(
+        ([, count]) => count > 1
+      )
+      if (ambiguousPricing.length > 0) {
+        failures.push(
+          'Chaque catégorie active doit avoir un seul palier tarifaire actif à l’instant T.'
+        )
+      }
+    }
+
+    return failures
+  }
+
   const publishEvent = async (eventId: string) => {
-    await supabase.from('events').update({ status: 'published' }).eq('id', eventId)
+    setPublishFeedback(null)
+    const failures = await validateEventBeforePublish(eventId)
+
+    if (failures.length > 0) {
+      setPublishFeedback(failures.join(' '))
+      return
+    }
+
+    const { error } = await supabase
+      .from('events')
+      .update({ status: 'published' })
+      .eq('id', eventId)
+
+    if (error) {
+      setPublishFeedback('Impossible de publier l’événement pour le moment.')
+      return
+    }
+
+    setPublishFeedback('Événement publié avec une structure minimale valide.')
     await loadEvents()
   }
 
@@ -351,6 +447,12 @@ export default function OrganizerPage() {
             </div>
 
             <div className="mt-6 space-y-4">
+              {publishFeedback && (
+                <div className="rounded-2xl border border-sky-400/20 bg-sky-500/10 p-4 text-sm text-sky-100">
+                  {publishFeedback}
+                </div>
+              )}
+
               {events.length === 0 && (
                 <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-slate-300">
                   Aucun événement pour le moment.
