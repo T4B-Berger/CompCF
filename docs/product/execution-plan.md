@@ -77,6 +77,14 @@ All queue items should keep `ready-for-codex` label and project metadata aligned
 4. Preferred test gate strictness for #79 on contributor branches.
 5. Release cadence expectation (weekly vs milestone-based) for Sprint review.
 
+## Auth/profile backlog refinement (registration dependency clarity)
+- Added focused backlog items #115-#118 to prevent auth/profile improvisation late in registration delivery:
+  - Email verification baseline
+  - Auth UX hardening
+  - Athlete profile baseline
+  - Registration readiness guardrails
+- Sequencing intent: keep #70, #72, #73, #74 as foundations and use #115-#118 to make #75 (athlete registration flow) realistically completable.
+
 
 ## Market-signal refinement note
 Competitor-visible expectations were reviewed and represented as focused post-MVP backlog enrichments (#108-#113) without changing current Sprint 0/Sprint 1 sequencing.
