@@ -93,3 +93,25 @@ Competitor-visible expectations were reviewed and represented as focused post-MV
 - Scoring/leaderboard runtime delivery into MVP
 - Volunteer runtime expansion ahead of core MVP foundations
 - Stripe/payment scope
+
+## 9) Project metadata reconciliation (April 7, 2026)
+GitHub Project status and issue labels were reconciled against the current PR state.
+
+### Status outcomes
+- **Done**: #69, #70, #71, #79
+- **In Progress**: #118
+- **In Review**: #72, #73, #74, #115, #117
+
+### Label hygiene outcomes
+- Removed stale `ready-for-codex` where items are already complete or actively in review.
+- Kept domain/type/priority/phase labels unchanged unless inconsistent with active implementation status.
+
+### Refined ready-for-codex top queue
+1. #118 Registration readiness guardrails
+2. #75 Athlete registration creation flow
+3. #76 Registration lifecycle state model
+4. #77 Organizer registration visibility tooling
+5. #116 Auth UX hardening
+6. #108 Team and duo registration with invite/access code
+7. #109 Division waitlist and automatic promotion baseline
+8. #110 Multi-floor schedule planning with pauses and transitions
