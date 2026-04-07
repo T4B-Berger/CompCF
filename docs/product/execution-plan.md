@@ -76,3 +76,12 @@ All queue items should keep `ready-for-codex` label and project metadata aligned
 3. Whether #74 is Sprint 0-complete or intentionally split across Sprint 0/1.
 4. Preferred test gate strictness for #79 on contributor branches.
 5. Release cadence expectation (weekly vs milestone-based) for Sprint review.
+
+
+## Market-signal refinement note
+Competitor-visible expectations were reviewed and represented as focused post-MVP backlog enrichments (#108-#113) without changing current Sprint 0/Sprint 1 sequencing.
+
+### Intentionally not pulled forward
+- Scoring/leaderboard runtime delivery into MVP
+- Volunteer runtime expansion ahead of core MVP foundations
+- Stripe/payment scope

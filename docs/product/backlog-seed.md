@@ -43,3 +43,15 @@
 
 ## Reconciliation note
 `docs/repository-baseline-audit.md` and `docs/worklist.md` were not present in this repository snapshot; this seed follows the same GitHub-native delivery direction and avoids contradictory planning semantics.
+
+
+## Market-signal refinements (competitor-informed, not copied)
+The backlog was enriched with targeted post-MVP issues to cover clearly expected competition capabilities while preserving CompCF sequencing:
+- #108 Team and duo registration with invite/access code
+- #109 Division waitlist and automatic promotion baseline
+- #110 Multi-floor schedule planning with pauses and transitions
+- #111 Planning-sync contract with scoring and leaderboard publication
+- #112 Shareable leaderboard visibility with provisional vs official states
+- #113 Athlete feedback collection and organizer post-event insights
+
+These additions are intentionally post-MVP and do not move scoring/leaderboard or volunteer runtime implementation ahead of current foundation priorities.
