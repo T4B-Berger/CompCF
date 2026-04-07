@@ -15,7 +15,42 @@ export default function SignupPage() {
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
 
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+  const passwordRules = {
+    minLength: password.length >= 8,
+    hasLetter: /[A-Za-z]/.test(password),
+    hasNumber: /\d/.test(password),
+  }
+  const passwordLooksValid =
+    passwordRules.minLength && passwordRules.hasLetter && passwordRules.hasNumber
+
+  const explainSignupError = (message: string) => {
+    const normalized = message.toLowerCase()
+
+    if (normalized.includes('already registered')) {
+      return 'Un compte existe déjà avec cet email. Essaie de te connecter.'
+    }
+    if (normalized.includes('password')) {
+      return 'Mot de passe invalide. Utilise au moins 8 caractères avec des lettres et des chiffres.'
+    }
+    if (normalized.includes('invalid email')) {
+      return 'Adresse email invalide. Vérifie le format puis réessaie.'
+    }
+    return message
+  }
+
   const handleSignup = async () => {
+    if (!emailLooksValid) {
+      setErrorMessage('Renseigne une adresse email valide.')
+      return
+    }
+    if (!passwordLooksValid) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins 8 caractères, avec des lettres et des chiffres.'
+      )
+      return
+    }
+
     setLoading(true)
     setErrorMessage('')
     setSuccessMessage('')
@@ -26,7 +61,7 @@ export default function SignupPage() {
     })
 
     if (error) {
-      setErrorMessage(error.message)
+      setErrorMessage(explainSignupError(error.message))
       setLoading(false)
       return
     }
@@ -114,6 +149,20 @@ export default function SignupPage() {
                 placeholder="Mot de passe"
                 type="password"
               />
+              <div className="rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-xs text-slate-300">
+                <p className="font-semibold text-slate-200">Exigences mot de passe :</p>
+                <ul className="mt-2 space-y-1">
+                  <li className={passwordRules.minLength ? 'text-emerald-300' : ''}>
+                    • 8 caractères minimum
+                  </li>
+                  <li className={passwordRules.hasLetter ? 'text-emerald-300' : ''}>
+                    • au moins une lettre
+                  </li>
+                  <li className={passwordRules.hasNumber ? 'text-emerald-300' : ''}>
+                    • au moins un chiffre
+                  </li>
+                </ul>
+              </div>
 
               {errorMessage && (
                 <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">
@@ -129,7 +178,7 @@ export default function SignupPage() {
 
               <button
                 onClick={handleSignup}
-                disabled={loading}
+                disabled={loading || !emailLooksValid || !passwordLooksValid}
                 className="w-full rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
               >
                 {loading ? 'Création...' : 'Créer mon compte'}

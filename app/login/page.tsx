@@ -14,11 +14,43 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [resetMessage, setResetMessage] = useState('')
+  const [resetLoading, setResetLoading] = useState(false)
+
+  const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+
+  const explainLoginError = (message: string) => {
+    const normalized = message.toLowerCase()
+
+    if (
+      normalized.includes('invalid login credentials') ||
+      normalized.includes('invalid credentials')
+    ) {
+      return 'Email ou mot de passe incorrect. Vérifie tes informations puis réessaie.'
+    }
+    if (normalized.includes('too many requests')) {
+      return 'Trop de tentatives. Patiente quelques instants puis réessaie.'
+    }
+    if (normalized.includes('email not confirmed') || normalized.includes('email not verified')) {
+      return 'Ton email n’est pas encore vérifié. Ouvre le lien reçu par email avant de te connecter.'
+    }
+    return message
+  }
 
   const handleLogin = async () => {
+    if (!emailLooksValid) {
+      setErrorMessage('Renseigne une adresse email valide.')
+      return
+    }
+    if (!password.trim()) {
+      setErrorMessage('Renseigne ton mot de passe pour te connecter.')
+      return
+    }
+
     setLoading(true)
     setErrorMessage('')
     setSuccessMessage('')
+    setResetMessage('')
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -26,16 +58,7 @@ export default function LoginPage() {
     })
 
     if (error) {
-      if (
-        error.message.toLowerCase().includes('email not confirmed') ||
-        error.message.toLowerCase().includes('email not verified')
-      ) {
-        setErrorMessage(
-          'Ton email n’est pas encore vérifié. Ouvre le lien reçu par email avant de te connecter.'
-        )
-      } else {
-        setErrorMessage(error.message)
-      }
+      setErrorMessage(explainLoginError(error.message))
       setLoading(false)
       return
     }
@@ -51,6 +74,30 @@ export default function LoginPage() {
     setSuccessMessage('Connexion réussie.')
     setLoading(false)
     window.location.href = '/athlete'
+  }
+
+  const handlePasswordReset = async () => {
+    if (!emailLooksValid) {
+      setErrorMessage('Renseigne un email valide pour recevoir le lien de réinitialisation.')
+      return
+    }
+
+    setResetLoading(true)
+    setErrorMessage('')
+    setResetMessage('')
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/login`,
+    })
+
+    if (error) {
+      setErrorMessage('Impossible d’envoyer le lien de réinitialisation pour le moment.')
+      setResetLoading(false)
+      return
+    }
+
+    setResetMessage('Un lien de réinitialisation a été envoyé si ce compte existe.')
+    setResetLoading(false)
   }
 
   return (
@@ -135,6 +182,11 @@ export default function LoginPage() {
                   {successMessage}
                 </div>
               )}
+              {resetMessage && (
+                <div className="rounded-xl border border-sky-500/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
+                  {resetMessage}
+                </div>
+              )}
 
               <button
                 onClick={handleLogin}
@@ -153,6 +205,14 @@ export default function LoginPage() {
                 Créer un compte
                 <ArrowRight className="h-4 w-4" />
               </Link>
+              <button
+                type="button"
+                onClick={handlePasswordReset}
+                disabled={resetLoading}
+                className="text-left text-sky-300 hover:text-sky-200 disabled:opacity-60"
+              >
+                {resetLoading ? 'Envoi...' : 'Mot de passe oublié ?'}
+              </button>
               <Link href="/" className="hover:text-white">
                 Retour à l’accueil
               </Link>
