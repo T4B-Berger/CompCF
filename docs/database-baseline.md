@@ -80,6 +80,12 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 - Category naming and ordering guardrails are explicit (`name` not blank, `sort_order >= 0`).
 - Canonical category identity is now stable for downstream pricing semantics (#73).
 
+
+## Pricing tier semantics baseline
+- Pricing tiers now enforce deterministic per-category ordering (`sort_order`) and normalized name uniqueness.
+- Active pricing windows are constrained to avoid overlap per category.
+- Capacity hook fields (`max_registrations`, `waitlist_enabled`) are added for future readiness without implementing waitlist runtime behavior in this step.
+
 ## 8) Next migration priorities
 1. Reconcile this baseline against a direct production/staging schema snapshot and record deltas.
 2. Add safe `updated_at` triggers if confirmed compatible with live behavior.
