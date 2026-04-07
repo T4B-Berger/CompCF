@@ -42,7 +42,7 @@ Excluded on purpose in this baseline:
 - `registration_details` joins `registrations + events + event_categories + profiles`
 
 ## 5) Key constraints
-- role guardrail: `profiles.role in ('admin', 'organizer', 'athlete')`
+- role guardrail: `profiles.role in ('admin', 'organizer', 'athlete', 'staff', 'judge', 'team_captain', 'public_user')`
 - event lifecycle: `events.status in ('draft', 'published', 'archived')`
 - registration lifecycle: `registrations.status in ('pending', 'confirmed', 'cancelled')`
 - date checks:
