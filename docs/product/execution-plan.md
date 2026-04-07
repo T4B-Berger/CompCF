@@ -115,3 +115,12 @@ GitHub Project status and issue labels were reconciled against the current PR st
 6. #108 Team and duo registration with invite/access code
 7. #109 Division waitlist and automatic promotion baseline
 8. #110 Multi-floor schedule planning with pauses and transitions
+
+## 10) Back-office admin-console backlog refinement (April 7, 2026)
+- Added/refined #131-#134 under the Admin / Audit / Governance execution thread:
+  - #131 Story: Admin business data console baseline
+  - #132 Story: Organizer scoped business data editing baseline
+  - #133 Task: Audit trail for business data corrections
+  - #134 Task: Safe editing guardrails for back-office correction flows
+- Refined issue narratives for #68 and #54 to keep governance and organizer boundaries explicit.
+- These items are backlog refinements only; they do not change current MVP implementation scope.
