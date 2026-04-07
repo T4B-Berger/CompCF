@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ArrowRight, UserPlus } from 'lucide-react'
 import { supabase } from '../../lib/supabaseClient'
+import { isEmailVerified } from '../../lib/authVerification'
 import { SiteHeader } from '../../components/marketing/site-header'
 import { SiteFooter } from '../../components/marketing/site-footer'
 
@@ -19,7 +20,7 @@ export default function SignupPage() {
     setErrorMessage('')
     setSuccessMessage('')
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     })
@@ -30,9 +31,15 @@ export default function SignupPage() {
       return
     }
 
-    setSuccessMessage(
-      'Compte créé. Tu pourras enrichir le profil plus tard quand le flux de création de compte évoluera.'
-    )
+    if (!isEmailVerified(data.user)) {
+      setSuccessMessage(
+        'Compte créé. Vérifie ton email via le lien reçu avant de te connecter et de poursuivre l’inscription en compétition.'
+      )
+    } else {
+      setSuccessMessage(
+        'Compte créé et vérifié. Tu peux maintenant te connecter.'
+      )
+    }
     setLoading(false)
   }
 
