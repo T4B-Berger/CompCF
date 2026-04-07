@@ -74,6 +74,12 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 - `event_categories` enforces `(event_id, division_id)` integrity to prevent cross-event division linkage drift.
 - This keeps divisions explicit and reliable for upcoming category canonicalization (#72).
 
+
+## Category source-of-truth baseline
+- `event_categories` now has a canonical event-scoped machine key: `slug`.
+- Category naming and ordering guardrails are explicit (`name` not blank, `sort_order >= 0`).
+- Canonical category identity is now stable for downstream pricing semantics (#73).
+
 ## 8) Next migration priorities
 1. Reconcile this baseline against a direct production/staging schema snapshot and record deltas.
 2. Add safe `updated_at` triggers if confirmed compatible with live behavior.
