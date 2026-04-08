@@ -11,6 +11,7 @@ import {
 } from '../../lib/registrationReadiness'
 import {
   CalendarDays,
+  Camera,
   LogOut,
   Medal,
   Ticket,
@@ -30,6 +31,7 @@ type Profile = {
   affiliate?: string | null
   city?: string | null
   country?: string | null
+  profile_photo_url?: string | null
 }
 
 type EventItem = {
@@ -97,6 +99,7 @@ export default function AthletePage() {
   const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
   const [requiresVerification, setRequiresVerification] = useState(false)
   const [profileFeedback, setProfileFeedback] = useState('')
+  const [profilePhotoUploading, setProfilePhotoUploading] = useState(false)
   const [registrationFeedback, setRegistrationFeedback] = useState('')
   const [registrationError, setRegistrationError] = useState('')
   const [submittingCategoryId, setSubmittingCategoryId] = useState<string | null>(null)
@@ -129,6 +132,48 @@ export default function AthletePage() {
     }
   }
 
+  const uploadProfilePhoto = async (file: File) => {
+    if (!user) return
+    setProfileFeedback('')
+    setProfilePhotoUploading(true)
+
+    const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+    const filePath = `${user.id}/avatar-${Date.now()}.${extension}`
+
+    const { error: uploadError } = await supabase.storage
+      .from('athlete-profile-photos')
+      .upload(filePath, file, {
+        upsert: true,
+      })
+
+    if (uploadError) {
+      setProfileFeedback('Impossible de téléverser la photo de profil.')
+      setProfilePhotoUploading(false)
+      return
+    }
+
+    const { data: publicUrlData } = supabase.storage
+      .from('athlete-profile-photos')
+      .getPublicUrl(filePath)
+
+    const { error: profileUpdateError } = await supabase
+      .from('profiles')
+      .update({
+        profile_photo_url: publicUrlData.publicUrl,
+      })
+      .eq('id', user.id)
+
+    if (profileUpdateError) {
+      setProfileFeedback('Photo envoyée, mais impossible de mettre à jour le profil.')
+      setProfilePhotoUploading(false)
+      return
+    }
+
+    await loadProfile(user.id)
+    setProfileFeedback('Photo de profil mise à jour.')
+    setProfilePhotoUploading(false)
+  }
+
   const saveProfile = async () => {
     if (!user) return
     setProfileFeedback('')
@@ -142,6 +187,7 @@ export default function AthletePage() {
         affiliate: profileForm.affiliate || null,
         city: profileForm.city || null,
         country: profileForm.country || null,
+        profile_photo_url: profile?.profile_photo_url || null,
       })
       .eq('id', user.id)
 
@@ -519,7 +565,7 @@ export default function AthletePage() {
                 Profil athlète
               </h2>
               <p className="mt-2 text-sm text-slate-300">
-                Baseline MVP pour préparer un parcours d’inscription crédible.
+                Complète ton profil pour faciliter inscription, vérification et suivi.
               </p>
             </div>
             <span
@@ -533,6 +579,99 @@ export default function AthletePage() {
                 ? 'Profil prêt pour la suite'
                 : 'Profil incomplet pour l’inscription'}
             </span>
+          </div>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
+            <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <div className="mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border border-white/15 bg-slate-900">
+                {profile?.profile_photo_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={profile.profile_photo_url}
+                    alt="Photo de profil athlète"
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <UserCircle2 className="h-14 w-14 text-slate-400" />
+                )}
+              </div>
+              <label className="mt-4 flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10">
+                <Camera className="h-4 w-4" />
+                {profilePhotoUploading ? 'Envoi en cours...' : 'Importer une photo'}
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  className="hidden"
+                  disabled={profilePhotoUploading}
+                  onChange={(event) => {
+                    const file = event.target.files?.[0]
+                    if (file) {
+                      void uploadProfilePhoto(file)
+                    }
+                  }}
+                />
+              </label>
+              <p className="mt-2 text-center text-[11px] text-slate-400">
+                JPG, PNG ou WEBP · max 5 Mo
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <input
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                  placeholder="Prénom"
+                  value={profileForm.firstName}
+                  onChange={(e) =>
+                    setProfileForm((prev) => ({ ...prev, firstName: e.target.value }))
+                  }
+                />
+                <input
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                  placeholder="Nom"
+                  value={profileForm.lastName}
+                  onChange={(e) =>
+                    setProfileForm((prev) => ({ ...prev, lastName: e.target.value }))
+                  }
+                />
+                <input
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                  placeholder="Date de naissance"
+                  type="date"
+                  value={profileForm.dateOfBirth}
+                  onChange={(e) =>
+                    setProfileForm((prev) => ({
+                      ...prev,
+                      dateOfBirth: e.target.value,
+                    }))
+                  }
+                />
+                <input
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                  placeholder="Pays"
+                  value={profileForm.country}
+                  onChange={(e) =>
+                    setProfileForm((prev) => ({ ...prev, country: e.target.value }))
+                  }
+                />
+                <input
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                  placeholder="Affiliate / Box"
+                  value={profileForm.affiliate}
+                  onChange={(e) =>
+                    setProfileForm((prev) => ({ ...prev, affiliate: e.target.value }))
+                  }
+                />
+                <input
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                  placeholder="Ville"
+                  value={profileForm.city}
+                  onChange={(e) =>
+                    setProfileForm((prev) => ({ ...prev, city: e.target.value }))
+                  }
+                />
+              </div>
+            </div>
           </div>
 
           <div
@@ -554,61 +693,6 @@ export default function AthletePage() {
                 ))}
               </ul>
             )}
-          </div>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <input
-              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-              placeholder="Prénom"
-              value={profileForm.firstName}
-              onChange={(e) =>
-                setProfileForm((prev) => ({ ...prev, firstName: e.target.value }))
-              }
-            />
-            <input
-              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-              placeholder="Nom"
-              value={profileForm.lastName}
-              onChange={(e) =>
-                setProfileForm((prev) => ({ ...prev, lastName: e.target.value }))
-              }
-            />
-            <input
-              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-              placeholder="Date de naissance"
-              type="date"
-              value={profileForm.dateOfBirth}
-              onChange={(e) =>
-                setProfileForm((prev) => ({
-                  ...prev,
-                  dateOfBirth: e.target.value,
-                }))
-              }
-            />
-            <input
-              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-              placeholder="Pays"
-              value={profileForm.country}
-              onChange={(e) =>
-                setProfileForm((prev) => ({ ...prev, country: e.target.value }))
-              }
-            />
-            <input
-              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-              placeholder="Affiliate / Box (optionnel)"
-              value={profileForm.affiliate}
-              onChange={(e) =>
-                setProfileForm((prev) => ({ ...prev, affiliate: e.target.value }))
-              }
-            />
-            <input
-              className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-              placeholder="Ville (optionnel)"
-              value={profileForm.city}
-              onChange={(e) =>
-                setProfileForm((prev) => ({ ...prev, city: e.target.value }))
-              }
-            />
           </div>
 
           {profileFeedback && (
