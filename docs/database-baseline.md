@@ -59,7 +59,7 @@ Excluded on purpose in this baseline:
 RLS baseline is included for all listed tables with scope aligned to current app roles:
 - Athlete: own profile + own registrations
 - Organizer: own events and related catalog/registration scope
-- Admin: broad read/write operational scope
+- Admin: broad read/write operational scope, including athlete profile correction capability
 - Public/anon read for published event and catalog surfaces
 
 Because current runtime authenticates from client-side Supabase auth, policies are designed to preserve expected read/write paths while staying conservative.
