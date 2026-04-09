@@ -1,0 +1,4555 @@
+[
+  {
+    "affiliate_id": "11325",
+    "gym_name": "100 Pourcent CrossFit",
+    "city": "Saint-Just-Saint-Rambert",
+    "country": "France",
+    "website": "http://100pourcentcrossfit.fr/"
+  },
+  {
+    "affiliate_id": "11336",
+    "gym_name": "1789 CrossFit",
+    "city": "Aix-en-Provence",
+    "country": "France",
+    "website": "https://www.1789crossfit.com"
+  },
+  {
+    "affiliate_id": "26729",
+    "gym_name": "2 Rives CrossFit",
+    "city": "Nancy",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13535",
+    "gym_name": "3.7 CrossFit",
+    "city": "Tours",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19064",
+    "gym_name": "3.7 CrossFit II",
+    "city": "Tours",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35492",
+    "gym_name": "AirTime CrossFit",
+    "city": "BOIS D ARCY",
+    "country": "France",
+    "website": "https://www.airtime-training.fr"
+  },
+  {
+    "affiliate_id": "10382",
+    "gym_name": "Alpes CrossFit Unity",
+    "city": "Saint-Martin-d'Hères",
+    "country": "France",
+    "website": "http://www.alpescrossfit-unity.fr/"
+  },
+  {
+    "affiliate_id": "12666",
+    "gym_name": "Anjou CrossFit",
+    "city": "Les Ponts-de-Cé",
+    "country": "France",
+    "website": "http://www.anjoucrossfit.com/index.php"
+  },
+  {
+    "affiliate_id": "31528",
+    "gym_name": "Antropos CrossFit 7ème",
+    "city": "Lyon",
+    "country": "France",
+    "website": "https://antroposcrossfit.com/"
+  },
+  {
+    "affiliate_id": "28431",
+    "gym_name": "Antropos CrossFit Confluence",
+    "city": "Lyon",
+    "country": "France",
+    "website": "https://antroposcrossfit.com/"
+  },
+  {
+    "affiliate_id": "23087",
+    "gym_name": "Antropos CrossFit Pierre-Bénite",
+    "city": "Pierre-Bénite",
+    "country": "France",
+    "website": "https://www.antroposcrossfit.com/"
+  },
+  {
+    "affiliate_id": "33445",
+    "gym_name": "Arcis CrossFit",
+    "city": "Saints-Geosmes",
+    "country": "France",
+    "website": "https://www.arciscrossfit.fr"
+  },
+  {
+    "affiliate_id": "30269",
+    "gym_name": "Aries CrossFit",
+    "city": "Mondragon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27214",
+    "gym_name": "Arvernis CrossFit",
+    "city": "Cébazat",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28379",
+    "gym_name": "Ascension CrossFit",
+    "city": "Gardanne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34728",
+    "gym_name": "Ash CrossFit",
+    "city": "Excenevex",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30249",
+    "gym_name": "Atlas Ludos CrossFit",
+    "city": "Prévessin-Moëns",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35495",
+    "gym_name": "AXB CrossFit",
+    "city": "Montesson",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22638",
+    "gym_name": "Aëtos CrossFit",
+    "city": "Ambérieu-en-Bugey",
+    "country": "France",
+    "website": "https://www.aetoscrossfit.com/"
+  },
+  {
+    "affiliate_id": "30586",
+    "gym_name": "Balios CrossFit",
+    "city": "Alençon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35953",
+    "gym_name": "BB Saint-André CrossFit",
+    "city": "Saint André lez lille",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15881",
+    "gym_name": "Be Unit CrossFit",
+    "city": "Toulouse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35212",
+    "gym_name": "Berus CrossFit",
+    "city": "Taden",
+    "country": "France",
+    "website": "https://crossfitberus.com"
+  },
+  {
+    "affiliate_id": "35554",
+    "gym_name": "Blue Lion CrossFit",
+    "city": "JAUX",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29148",
+    "gym_name": "Bunks CrossFit",
+    "city": "Istres",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "36295",
+    "gym_name": "Calade CrossFit",
+    "city": "Villefranche-sur-saone",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20698",
+    "gym_name": "Cambrai CrossFit",
+    "city": "Proville",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20791",
+    "gym_name": "Cesar CrossFit",
+    "city": "Fontaine-lès-Dijon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33127",
+    "gym_name": "Come and Play CrossFit",
+    "city": "Valbonne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32217",
+    "gym_name": "Countryside CrossFit",
+    "city": "Vittel",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "10923",
+    "gym_name": "CrossFit 197",
+    "city": "Bordeaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18906",
+    "gym_name": "CrossFit 2 Frères",
+    "city": "Lunel",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "12793",
+    "gym_name": "CrossFit 272",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "https://www.crossfit272.com/"
+  },
+  {
+    "affiliate_id": "34627",
+    "gym_name": "CrossFit 2F",
+    "city": "Vignoles",
+    "country": "France",
+    "website": "https://crossfit2f.fr/"
+  },
+  {
+    "affiliate_id": "32678",
+    "gym_name": "CrossFit 3 La Fourmilière",
+    "city": "Saint-André-les-Vergers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22008",
+    "gym_name": "CrossFit 3 Moons",
+    "city": "Bordeaux",
+    "country": "France",
+    "website": "https://www.crossfit3moons.fr/"
+  },
+  {
+    "affiliate_id": "26520",
+    "gym_name": "CrossFit 32600",
+    "city": "L'Isle-Jourdain",
+    "country": "France",
+    "website": "https://www.mvmt-crossfit.com"
+  },
+  {
+    "affiliate_id": "22039",
+    "gym_name": "CrossFit 391",
+    "city": "Igny",
+    "country": "France",
+    "website": "http://www.crossfit391.fr"
+  },
+  {
+    "affiliate_id": "35671",
+    "gym_name": "CrossFit 550",
+    "city": "Vendenheim",
+    "country": "France",
+    "website": "http://studio-550.fr"
+  },
+  {
+    "affiliate_id": "10857",
+    "gym_name": "CrossFit 571",
+    "city": "Thionville",
+    "country": "France",
+    "website": "http://www.crossfit-571.com/"
+  },
+  {
+    "affiliate_id": "32886",
+    "gym_name": "CrossFit 6.15",
+    "city": "Pornichet",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "9860",
+    "gym_name": "CrossFit 67",
+    "city": "Strasbourg",
+    "country": "France",
+    "website": "http://www.crossfit67.fr/"
+  },
+  {
+    "affiliate_id": "9438",
+    "gym_name": "CrossFit 83 Le Beausset",
+    "city": "Le Beausset",
+    "country": "France",
+    "website": "http://www.crossfit83lebeausset.com/"
+  },
+  {
+    "affiliate_id": "35892",
+    "gym_name": "CrossFit 94100",
+    "city": "Saint-Maur-des-Fossés",
+    "country": "France",
+    "website": "https://le131.fr/"
+  },
+  {
+    "affiliate_id": "30846",
+    "gym_name": "CrossFit Abellio",
+    "city": "Ponlat Taillebourg",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33965",
+    "gym_name": "CrossFit Abysses Cherbourg",
+    "city": "Cherbourg-en-Cotentin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35759",
+    "gym_name": "CrossFit AFC",
+    "city": "Tulle",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35049",
+    "gym_name": "CrossFit Agde",
+    "city": "Agde",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "12720",
+    "gym_name": "CrossFit Agen",
+    "city": "Agen",
+    "country": "France",
+    "website": "https://www.la-station.fr/"
+  },
+  {
+    "affiliate_id": "34619",
+    "gym_name": "CrossFit Agora",
+    "city": "Liffré",
+    "country": "France",
+    "website": "https://crossfitagora.fr/"
+  },
+  {
+    "affiliate_id": "18379",
+    "gym_name": "CrossFit Aguïo",
+    "city": "Éguilles",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14827",
+    "gym_name": "CrossFit Aix en Provence",
+    "city": "Aix-en-Provence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16104",
+    "gym_name": "CrossFit Ajaccio",
+    "city": "Ajaccio",
+    "country": "France",
+    "website": "http://www.crossfitajaccio.com/"
+  },
+  {
+    "affiliate_id": "23132",
+    "gym_name": "CrossFit Akson",
+    "city": "Evry-Courcouronnes",
+    "country": "France",
+    "website": "https://crossfitakson.com/"
+  },
+  {
+    "affiliate_id": "17542",
+    "gym_name": "CrossFit Alata",
+    "city": "Creil",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16071",
+    "gym_name": "CrossFit Albertville",
+    "city": "Albertville",
+    "country": "France",
+    "website": "http://www.crossfit-albertville.com/"
+  },
+  {
+    "affiliate_id": "35245",
+    "gym_name": "CrossFit Alca",
+    "city": "VALMONT",
+    "country": "France",
+    "website": "http://crossfitalca.fr"
+  },
+  {
+    "affiliate_id": "30511",
+    "gym_name": "CrossFit Alea",
+    "city": "Lille",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19545",
+    "gym_name": "CrossFit Allobroges",
+    "city": "Échirolles",
+    "country": "France",
+    "website": "http://crossfitallobroges.com/"
+  },
+  {
+    "affiliate_id": "29851",
+    "gym_name": "CrossFit Altais",
+    "city": "Seynod",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24161",
+    "gym_name": "CrossFit Altis",
+    "city": "Saint Souppets",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35506",
+    "gym_name": "CrossFit Alvilda",
+    "city": "Muzillac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34949",
+    "gym_name": "CrossFit AMA",
+    "city": "Mordelles",
+    "country": "France",
+    "website": "https://www.crossfit-ama.fr/"
+  },
+  {
+    "affiliate_id": "17514",
+    "gym_name": "CrossFit Amiens",
+    "city": "Amiens",
+    "country": "France",
+    "website": "https://crossfitamiens.fr/"
+  },
+  {
+    "affiliate_id": "35291",
+    "gym_name": "CrossFit Amistat",
+    "city": "Fleurance",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31930",
+    "gym_name": "CrossFit Ampuis",
+    "city": "Ampuis",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32022",
+    "gym_name": "CrossFit Anastasis",
+    "city": "Hazebrouck",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26693",
+    "gym_name": "CrossFit Andarta",
+    "city": "Auray",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21042",
+    "gym_name": "CrossFit Angers",
+    "city": "Angers",
+    "country": "France",
+    "website": "https://crossfitangers.com/"
+  },
+  {
+    "affiliate_id": "36129",
+    "gym_name": "CrossFit Angouleme",
+    "city": "Angouleme",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14719",
+    "gym_name": "CrossFit Arles",
+    "city": "Arles",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28629",
+    "gym_name": "CrossFit Armorica",
+    "city": "Plérin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35893",
+    "gym_name": "CrossFit Aro",
+    "city": "Brissac Loire Aubance",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29058",
+    "gym_name": "CrossFit Artemisia",
+    "city": "Malemort",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35650",
+    "gym_name": "CrossFit Artio",
+    "city": "DIJON",
+    "country": "France",
+    "website": "https://www.crossfitartio.com/"
+  },
+  {
+    "affiliate_id": "34414",
+    "gym_name": "CrossFit Asianum",
+    "city": "Aizenay",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18706",
+    "gym_name": "CrossFit Aslak",
+    "city": "Carrières-sur-Seine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34952",
+    "gym_name": "CrossFit Astera",
+    "city": "saint saturnin",
+    "country": "France",
+    "website": "https://c-astera.com/"
+  },
+  {
+    "affiliate_id": "28264",
+    "gym_name": "CrossFit Atom",
+    "city": "Beaumont",
+    "country": "France",
+    "website": "https://www.crossfit-atom.com/"
+  },
+  {
+    "affiliate_id": "35804",
+    "gym_name": "CrossFit Atom ALB",
+    "city": "AIX-LES-BAINS",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30543",
+    "gym_name": "CrossFit Aturus",
+    "city": "Cazeres sur l'Adour",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14353",
+    "gym_name": "CrossFit Aubagne Gemenos",
+    "city": "Gemenos",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25432",
+    "gym_name": "CrossFit Aubenas",
+    "city": "Aubenas",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22866",
+    "gym_name": "CrossFit Aubiere",
+    "city": "Aubière",
+    "country": "France",
+    "website": "https://crossfitaubiere.fr/"
+  },
+  {
+    "affiliate_id": "34111",
+    "gym_name": "CrossFit Auterive",
+    "city": "Auterive",
+    "country": "France",
+    "website": "https://crossfitauterive.fr/home"
+  },
+  {
+    "affiliate_id": "33000",
+    "gym_name": "CrossFit Autricum",
+    "city": "Mainvilliers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21404",
+    "gym_name": "CrossFit Avena",
+    "city": "Haguenau",
+    "country": "France",
+    "website": "http://www.crossfitavena.com/"
+  },
+  {
+    "affiliate_id": "36346",
+    "gym_name": "CrossFit Avignon",
+    "city": "Avignon",
+    "country": "France",
+    "website": "https://www.crossfit-avignon.fr/"
+  },
+  {
+    "affiliate_id": "32515",
+    "gym_name": "CrossFit Azalea",
+    "city": "La Mulatière",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30462",
+    "gym_name": "CrossFit Azur Arena",
+    "city": "La Gaude",
+    "country": "France",
+    "website": "https://www.crossfitazurarena.com/"
+  },
+  {
+    "affiliate_id": "20457",
+    "gym_name": "CrossFit Badass",
+    "city": "Angres",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23195",
+    "gym_name": "CrossFit Baie de Morlaix",
+    "city": "Saint-Martin-des-Champs",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13325",
+    "gym_name": "CrossFit Bailleul",
+    "city": "Bailleul",
+    "country": "France",
+    "website": "http://onetcrossfitbailleul.com/"
+  },
+  {
+    "affiliate_id": "16402",
+    "gym_name": "CrossFit Ballers",
+    "city": "Rouen",
+    "country": "France",
+    "website": "http://www.crossfitballers.com/"
+  },
+  {
+    "affiliate_id": "35639",
+    "gym_name": "CrossFit Ballers 2",
+    "city": "Belbeuf",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "12745",
+    "gym_name": "CrossFit Balma",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "http://www.crossfitbalma.com/"
+  },
+  {
+    "affiliate_id": "22215",
+    "gym_name": "CrossFit Bandol",
+    "city": "Bandol",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25496",
+    "gym_name": "CrossFit Bassin d'Arcachon",
+    "city": "Gujan-Mestras",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15518",
+    "gym_name": "CrossFit Bastia",
+    "city": "Bastia",
+    "country": "France",
+    "website": "http://crossfitbastia.com/"
+  },
+  {
+    "affiliate_id": "28243",
+    "gym_name": "CrossFit Bayeux",
+    "city": "Bayeux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22035",
+    "gym_name": "CrossFit BBN",
+    "city": "Herblay",
+    "country": "France",
+    "website": "https://crossfitbbn.com/"
+  },
+  {
+    "affiliate_id": "35577",
+    "gym_name": "CrossFit BBZ",
+    "city": "Barbezieux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19915",
+    "gym_name": "CrossFit Beaune",
+    "city": "Beaune",
+    "country": "France",
+    "website": "http://crossfitbeaune.com"
+  },
+  {
+    "affiliate_id": "33934",
+    "gym_name": "CrossFit Beauvais",
+    "city": "Beauvais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19814",
+    "gym_name": "CrossFit Belharra",
+    "city": "Saint-Jean-de-Luz",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35037",
+    "gym_name": "CrossFit Belna",
+    "city": "Beaune",
+    "country": "France",
+    "website": "https://www.instagram.com/crossfit_belna/"
+  },
+  {
+    "affiliate_id": "7688",
+    "gym_name": "CrossFit Besancon 958",
+    "city": "Besançon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34893",
+    "gym_name": "CrossFit Beynost",
+    "city": "Thil",
+    "country": "France",
+    "website": "https://crossfit-beynost.com/"
+  },
+  {
+    "affiliate_id": "14479",
+    "gym_name": "CrossFit Beziers",
+    "city": "Villenueve Les Beziers",
+    "country": "France",
+    "website": "http://www.crossfit-beziers.fr/"
+  },
+  {
+    "affiliate_id": "16628",
+    "gym_name": "CrossFit Biarritz",
+    "city": "Biarritz",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32664",
+    "gym_name": "CrossFit Bidart",
+    "city": "Bidart",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34529",
+    "gym_name": "CrossFit Bizot",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32047",
+    "gym_name": "CrossFit Blagnac",
+    "city": "Blagnac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20522",
+    "gym_name": "CrossFit Blast",
+    "city": "Le Versoud",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28460",
+    "gym_name": "CrossFit Blue Arena",
+    "city": "Grosbliederstroff",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22875",
+    "gym_name": "CrossFit BlueBird",
+    "city": "Saint-Priest-en-Jarez",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15593",
+    "gym_name": "CrossFit Bordeaux",
+    "city": "Artigues-près-Bordeaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21909",
+    "gym_name": "CrossFit Bourg-de-Péage",
+    "city": "Châteauneuf-sur-Isère",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17612",
+    "gym_name": "CrossFit Bourg-en-Bresse",
+    "city": "Bourg-en-Bresse",
+    "country": "France",
+    "website": "http://www.crossfitbourgenbresse.fr/"
+  },
+  {
+    "affiliate_id": "13199",
+    "gym_name": "CrossFit Bourgoin",
+    "city": "Bourgoin-Jallieu",
+    "country": "France",
+    "website": "http://www.crossfitbourgoin.com/"
+  },
+  {
+    "affiliate_id": "11698",
+    "gym_name": "CrossFit Brest",
+    "city": "Gouesnou",
+    "country": "France",
+    "website": "http://www.crossfit-brest.fr/"
+  },
+  {
+    "affiliate_id": "22565",
+    "gym_name": "CrossFit Brive la Gaillarde",
+    "city": "Brive-la-Gaillarde",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35172",
+    "gym_name": "CrossFit Brozh",
+    "city": "Guilers",
+    "country": "France",
+    "website": "https://www.crossfit-brozh.fr"
+  },
+  {
+    "affiliate_id": "35989",
+    "gym_name": "CrossFit Bumblebees",
+    "city": "Besancon",
+    "country": "France",
+    "website": "https://www.crossfit-bumblebees.fr/"
+  },
+  {
+    "affiliate_id": "24396",
+    "gym_name": "CrossFit Burning Fire",
+    "city": "Nogent le Rotrou",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34510",
+    "gym_name": "CrossFit Buzet",
+    "city": "Buzet-sur-Tarn",
+    "country": "France",
+    "website": "https://crossfitbuzet.glide.page"
+  },
+  {
+    "affiliate_id": "24392",
+    "gym_name": "CrossFit Bélénos",
+    "city": "Leulinghem",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35374",
+    "gym_name": "CrossFit Caecias",
+    "city": "Monswiller",
+    "country": "France",
+    "website": "https://crossfitcaecias.com/"
+  },
+  {
+    "affiliate_id": "35867",
+    "gym_name": "CrossFit Caen",
+    "city": "Mondeville",
+    "country": "France",
+    "website": "http://www.crossfitcaen.fr"
+  },
+  {
+    "affiliate_id": "29304",
+    "gym_name": "CrossFit Cagnes sur Mer",
+    "city": "Cagnes-sur-Mer",
+    "country": "France",
+    "website": "http://crossfitcagnes.com/"
+  },
+  {
+    "affiliate_id": "24691",
+    "gym_name": "CrossFit Cahors",
+    "city": "Cahors",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "10683",
+    "gym_name": "CrossFit Calais",
+    "city": "Calais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27870",
+    "gym_name": "CrossFit Callisto",
+    "city": "Quimper",
+    "country": "France",
+    "website": "https://crossfitbesafe.com/"
+  },
+  {
+    "affiliate_id": "21751",
+    "gym_name": "CrossFit Calmeta",
+    "city": "Saint-Leu-la-Forêt",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23858",
+    "gym_name": "CrossFit Camp Fire",
+    "city": "Onet-le-Château",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22432",
+    "gym_name": "CrossFit Camp Major",
+    "city": "Aubagne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15961",
+    "gym_name": "CrossFit Cannes",
+    "city": "Cannes",
+    "country": "France",
+    "website": "http://crossfitcannes.com/"
+  },
+  {
+    "affiliate_id": "33860",
+    "gym_name": "CrossFit Canopée",
+    "city": "Chevigny-Saint-Sauveur",
+    "country": "France",
+    "website": "https://crossfitcanopee.com/"
+  },
+  {
+    "affiliate_id": "34538",
+    "gym_name": "CrossFit Capacity",
+    "city": "Chambéry",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "7134",
+    "gym_name": "CrossFit Carcassonne",
+    "city": "Carcassonne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20360",
+    "gym_name": "CrossFit Castanet-Tolosan",
+    "city": "Castanet-Tolosan",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26724",
+    "gym_name": "CrossFit Castellio",
+    "city": "Châtillon",
+    "country": "France",
+    "website": "https://www.crossfitcastellio.com/"
+  },
+  {
+    "affiliate_id": "34698",
+    "gym_name": "CrossFit Castellio 2",
+    "city": "Clamart",
+    "country": "France",
+    "website": "https://www.crossfitcastellio.com"
+  },
+  {
+    "affiliate_id": "19183",
+    "gym_name": "CrossFit Castres",
+    "city": "Castres",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22628",
+    "gym_name": "CrossFit Castèu",
+    "city": "Rognonas",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28189",
+    "gym_name": "CrossFit Cathare",
+    "city": "Montredon-des-Corbières",
+    "country": "France",
+    "website": "https://www.crossfitcathare.com/"
+  },
+  {
+    "affiliate_id": "32899",
+    "gym_name": "CrossFit Caudry",
+    "city": "Caudry",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13384",
+    "gym_name": "CrossFit Cenabum",
+    "city": "Olivet",
+    "country": "France",
+    "website": "http://www.crossfitcenabum.fr/"
+  },
+  {
+    "affiliate_id": "26751",
+    "gym_name": "CrossFit Cenabum II",
+    "city": "Fleury-les-Aubrais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23593",
+    "gym_name": "CrossFit Challans",
+    "city": "Challans",
+    "country": "France",
+    "website": "http://crossfitchallans.fr/"
+  },
+  {
+    "affiliate_id": "17516",
+    "gym_name": "CrossFit Chalon Sur Saone",
+    "city": "Chalon sur saone",
+    "country": "France",
+    "website": "https://www.crossfitchalonsursaone.com"
+  },
+  {
+    "affiliate_id": "18136",
+    "gym_name": "CrossFit Chambéry",
+    "city": "Chambéry",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16438",
+    "gym_name": "CrossFit Chartres",
+    "city": "Chartres",
+    "country": "France",
+    "website": "http://crossfitchartres.com/"
+  },
+  {
+    "affiliate_id": "20532",
+    "gym_name": "CrossFit Chelles",
+    "city": "Chelles",
+    "country": "France",
+    "website": "https://www.crossfitchelles.com/"
+  },
+  {
+    "affiliate_id": "30841",
+    "gym_name": "CrossFit Chinon",
+    "city": "Chinon",
+    "country": "France",
+    "website": "https://www.crossfit-chinon.fr/"
+  },
+  {
+    "affiliate_id": "31856",
+    "gym_name": "CrossFit Chistera",
+    "city": "Saint-Pierre-de-Chandieu",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "8336",
+    "gym_name": "CrossFit Cholet",
+    "city": "La Séguinière",
+    "country": "France",
+    "website": "http://www.crossfitcholet.com/"
+  },
+  {
+    "affiliate_id": "19750",
+    "gym_name": "CrossFit CHTX",
+    "city": "Châteauroux",
+    "country": "France",
+    "website": "http://www.crossfitchtx.com/"
+  },
+  {
+    "affiliate_id": "20632",
+    "gym_name": "CrossFit Clapiers",
+    "city": "Clapiers",
+    "country": "France",
+    "website": "https://www.crossfitclapiers.com"
+  },
+  {
+    "affiliate_id": "34358",
+    "gym_name": "CrossFit Claye",
+    "city": "Claye-Souilly",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19634",
+    "gym_name": "CrossFit Clermont l' Hérault",
+    "city": "Clermont-l'Hérault",
+    "country": "France",
+    "website": "http://www.crossfit-clermont-lherault.com/"
+  },
+  {
+    "affiliate_id": "16545",
+    "gym_name": "CrossFit Clermont-Ferrand",
+    "city": "Clermont-Ferrand",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29236",
+    "gym_name": "CrossFit Colomiers",
+    "city": "Colomiers",
+    "country": "France",
+    "website": "https://www.crossfitcolomiers.com/"
+  },
+  {
+    "affiliate_id": "32913",
+    "gym_name": "CrossFit Colors",
+    "city": "Saint-Herblain",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19052",
+    "gym_name": "CrossFit Cordée",
+    "city": "Amancy",
+    "country": "France",
+    "website": "https://crossfitcordee.com/"
+  },
+  {
+    "affiliate_id": "21800",
+    "gym_name": "CrossFit Cormeilles en Parisis",
+    "city": "Cormeilles-en-Parisis",
+    "country": "France",
+    "website": "https://crossfit-cormeilles-en-parisis.fr/"
+  },
+  {
+    "affiliate_id": "33556",
+    "gym_name": "CrossFit Cornebarrieu Center",
+    "city": "Cornebarrieu",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20443",
+    "gym_name": "CrossFit Corsaire",
+    "city": "Anthy-sur-Léman",
+    "country": "France",
+    "website": "https://www.crossfitcorsaire.com/"
+  },
+  {
+    "affiliate_id": "22948",
+    "gym_name": "CrossFit Corte",
+    "city": "Corte",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35615",
+    "gym_name": "CrossFit Cote Sau",
+    "city": "La Trembalde",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "10647",
+    "gym_name": "CrossFit CP95",
+    "city": "Osny",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31941",
+    "gym_name": "CrossFit CPX",
+    "city": "Mées",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32079",
+    "gym_name": "CrossFit Créon",
+    "city": "Créon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13574",
+    "gym_name": "CrossFit CSH",
+    "city": "Conflans-Sainte-Honorine",
+    "country": "France",
+    "website": "http://www.crossfitcsh.com/"
+  },
+  {
+    "affiliate_id": "33317",
+    "gym_name": "CrossFit Cuers",
+    "city": "Cuers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25972",
+    "gym_name": "CrossFit Daemon",
+    "city": "Chasseneuil Du Poitou",
+    "country": "France",
+    "website": "https://crossfitdaemon.fr/"
+  },
+  {
+    "affiliate_id": "20023",
+    "gym_name": "CrossFit DAHU",
+    "city": "Aix-les-Bains",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30392",
+    "gym_name": "CrossFit Dark Eye",
+    "city": "Canals",
+    "country": "France",
+    "website": "https://www.crossfitdarkeye.fr/"
+  },
+  {
+    "affiliate_id": "33663",
+    "gym_name": "CrossFit Dark Monkey",
+    "city": "Arandon-Passins",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31960",
+    "gym_name": "CrossFit Dark Place",
+    "city": "Champigny",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16786",
+    "gym_name": "CrossFit DBS 83",
+    "city": "La Garde",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34680",
+    "gym_name": "CrossFit de l'Erdre",
+    "city": "Nort-sur-Erdre",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21439",
+    "gym_name": "CrossFit de la Paix",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26502",
+    "gym_name": "CrossFit Dery Street",
+    "city": "Saint-Sylvain-d'Anjou",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28236",
+    "gym_name": "CrossFit des Bûcherons",
+    "city": "Schweighouse-sur-Moder",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33107",
+    "gym_name": "CrossFit Des Canuts",
+    "city": "Lyon",
+    "country": "France",
+    "website": "https://crossfitdescanuts.fr"
+  },
+  {
+    "affiliate_id": "32443",
+    "gym_name": "CrossFit des Graves",
+    "city": "Martillac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16046",
+    "gym_name": "CrossFit Des Monts",
+    "city": "Civrieux-d'Azergues",
+    "country": "France",
+    "website": "http://crossfitdesmonts.com/"
+  },
+  {
+    "affiliate_id": "27688",
+    "gym_name": "CrossFit Des Pentes",
+    "city": "Lyon",
+    "country": "France",
+    "website": "https://crossfitdespentes.fr/"
+  },
+  {
+    "affiliate_id": "12665",
+    "gym_name": "CrossFit des Sacres",
+    "city": "Cormontreuil",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33865",
+    "gym_name": "CrossFit Deux Voûtes",
+    "city": "Bordeaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13465",
+    "gym_name": "CrossFit Dijon",
+    "city": "Saint-Apollinaire",
+    "country": "France",
+    "website": "http://www.crossfit-dijon.com/"
+  },
+  {
+    "affiliate_id": "30158",
+    "gym_name": "CrossFit Dinan",
+    "city": "Quevert",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17590",
+    "gym_name": "CrossFit Diversity",
+    "city": "Montévrain",
+    "country": "France",
+    "website": "https://www.crossfitdiversity.fr"
+  },
+  {
+    "affiliate_id": "31827",
+    "gym_name": "CrossFit Dole",
+    "city": "Foucherans",
+    "country": "France",
+    "website": "https://crossfitdole.fr/"
+  },
+  {
+    "affiliate_id": "34766",
+    "gym_name": "CrossFit Doller",
+    "city": "Burnhaupt-le-Haut",
+    "country": "France",
+    "website": "https://www.crossfit-doller.fr"
+  },
+  {
+    "affiliate_id": "17739",
+    "gym_name": "CrossFit Douai",
+    "city": "Douai",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35050",
+    "gym_name": "CrossFit Douvaine",
+    "city": "Douvaine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32922",
+    "gym_name": "CrossFit Drakarys",
+    "city": "L'Union",
+    "country": "France",
+    "website": "https://crossfit-drakarys.com/"
+  },
+  {
+    "affiliate_id": "18575",
+    "gym_name": "CrossFit Drakôn",
+    "city": "Trans en Provence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26637",
+    "gym_name": "CrossFit Draveil",
+    "city": "Draveil",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32642",
+    "gym_name": "CrossFit Dreux",
+    "city": "Vernouillet",
+    "country": "France",
+    "website": "https://www.crossfitdreux.fr/"
+  },
+  {
+    "affiliate_id": "35126",
+    "gym_name": "CrossFit Du Dome",
+    "city": "CHAPONOST",
+    "country": "France",
+    "website": "https://www.instagram.com/crossfit_du_dome?igsh=bHAwMHhzamY5ODFy"
+  },
+  {
+    "affiliate_id": "31376",
+    "gym_name": "CrossFit Dunkerque",
+    "city": "Armbouts-Cappel",
+    "country": "France",
+    "website": "https://crossfitdunkerque.fr/"
+  },
+  {
+    "affiliate_id": "25604",
+    "gym_name": "CrossFit Eclair",
+    "city": "Buchelay",
+    "country": "France",
+    "website": "https://www.crossfiteclair.com"
+  },
+  {
+    "affiliate_id": "35094",
+    "gym_name": "CrossFit Eighteen",
+    "city": "Volmerange les mines",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23293",
+    "gym_name": "CrossFit Ekara",
+    "city": "Bassens",
+    "country": "France",
+    "website": "https://crossfitekara.com"
+  },
+  {
+    "affiliate_id": "17196",
+    "gym_name": "CrossFit Electron",
+    "city": "Châtillon-le-Duc",
+    "country": "France",
+    "website": "http://crossfitelectron.fr/"
+  },
+  {
+    "affiliate_id": "15040",
+    "gym_name": "CrossFit Elephas",
+    "city": "Chambéry",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35792",
+    "gym_name": "CrossFit Elysion",
+    "city": "Château-Gontier-sur-Mayenne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33427",
+    "gym_name": "CrossFit Embrun",
+    "city": "Embrun",
+    "country": "France",
+    "website": "https://ldocommunity.com/"
+  },
+  {
+    "affiliate_id": "19170",
+    "gym_name": "CrossFit Epinal",
+    "city": "Chavelot",
+    "country": "France",
+    "website": "http://www.crossfitepinal.com/"
+  },
+  {
+    "affiliate_id": "11363",
+    "gym_name": "CrossFit Epsilon",
+    "city": "Marseille",
+    "country": "France",
+    "website": "http://www.crossfitepsilon.com/"
+  },
+  {
+    "affiliate_id": "20621",
+    "gym_name": "CrossFit Erer",
+    "city": "Rennes",
+    "country": "France",
+    "website": "https://www.crossfiterer.com/"
+  },
+  {
+    "affiliate_id": "15633",
+    "gym_name": "CrossFit Essor",
+    "city": "Bayonne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32694",
+    "gym_name": "CrossFit Esterel",
+    "city": "Puget-sur-Argens",
+    "country": "France",
+    "website": "https://crossfitesterel.fr/"
+  },
+  {
+    "affiliate_id": "21863",
+    "gym_name": "CrossFit Estuary",
+    "city": "Floirac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22824",
+    "gym_name": "CrossFit Evreux",
+    "city": "Guichainville",
+    "country": "France",
+    "website": "http://www.crossfitevreux.fr"
+  },
+  {
+    "affiliate_id": "20134",
+    "gym_name": "CrossFit Eysines",
+    "city": "Eysines",
+    "country": "France",
+    "website": "http://crossfiteysines.com/"
+  },
+  {
+    "affiliate_id": "21966",
+    "gym_name": "CrossFit F621",
+    "city": "Calais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34696",
+    "gym_name": "CrossFit Factory Boulogne Billancourt",
+    "city": "Boulogne-Billancourt",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24693",
+    "gym_name": "CrossFit Fall and Rise",
+    "city": "Beaurains",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29454",
+    "gym_name": "CrossFit Fenrir",
+    "city": "Voisins-le-Bretonneux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34642",
+    "gym_name": "CrossFit Fenrir 2",
+    "city": "Villebon-sur-Yvette",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24265",
+    "gym_name": "CrossFit First Time",
+    "city": "Orthez",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33863",
+    "gym_name": "CrossFit Forcal",
+    "city": "Forcalqueiret",
+    "country": "France",
+    "website": "https://crossfitforcal.fr/"
+  },
+  {
+    "affiliate_id": "19948",
+    "gym_name": "CrossFit Frankton",
+    "city": "Saint-Médard-en-Jalles",
+    "country": "France",
+    "website": "http://www.crossfitfrankton.fr/"
+  },
+  {
+    "affiliate_id": "24251",
+    "gym_name": "CrossFit Friendly",
+    "city": "Maraussan",
+    "country": "France",
+    "website": "https://crossfitfriendly.fr/fr/accueil_1"
+  },
+  {
+    "affiliate_id": "17700",
+    "gym_name": "CrossFit Fréjus",
+    "city": "Fréjus",
+    "country": "France",
+    "website": "http://www.crossfit-frejus.com/"
+  },
+  {
+    "affiliate_id": "33516",
+    "gym_name": "CrossFit FSN40",
+    "city": "Josse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16156",
+    "gym_name": "CrossFit G-Steel",
+    "city": "Saran",
+    "country": "France",
+    "website": "http://www.crossfit-g-steel.com/"
+  },
+  {
+    "affiliate_id": "34721",
+    "gym_name": "CrossFit Gaillac - Les Cuirassés",
+    "city": "Gaillac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19244",
+    "gym_name": "CrossFit Gaius",
+    "city": "Aix-en-Provence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34551",
+    "gym_name": "CrossFit Galactic",
+    "city": "Tosse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26650",
+    "gym_name": "CrossFit Galea",
+    "city": "Laudun-l'Ardoise",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "36316",
+    "gym_name": "CrossFit Galian",
+    "city": "Guingamp",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22988",
+    "gym_name": "CrossFit GaliléÔ",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "https://www.galileo-labox.com/"
+  },
+  {
+    "affiliate_id": "35906",
+    "gym_name": "CrossFit Gambetta",
+    "city": "Grenoble",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34281",
+    "gym_name": "CrossFit Gap",
+    "city": "Gap",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27239",
+    "gym_name": "CrossFit Genas",
+    "city": "Genas",
+    "country": "France",
+    "website": "https://crossfitgenas.com/"
+  },
+  {
+    "affiliate_id": "30430",
+    "gym_name": "CrossFit Genay",
+    "city": "Genay",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34675",
+    "gym_name": "CrossFit Genki",
+    "city": "Talange",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13617",
+    "gym_name": "CrossFit Gerland",
+    "city": "Lyon",
+    "country": "France",
+    "website": "http://crossfit-gerland.com/"
+  },
+  {
+    "affiliate_id": "29850",
+    "gym_name": "CrossFit Giants",
+    "city": "Saint-Ouen-l'Aumône",
+    "country": "France",
+    "website": "https://www.crossfitgiants.com/"
+  },
+  {
+    "affiliate_id": "19786",
+    "gym_name": "CrossFit Gigean",
+    "city": "Gigean",
+    "country": "France",
+    "website": "https://www.crossfitgigean.com/"
+  },
+  {
+    "affiliate_id": "22070",
+    "gym_name": "CrossFit GLHF Craponne",
+    "city": "Craponne",
+    "country": "France",
+    "website": "https://www.crossfitglhf.com/"
+  },
+  {
+    "affiliate_id": "30890",
+    "gym_name": "CrossFit Glow Up",
+    "city": "Saint-Jory",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27307",
+    "gym_name": "CrossFit Gones",
+    "city": "Saint-Bonnet-de-Mure",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34612",
+    "gym_name": "CrossFit Good Vibes Only",
+    "city": "Chambray-lès-Tours",
+    "country": "France",
+    "website": "https://goodvibestraining.fr/"
+  },
+  {
+    "affiliate_id": "32794",
+    "gym_name": "CrossFit Grand Duc",
+    "city": "Méré",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29484",
+    "gym_name": "CrossFit Grand Rond",
+    "city": "Toulouse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "11234",
+    "gym_name": "CrossFit Grande Arche Station",
+    "city": "Puteaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35365",
+    "gym_name": "CrossFit Grands Lacs",
+    "city": "Biscarrosse",
+    "country": "France",
+    "website": "http://www.crossfitgrandslacs.fr"
+  },
+  {
+    "affiliate_id": "26435",
+    "gym_name": "CrossFit Graoully",
+    "city": "Montigny-lès-Metz",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35785",
+    "gym_name": "CrossFit Grasse",
+    "city": "Grasse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29330",
+    "gym_name": "CrossFit Gratte-Ciel",
+    "city": "Villeurbanne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "36366",
+    "gym_name": "CrossFit Grenade",
+    "city": "Grenade",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "7798",
+    "gym_name": "CrossFit Grenoble",
+    "city": "Saint-Martin-d'Hères",
+    "country": "France",
+    "website": "http://www.grenoble-crossfit.com/"
+  },
+  {
+    "affiliate_id": "31054",
+    "gym_name": "CrossFit Gresivaudan",
+    "city": "Bernin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16641",
+    "gym_name": "CrossFit Grillen",
+    "city": "Colmar",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33426",
+    "gym_name": "CrossFit Grimaud",
+    "city": "Grimaud",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22792",
+    "gym_name": "CrossFit Haekkun 2.1",
+    "city": "Longvic",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22609",
+    "gym_name": "CrossFit Hanuman",
+    "city": "Venelles",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21364",
+    "gym_name": "CrossFit Happiness",
+    "city": "Le Mans",
+    "country": "France",
+    "website": "https://crossfithappiness.fr/"
+  },
+  {
+    "affiliate_id": "34881",
+    "gym_name": "CrossFit Happy Hearts",
+    "city": "Narrosse",
+    "country": "France",
+    "website": "https://crossfithappyhearts.fr"
+  },
+  {
+    "affiliate_id": "17467",
+    "gym_name": "CrossFit Hati",
+    "city": "Montigny-le-Bretonneux",
+    "country": "France",
+    "website": "https://www.hati-crossfit.com/"
+  },
+  {
+    "affiliate_id": "23411",
+    "gym_name": "CrossFit Haut Jura",
+    "city": "Saint-Genis-Pouilly",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31874",
+    "gym_name": "CrossFit Heart of Pirate",
+    "city": "Lattes",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25444",
+    "gym_name": "CrossFit Heimdall",
+    "city": "Marseille",
+    "country": "France",
+    "website": "http://www.crossfitheimdall.com/"
+  },
+  {
+    "affiliate_id": "35733",
+    "gym_name": "CrossFit HEKA - Croix-Rousse",
+    "city": "69004",
+    "country": "France",
+    "website": "https://crossfit-heka.fr/box-lyon-croix-rousse"
+  },
+  {
+    "affiliate_id": "29914",
+    "gym_name": "CrossFit HEKA Part-Dieu",
+    "city": "Lyon",
+    "country": "France",
+    "website": "https://crossfit-heka.fr/box-lyon-part-dieu"
+  },
+  {
+    "affiliate_id": "27244",
+    "gym_name": "CrossFit Heliades",
+    "city": "Villemandeur",
+    "country": "France",
+    "website": "https://www.crossfitheliades.fr/"
+  },
+  {
+    "affiliate_id": "19352",
+    "gym_name": "CrossFit Hemanta",
+    "city": "Hem",
+    "country": "France",
+    "website": "https://www.crossfithem.fr/"
+  },
+  {
+    "affiliate_id": "12139",
+    "gym_name": "CrossFit Hendaye",
+    "city": "Hendaye",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34649",
+    "gym_name": "CrossFit Heol",
+    "city": "Plomeur",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20259",
+    "gym_name": "CrossFit Heresy",
+    "city": "Croix",
+    "country": "France",
+    "website": "https://www.crossfitheresy.com"
+  },
+  {
+    "affiliate_id": "34039",
+    "gym_name": "CrossFit HFS",
+    "city": "Gradignan",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26877",
+    "gym_name": "CrossFit Hinotori",
+    "city": "Orléans",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33042",
+    "gym_name": "CrossFit Histía",
+    "city": "Raismes",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24766",
+    "gym_name": "CrossFit Honey Baby",
+    "city": "Vezin-Le-Coquet",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34128",
+    "gym_name": "CrossFit Hope",
+    "city": "Barentin",
+    "country": "France",
+    "website": "https://crossfithope.fr/"
+  },
+  {
+    "affiliate_id": "34330",
+    "gym_name": "CrossFit Hormesis",
+    "city": "Bourg-Blanc",
+    "country": "France",
+    "website": "https://crossfit-hormesis.fr/"
+  },
+  {
+    "affiliate_id": "33874",
+    "gym_name": "CrossFit Hossegor",
+    "city": "Hossegor",
+    "country": "France",
+    "website": "https://www.break-hossegor.fr/"
+  },
+  {
+    "affiliate_id": "10801",
+    "gym_name": "CrossFit Hostilius",
+    "city": "Perpignan",
+    "country": "France",
+    "website": "http://crossfit-hostilius.fr/"
+  },
+  {
+    "affiliate_id": "35717",
+    "gym_name": "CrossFit HTC",
+    "city": "Sand",
+    "country": "France",
+    "website": "http://hilotrainingclub.com"
+  },
+  {
+    "affiliate_id": "35971",
+    "gym_name": "CrossFit Hyères MyCrew",
+    "city": "Hyères",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20102",
+    "gym_name": "CrossFit Héraclès",
+    "city": "Gouesnou",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32151",
+    "gym_name": "CrossFit Héraclès II",
+    "city": "Plouedern",
+    "country": "France",
+    "website": "https://www.crossfit-heracles.fr/"
+  },
+  {
+    "affiliate_id": "20167",
+    "gym_name": "CrossFit Hésingue",
+    "city": "Hésingue",
+    "country": "France",
+    "website": "http://crossfit-hesingue.fr/"
+  },
+  {
+    "affiliate_id": "30800",
+    "gym_name": "CrossFit IKI",
+    "city": "Marseille",
+    "country": "France",
+    "website": "https://www.crossfitiki.com/"
+  },
+  {
+    "affiliate_id": "17248",
+    "gym_name": "CrossFit Illzach",
+    "city": "Illzach",
+    "country": "France",
+    "website": "http://crossfit-illzach.fr/"
+  },
+  {
+    "affiliate_id": "36291",
+    "gym_name": "CrossFit Impala",
+    "city": "Villeneuve d'ascq",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "11610",
+    "gym_name": "CrossFit Initium",
+    "city": "Villeneuve-d'Ascq",
+    "country": "France",
+    "website": "http://www.crossfit-initium.com"
+  },
+  {
+    "affiliate_id": "32571",
+    "gym_name": "CrossFit IO",
+    "city": "Dolus d'Oleron",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24248",
+    "gym_name": "CrossFit Kaizoku Bourg-la-Reine",
+    "city": "Bourg-la-Reine",
+    "country": "France",
+    "website": "https://www.stayfit.fr/crossfit-kaizoku-bourg-la-reine/"
+  },
+  {
+    "affiliate_id": "35520",
+    "gym_name": "CrossFit Kaizoku Take Control",
+    "city": "Wissous",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34888",
+    "gym_name": "CrossFit Kalon",
+    "city": "Lannion",
+    "country": "France",
+    "website": "https://www.crossfit-kalon.fr/"
+  },
+  {
+    "affiliate_id": "24306",
+    "gym_name": "CrossFit Kanaka 01",
+    "city": "Replonges",
+    "country": "France",
+    "website": "https://www.crossfitkanaka01.fr/"
+  },
+  {
+    "affiliate_id": "25856",
+    "gym_name": "CrossFit Kanda",
+    "city": "Cournon d’Auvergne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33898",
+    "gym_name": "CrossFit Kanoa",
+    "city": "Le Cannet",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30778",
+    "gym_name": "CrossFit Karreg",
+    "city": "Trégueux",
+    "country": "France",
+    "website": "https://www.crossfitkarreg.fr/"
+  },
+  {
+    "affiliate_id": "32481",
+    "gym_name": "CrossFit Kasadenn",
+    "city": "Ploërmel",
+    "country": "France",
+    "website": "http://www.crossfitkasadenn.fr/"
+  },
+  {
+    "affiliate_id": "33657",
+    "gym_name": "CrossFit KEMP",
+    "city": "Cranves-Sales",
+    "country": "France",
+    "website": "https://crossfit-kemp.com"
+  },
+  {
+    "affiliate_id": "32041",
+    "gym_name": "CrossFit Keraos",
+    "city": "Nordhouse",
+    "country": "France",
+    "website": "https://crossfitkeraos.fr"
+  },
+  {
+    "affiliate_id": "31956",
+    "gym_name": "CrossFit Khaleesi",
+    "city": "Locminé",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "36079",
+    "gym_name": "CrossFit Kia Ora",
+    "city": "Krautergersheim",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31299",
+    "gym_name": "CrossFit Kinêma",
+    "city": "Saint-Georges-de-Reneins",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21334",
+    "gym_name": "CrossFit Korrigan",
+    "city": "Cesson-Sévigné",
+    "country": "France",
+    "website": "https://www.crossfitkorrigan.com/"
+  },
+  {
+    "affiliate_id": "33313",
+    "gym_name": "CrossFit KR",
+    "city": "Annemasse",
+    "country": "France",
+    "website": "https://www.crossfitkrannemasse.com"
+  },
+  {
+    "affiliate_id": "19324",
+    "gym_name": "CrossFit Krios",
+    "city": "Canéjan",
+    "country": "France",
+    "website": "https://www.crossfitkrios.com/"
+  },
+  {
+    "affiliate_id": "34688",
+    "gym_name": "CrossFit Kurnos",
+    "city": "BASTIA",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "6688",
+    "gym_name": "CrossFit L 700",
+    "city": "Mérignac",
+    "country": "France",
+    "website": "https://www.crossfitl700.com/"
+  },
+  {
+    "affiliate_id": "23081",
+    "gym_name": "CrossFit L'Abattoir",
+    "city": "Valence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13583",
+    "gym_name": "CrossFit L'Entrepot",
+    "city": "Le Havre",
+    "country": "France",
+    "website": "https://crossfitlentrepot.com/"
+  },
+  {
+    "affiliate_id": "24040",
+    "gym_name": "CrossFit L'Ondaine",
+    "city": "Firminy",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35145",
+    "gym_name": "CrossFit La Box du Bocage",
+    "city": "LES HERBIERS",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17207",
+    "gym_name": "CrossFit La Ciotat",
+    "city": "La Ciotat",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18939",
+    "gym_name": "CrossFit La Croix-Valmer",
+    "city": "La Croix-Valmer",
+    "country": "France",
+    "website": "http://www.crossfitlacroixvalmer.com"
+  },
+  {
+    "affiliate_id": "34863",
+    "gym_name": "CrossFit La Farlède",
+    "city": "La Farlède",
+    "country": "France",
+    "website": "http://crossfitlafarlede.com"
+  },
+  {
+    "affiliate_id": "18552",
+    "gym_name": "CrossFit La Fontaine",
+    "city": "Château-Thierry",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26859",
+    "gym_name": "CrossFit La Forge",
+    "city": "Sorgues",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16326",
+    "gym_name": "CrossFit La Gardiole",
+    "city": "Fabrègues",
+    "country": "France",
+    "website": "http://www.crossfitlagardiole.fr/"
+  },
+  {
+    "affiliate_id": "31742",
+    "gym_name": "CrossFit La Licorne",
+    "city": "Gaillan-en-Médoc",
+    "country": "France",
+    "website": "https://crossfit-lalicorne.fr/"
+  },
+  {
+    "affiliate_id": "30413",
+    "gym_name": "CrossFit La Meute",
+    "city": "Saint-Jean-de-Védas",
+    "country": "France",
+    "website": "http://www.crossfitlameute.fr"
+  },
+  {
+    "affiliate_id": "33058",
+    "gym_name": "Crossfit La Ramée",
+    "city": "Cugnaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "7499",
+    "gym_name": "CrossFit La Roche sur Yon",
+    "city": "Mouilleron-le-Captif",
+    "country": "France",
+    "website": "http://crossfitlarochesuryon.com/"
+  },
+  {
+    "affiliate_id": "33851",
+    "gym_name": "CrossFit La Rochefoucauld",
+    "city": "La Rochefoucauld-en-Angoumois",
+    "country": "France",
+    "website": "https://www.crossfitlarochefoucauld.fr/"
+  },
+  {
+    "affiliate_id": "23174",
+    "gym_name": "CrossFit La Ruche",
+    "city": "Chateauneuf les martigues",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27172",
+    "gym_name": "CrossFit La Seyne",
+    "city": "La Seyne-sur-Mer",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "12674",
+    "gym_name": "CrossFit La Taniere",
+    "city": "Sancé",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24443",
+    "gym_name": "CrossFit La Valbarelle",
+    "city": "Marseille",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23118",
+    "gym_name": "CrossFit La Zone Carbonne",
+    "city": "Carbonne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33640",
+    "gym_name": "CrossFit Lab",
+    "city": "Labège",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35638",
+    "gym_name": "CrossFit Laboratory",
+    "city": "Sarrebourg",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33447",
+    "gym_name": "CrossFit Ladder",
+    "city": "Wittenheim",
+    "country": "France",
+    "website": "https://www.crossfitladder.fr"
+  },
+  {
+    "affiliate_id": "14637",
+    "gym_name": "CrossFit Lambesc",
+    "city": "Lambesc",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33796",
+    "gym_name": "CrossFit Langon",
+    "city": "Langon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33923",
+    "gym_name": "CrossFit Lannion",
+    "city": "Lannion",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "36297",
+    "gym_name": "CrossFit Laon",
+    "city": "Laon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22050",
+    "gym_name": "CrossFit Lauragais",
+    "city": "Avignonet Lauragais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34377",
+    "gym_name": "CrossFit Lauragais 2",
+    "city": "Ayguesvives",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15871",
+    "gym_name": "CrossFit Laxou",
+    "city": "Laxou",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34015",
+    "gym_name": "CrossFit Le Bercail",
+    "city": "Montady",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34561",
+    "gym_name": "CrossFit Le Chaudron",
+    "city": "Saint-Étienne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14630",
+    "gym_name": "CrossFit Le Mans",
+    "city": "Saint-Pavace",
+    "country": "France",
+    "website": "http://www.crossfitlemans.com/"
+  },
+  {
+    "affiliate_id": "31977",
+    "gym_name": "CrossFit Le Muy",
+    "city": "Le Muy",
+    "country": "France",
+    "website": "https://www.crossfit-lemuy.com/"
+  },
+  {
+    "affiliate_id": "34416",
+    "gym_name": "CrossFit LE PUY",
+    "city": "Le Puy-en-Velay",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "9705",
+    "gym_name": "CrossFit Le Thor",
+    "city": "L'Isle-sur-la-Sorgue",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14928",
+    "gym_name": "CrossFit Le Trapèze",
+    "city": "Boulogne-Billancourt",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17357",
+    "gym_name": "CrossFit Le Troisieme Endroit",
+    "city": "Alès",
+    "country": "France",
+    "website": "http://crossfit-letroisiemeendroit.fr/"
+  },
+  {
+    "affiliate_id": "32184",
+    "gym_name": "CrossFit Lead Your Life",
+    "city": "Dole",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27481",
+    "gym_name": "CrossFit Legendary",
+    "city": "Rumilly",
+    "country": "France",
+    "website": "https://crossfitlegendary.fr/"
+  },
+  {
+    "affiliate_id": "31775",
+    "gym_name": "CrossFit Leoniz",
+    "city": "Lesneven",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21787",
+    "gym_name": "CrossFit Les Angles",
+    "city": "Les Angles",
+    "country": "France",
+    "website": "http://www.crossfitlesangles.fr"
+  },
+  {
+    "affiliate_id": "33862",
+    "gym_name": "CrossFit Les Deux Tours",
+    "city": "Golfech",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18277",
+    "gym_name": "CrossFit Les Enfants De La Barre",
+    "city": "Montrouge",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30657",
+    "gym_name": "CrossFit Les Herbiers",
+    "city": "Les Herbiers",
+    "country": "France",
+    "website": "https://crossfitlesherbiers.fr/"
+  },
+  {
+    "affiliate_id": "30656",
+    "gym_name": "CrossFit les Remparts",
+    "city": "Provins",
+    "country": "France",
+    "website": "https://crossfit-lesremparts.com/"
+  },
+  {
+    "affiliate_id": "21642",
+    "gym_name": "CrossFit Les Sables D'olonne",
+    "city": "Olonne-sur-Mer",
+    "country": "France",
+    "website": "https://www.crossfitlessablesdolonne.fr/"
+  },
+  {
+    "affiliate_id": "24270",
+    "gym_name": "CrossFit Lesdiguières",
+    "city": "Grenoble",
+    "country": "France",
+    "website": "https://www.crossfit-lesdiguieres.fr/"
+  },
+  {
+    "affiliate_id": "30675",
+    "gym_name": "CrossFit LGA",
+    "city": "Luce",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21833",
+    "gym_name": "CrossFit Libourne",
+    "city": "Libourne",
+    "country": "France",
+    "website": "http://crossfitlibourne.com/"
+  },
+  {
+    "affiliate_id": "28717",
+    "gym_name": "CrossFit Ligeris",
+    "city": "Orléans",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "11342",
+    "gym_name": "CrossFit Limoges",
+    "city": "Limoges",
+    "country": "France",
+    "website": "http://www.thebox-limoges.fr"
+  },
+  {
+    "affiliate_id": "26663",
+    "gym_name": "CrossFit Limonest",
+    "city": "Limonest",
+    "country": "France",
+    "website": "https://crossfitlimonest.com/"
+  },
+  {
+    "affiliate_id": "26661",
+    "gym_name": "CrossFit Linestra",
+    "city": "Lingolsheim",
+    "country": "France",
+    "website": "https://www.crossfitlinestra.fr/"
+  },
+  {
+    "affiliate_id": "34679",
+    "gym_name": "CrossFit Lisieux",
+    "city": "Lisieux",
+    "country": "France",
+    "website": "https://crossfit-lisieux.fr/"
+  },
+  {
+    "affiliate_id": "34178",
+    "gym_name": "CrossFit LOBET",
+    "city": "Champtercier",
+    "country": "France",
+    "website": "https://app.peppy.cool/boxes/null/clsoifae34441821jmmwh7xziwc/book/?skipPlatformFees=true"
+  },
+  {
+    "affiliate_id": "28736",
+    "gym_name": "CrossFit Lognes",
+    "city": "Lognes",
+    "country": "France",
+    "website": "https://www.crossfitlognes.com"
+  },
+  {
+    "affiliate_id": "18717",
+    "gym_name": "CrossFit Lons le Saunier",
+    "city": "LONS le saunier",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26301",
+    "gym_name": "CrossFit Louviers",
+    "city": "Louviers",
+    "country": "France",
+    "website": "https://crossfitlouviers.fr/"
+  },
+  {
+    "affiliate_id": "3993",
+    "gym_name": "CrossFit Louvre",
+    "city": "Paris",
+    "country": "France",
+    "website": "http://www.crossfitlouvre.com/"
+  },
+  {
+    "affiliate_id": "35728",
+    "gym_name": "CrossFit Louvre II",
+    "city": "Villenave-d’Ornon",
+    "country": "France",
+    "website": "https://crossfitlouvre2.com/"
+  },
+  {
+    "affiliate_id": "23479",
+    "gym_name": "CrossFit Louvre III",
+    "city": "Paris",
+    "country": "France",
+    "website": "https://crossfitlouvre3.com/"
+  },
+  {
+    "affiliate_id": "31175",
+    "gym_name": "CrossFit Lucciana",
+    "city": "Lucciana",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35596",
+    "gym_name": "CrossFit LUMIÈRE",
+    "city": "LYON",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "10324",
+    "gym_name": "CrossFit Lutece",
+    "city": "Paris",
+    "country": "France",
+    "website": "http://www.crossfitlutece.com/"
+  },
+  {
+    "affiliate_id": "17954",
+    "gym_name": "CrossFit Lutece II",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22222",
+    "gym_name": "CrossFit LXII",
+    "city": "Arras",
+    "country": "France",
+    "website": "http://www.usao-arras.fr/activites/crossfit-lxii.htm"
+  },
+  {
+    "affiliate_id": "4610",
+    "gym_name": "CrossFit Lyon",
+    "city": "St. Priest",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32994",
+    "gym_name": "CrossFit L’archipel",
+    "city": "Agde",
+    "country": "France",
+    "website": "https://crossfit-archipel.fr/"
+  },
+  {
+    "affiliate_id": "35939",
+    "gym_name": "CrossFit MADEC",
+    "city": "Chaponnay",
+    "country": "France",
+    "website": "http://www.crossfitmadec.com"
+  },
+  {
+    "affiliate_id": "28265",
+    "gym_name": "CrossFit MADEC 2",
+    "city": "Bonnefamille",
+    "country": "France",
+    "website": "https://www.crossfitmadec.com/"
+  },
+  {
+    "affiliate_id": "35974",
+    "gym_name": "CrossFit MADEC Saint Priest",
+    "city": "Saint-Priest",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27037",
+    "gym_name": "CrossFit Madyo",
+    "city": "Goven",
+    "country": "France",
+    "website": "https://crossfit-madyo.com"
+  },
+  {
+    "affiliate_id": "34699",
+    "gym_name": "CrossFit Magnyfit",
+    "city": "Magny-les-Hameaux",
+    "country": "France",
+    "website": "https://www.crossfitmagnyfit.com/"
+  },
+  {
+    "affiliate_id": "17400",
+    "gym_name": "CrossFit Maignon",
+    "city": "Anglet",
+    "country": "France",
+    "website": "https://www.crossfit-maignon.com"
+  },
+  {
+    "affiliate_id": "34464",
+    "gym_name": "CrossFit Maladium",
+    "city": "Bourgoin-Jallieu",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18513",
+    "gym_name": "CrossFit Marguerittes",
+    "city": "Marguerittes",
+    "country": "France",
+    "website": "https://www.crossfitmarguerittes.com/"
+  },
+  {
+    "affiliate_id": "28519",
+    "gym_name": "CrossFit Marignane",
+    "city": "Marignane",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19019",
+    "gym_name": "CrossFit Marmande",
+    "city": "Marmande",
+    "country": "France",
+    "website": "https://crossfit-marmande.fr/"
+  },
+  {
+    "affiliate_id": "9960",
+    "gym_name": "CrossFit Massilia",
+    "city": "Marseille",
+    "country": "France",
+    "website": "http://www.fitfactorymarseille.fr/"
+  },
+  {
+    "affiliate_id": "34122",
+    "gym_name": "CrossFit Maya",
+    "city": "Saint-Vincent-de-Tyrosse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22864",
+    "gym_name": "CrossFit Mayenne",
+    "city": "Laval",
+    "country": "France",
+    "website": "https://www.crossfitmayenne.com/"
+  },
+  {
+    "affiliate_id": "36029",
+    "gym_name": "CrossFit Mayol",
+    "city": "toulon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35723",
+    "gym_name": "CrossFit Meaux",
+    "city": "Mareuil les Meaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21811",
+    "gym_name": "CrossFit Menestys",
+    "city": "Angers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29365",
+    "gym_name": "CrossFit Metz Centre",
+    "city": "Metz",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22707",
+    "gym_name": "CrossFit Millau",
+    "city": "Millau",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31400",
+    "gym_name": "CrossFit Minacius",
+    "city": "Mennecy",
+    "country": "France",
+    "website": "https://www.crossfitminacius.com/"
+  },
+  {
+    "affiliate_id": "10995",
+    "gym_name": "CrossFit Minimes",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "http://www.crossfitminimes.com/"
+  },
+  {
+    "affiliate_id": "34790",
+    "gym_name": "CrossFit Mont-Blanc",
+    "city": "Passy",
+    "country": "France",
+    "website": "https://crossfit-montblanc.fr/"
+  },
+  {
+    "affiliate_id": "20596",
+    "gym_name": "CrossFit Mont-de-Marsan",
+    "city": "Mont-de-Marsan",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15243",
+    "gym_name": "CrossFit Montauban",
+    "city": "Montauban",
+    "country": "France",
+    "website": "http://www.crossfit-montauban.fr/"
+  },
+  {
+    "affiliate_id": "24857",
+    "gym_name": "CrossFit Montaudran",
+    "city": "Toulouse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29791",
+    "gym_name": "CrossFit Montauroux",
+    "city": "Montauroux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29942",
+    "gym_name": "CrossFit Montelimar 26",
+    "city": "Montélimar",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28809",
+    "gym_name": "CrossFit Montendre",
+    "city": "Montendre",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20018",
+    "gym_name": "CrossFit Montluçon",
+    "city": "Montluçon",
+    "country": "France",
+    "website": "http://www.crossfit-montlucon.com/"
+  },
+  {
+    "affiliate_id": "34800",
+    "gym_name": "CrossFit Montpellier",
+    "city": "Castelnau le lez",
+    "country": "France",
+    "website": "https://crossfitmontpellier.fr/"
+  },
+  {
+    "affiliate_id": "34573",
+    "gym_name": "CrossFit Morteau",
+    "city": "Montlebon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31691",
+    "gym_name": "CrossFit Mougins",
+    "city": "Mougins",
+    "country": "France",
+    "website": "https://crossfitmougins.com/"
+  },
+  {
+    "affiliate_id": "35595",
+    "gym_name": "CrossFit Mulhouse Factory",
+    "city": "Mulhouse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17187",
+    "gym_name": "CrossFit Munera",
+    "city": "La Teste-de-Buch",
+    "country": "France",
+    "website": "http://www.crossfit-munera.com/"
+  },
+  {
+    "affiliate_id": "15937",
+    "gym_name": "CrossFit Muret",
+    "city": "Muret",
+    "country": "France",
+    "website": "https://www.crossfitmuret.fr/"
+  },
+  {
+    "affiliate_id": "34691",
+    "gym_name": "CrossFit MV Performance",
+    "city": "La Fare Les Oliviers",
+    "country": "France",
+    "website": "http://www.mvp-performancetraining.fr/salle"
+  },
+  {
+    "affiliate_id": "18162",
+    "gym_name": "CrossFit Myrmica",
+    "city": "Le Plessis-Pâté",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28489",
+    "gym_name": "CrossFit Méréhos",
+    "city": "Méreau",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31133",
+    "gym_name": "CrossFit Nadoz",
+    "city": "Pontivy",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20709",
+    "gym_name": "CrossFit Nakama",
+    "city": "Ivry-sur-Seine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "12025",
+    "gym_name": "CrossFit Nancy",
+    "city": "Nancy",
+    "country": "France",
+    "website": "http://www.crossfit-nancy.fr/"
+  },
+  {
+    "affiliate_id": "14370",
+    "gym_name": "CrossFit Naoned",
+    "city": "Nantes",
+    "country": "France",
+    "website": "http://www.crossfit-naoned.com/"
+  },
+  {
+    "affiliate_id": "11964",
+    "gym_name": "CrossFit Narbonne",
+    "city": "Coursan",
+    "country": "France",
+    "website": "https://www.crossfit-narbonne.fr"
+  },
+  {
+    "affiliate_id": "24982",
+    "gym_name": "CrossFit Naveli",
+    "city": "Saint-Alban",
+    "country": "France",
+    "website": "https://www.crossfit-naveli.fr/"
+  },
+  {
+    "affiliate_id": "29520",
+    "gym_name": "CrossFit Naveli Atlanta",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "https://www.crossfit-naveli.fr/crossfit-naveli-atlanta/"
+  },
+  {
+    "affiliate_id": "32705",
+    "gym_name": "CrossFit Naya",
+    "city": "Mérignac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29217",
+    "gym_name": "CrossFit Neca",
+    "city": "Bretteville-sur-Odon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35715",
+    "gym_name": "CrossFit Nice",
+    "city": "NICE",
+    "country": "France",
+    "website": "http://www.crossfit-nice.com"
+  },
+  {
+    "affiliate_id": "35745",
+    "gym_name": "CrossFit Nice 2",
+    "city": "Nice",
+    "country": "France",
+    "website": "http://www.crossfit-nice.com"
+  },
+  {
+    "affiliate_id": "12118",
+    "gym_name": "CrossFit Nimes",
+    "city": "Nîmes",
+    "country": "France",
+    "website": "http://www.crossfit-nimes.com/"
+  },
+  {
+    "affiliate_id": "30225",
+    "gym_name": "CrossFit Nostradamus",
+    "city": "Salon-de-Provence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21899",
+    "gym_name": "CrossFit Novelty",
+    "city": "Décines-Charpieu",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31997",
+    "gym_name": "CrossFit OB22",
+    "city": "Yffiniac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28073",
+    "gym_name": "CrossFit Obernai",
+    "city": "Obernai",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34490",
+    "gym_name": "CrossFit Ocelot",
+    "city": "Niort",
+    "country": "France",
+    "website": "https://www.crossfitocelot.com/"
+  },
+  {
+    "affiliate_id": "32083",
+    "gym_name": "CrossFit ODC",
+    "city": "Lingolsheim",
+    "country": "France",
+    "website": "http://crossfitodc.fr/?fbclid=IwY2xjawHcmrRleHRuA2FlbQIxMAABHcatpKNGNvOWF_g423qJgSJufhq5D7A3WB1yccZr"
+  },
+  {
+    "affiliate_id": "34718",
+    "gym_name": "CrossFit Oloron Sainte Marie",
+    "city": "Moumour",
+    "country": "France",
+    "website": "https://crossfitoloron.fr/"
+  },
+  {
+    "affiliate_id": "28212",
+    "gym_name": "CrossFit OMF",
+    "city": "Tarnos",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22550",
+    "gym_name": "CrossFit ONE Zone",
+    "city": "Esbly",
+    "country": "France",
+    "website": "https://www.crossfitonezone.com/"
+  },
+  {
+    "affiliate_id": "31074",
+    "gym_name": "CrossFit Ontos",
+    "city": "Verquigneul",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32281",
+    "gym_name": "CrossFit Onyx 1326",
+    "city": "Briançon",
+    "country": "France",
+    "website": "https://crossfit-onyx1326.fr/"
+  },
+  {
+    "affiliate_id": "33925",
+    "gym_name": "CrossFit Oozaru Migné-Auxances",
+    "city": "Migné-Auxances",
+    "country": "France",
+    "website": "https://www.crossfitoozaru.fr/"
+  },
+  {
+    "affiliate_id": "33012",
+    "gym_name": "CrossFit Opportunity",
+    "city": "Arras",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19868",
+    "gym_name": "CrossFit Orgeval",
+    "city": "Orgeval",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15611",
+    "gym_name": "CrossFit Original Addicts",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17393",
+    "gym_name": "CrossFit Orion",
+    "city": "Ingré",
+    "country": "France",
+    "website": "http://www.crossfitorion.fr/"
+  },
+  {
+    "affiliate_id": "34078",
+    "gym_name": "CrossFit OSKI 2",
+    "city": "Annecy",
+    "country": "France",
+    "website": "https://oskicrossfit.com/"
+  },
+  {
+    "affiliate_id": "33011",
+    "gym_name": "CrossFit Osna",
+    "city": "Montech",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30424",
+    "gym_name": "Crossfit Oyonnax L'olympe",
+    "city": "Oyonnax",
+    "country": "France",
+    "website": "https://www.lolympecrossfitoyonnax.fr/"
+  },
+  {
+    "affiliate_id": "27614",
+    "gym_name": "CrossFit Pamiers",
+    "city": "Pamiers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33227",
+    "gym_name": "CrossFit Pampin",
+    "city": "L'Houmeau",
+    "country": "France",
+    "website": "https://crossfitpampin.fr"
+  },
+  {
+    "affiliate_id": "25316",
+    "gym_name": "CrossFit Parempuyre",
+    "city": "Ludon-Médoc",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35919",
+    "gym_name": "CrossFit Parentis",
+    "city": "Parentis en Born",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27608",
+    "gym_name": "CrossFit Parrot",
+    "city": "Challuy",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30547",
+    "gym_name": "CrossFit PBC",
+    "city": "Hambach",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33550",
+    "gym_name": "CrossFit Pelissanne",
+    "city": "Pélissanne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35053",
+    "gym_name": "CrossFit Perols",
+    "city": "Pérols",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23021",
+    "gym_name": "CrossFit Persée",
+    "city": "La Valette Du Var",
+    "country": "France",
+    "website": "https://www.crossfitpersee.com/"
+  },
+  {
+    "affiliate_id": "15255",
+    "gym_name": "CrossFit Pezenas",
+    "city": "Pézenas",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35928",
+    "gym_name": "CrossFit PhÅnix Forge",
+    "city": "Angouléme",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35263",
+    "gym_name": "CrossFit Pierrelatte",
+    "city": "Pierre-latte",
+    "country": "France",
+    "website": "https://crossfitpierrelatte.com"
+  },
+  {
+    "affiliate_id": "17068",
+    "gym_name": "CrossFit Pleasure",
+    "city": "Carpentras",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33168",
+    "gym_name": "CrossFit Plum",
+    "city": "Estillac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17670",
+    "gym_name": "CrossFit Poitiers",
+    "city": "Poitiers",
+    "country": "France",
+    "website": "http://www.crossfit-poitiers.com/"
+  },
+  {
+    "affiliate_id": "34421",
+    "gym_name": "CrossFit Polygone",
+    "city": "Pia",
+    "country": "France",
+    "website": "https://www.crossfit-polygone.com/"
+  },
+  {
+    "affiliate_id": "25628",
+    "gym_name": "CrossFit Pontaillac",
+    "city": "Vaux-sur-Mer",
+    "country": "France",
+    "website": "http://www.crossfit-pontaillac.fr/"
+  },
+  {
+    "affiliate_id": "24772",
+    "gym_name": "CrossFit Pontarlier",
+    "city": "Granges-Narboz",
+    "country": "France",
+    "website": "https://www.crossfitpontarlier.com/"
+  },
+  {
+    "affiliate_id": "26895",
+    "gym_name": "CrossFit Portes du Tarn",
+    "city": "Saint-Sulpice-la-Pointe",
+    "country": "France",
+    "website": "https://www.crossfitportesdutarn.com/"
+  },
+  {
+    "affiliate_id": "15276",
+    "gym_name": "CrossFit Portet Sur Garonne",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "http://www.crossfitportetsurgaronne.com/"
+  },
+  {
+    "affiliate_id": "16459",
+    "gym_name": "CrossFit Porto Vecchio",
+    "city": "Porto-Vecchio",
+    "country": "France",
+    "website": "http://crossfitportovecchio.fr"
+  },
+  {
+    "affiliate_id": "23947",
+    "gym_name": "CrossFit Portus Itius",
+    "city": "Saint-Martin-Boulogne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35012",
+    "gym_name": "CrossFit Pour Tous",
+    "city": "La Ravoire",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34713",
+    "gym_name": "CrossFit Powerful Resilience",
+    "city": "Châteauroux",
+    "country": "France",
+    "website": "http://www.crossfit-powerful-resilience.fr"
+  },
+  {
+    "affiliate_id": "16763",
+    "gym_name": "CrossFit Principium",
+    "city": "Montauban",
+    "country": "France",
+    "website": "http://crossfitprincipium.com/"
+  },
+  {
+    "affiliate_id": "35657",
+    "gym_name": "CrossFit Prism",
+    "city": "Lorient",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34677",
+    "gym_name": "CrossFit Privas",
+    "city": "Privas",
+    "country": "France",
+    "website": "https://crossfit-privas.fr/"
+  },
+  {
+    "affiliate_id": "20460",
+    "gym_name": "CrossFit Prométhée",
+    "city": "Riom",
+    "country": "France",
+    "website": "http://www.crossfit-riom.com/"
+  },
+  {
+    "affiliate_id": "32589",
+    "gym_name": "CrossFit Pujaudran",
+    "city": "Pujaudran",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21725",
+    "gym_name": "CrossFit Rapace",
+    "city": "Allenjoie",
+    "country": "France",
+    "website": "https://crossfitrapace.fr/"
+  },
+  {
+    "affiliate_id": "28150",
+    "gym_name": "CrossFit Rebirth",
+    "city": "Paris",
+    "country": "France",
+    "website": "https://www.crossfitrebirth.fr/"
+  },
+  {
+    "affiliate_id": "19829",
+    "gym_name": "CrossFit Red Falcon",
+    "city": "Cornebarrieu",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19530",
+    "gym_name": "CrossFit Red Legion",
+    "city": "Jouy-le-Moutier",
+    "country": "France",
+    "website": "http://redlegion.fr/"
+  },
+  {
+    "affiliate_id": "34620",
+    "gym_name": "CrossFit RedBrick",
+    "city": "SAINT-SULPICE-ET-CAMEYRAC",
+    "country": "France",
+    "website": "https://crossfitredbrick.fr"
+  },
+  {
+    "affiliate_id": "30773",
+    "gym_name": "CrossFit RengÅ Valenciennes",
+    "city": "Onnaing",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "4375",
+    "gym_name": "CrossFit Rennes",
+    "city": "Cesson-Sévigné",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30420",
+    "gym_name": "CrossFit Renégat",
+    "city": "Sainte-Croix-en-Plaine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21687",
+    "gym_name": "CrossFit Reveal",
+    "city": "Reims",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "36137",
+    "gym_name": "CrossFit Revel",
+    "city": "REVEL",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30338",
+    "gym_name": "CrossFit Revenge",
+    "city": "Chambry",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25405",
+    "gym_name": "CrossFit Rezé",
+    "city": "Rezé",
+    "country": "France",
+    "website": "https://www.crossfit-reze.fr/"
+  },
+  {
+    "affiliate_id": "34092",
+    "gym_name": "CrossFit Riberac",
+    "city": "Ribérac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33798",
+    "gym_name": "CrossFit Rise Up",
+    "city": "Carnoux-en-Provence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32549",
+    "gym_name": "CrossFit Rising Phoenix",
+    "city": "Malville",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14626",
+    "gym_name": "CrossFit Rive Droite",
+    "city": "Ramonville-Saint-Agne",
+    "country": "France",
+    "website": "http://crossfitrivedroite.com/"
+  },
+  {
+    "affiliate_id": "21383",
+    "gym_name": "CrossFit Rive Gauche",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31062",
+    "gym_name": "CrossFit Rives",
+    "city": "Rives",
+    "country": "France",
+    "website": "https://crossfit-rives.fr/"
+  },
+  {
+    "affiliate_id": "33732",
+    "gym_name": "CrossFit RKG",
+    "city": "Dury",
+    "country": "France",
+    "website": "https://ragnarokgym.fr/"
+  },
+  {
+    "affiliate_id": "18434",
+    "gym_name": "CrossFit Roanne",
+    "city": "Pouilly-les-Nonains",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33149",
+    "gym_name": "CrossFit Robion",
+    "city": "Robion",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "24358",
+    "gym_name": "CrossFit Rochefort",
+    "city": "Rochefort",
+    "country": "France",
+    "website": "https://mathiasroques.wixsite.com/crossfitrochefort"
+  },
+  {
+    "affiliate_id": "27221",
+    "gym_name": "CrossFit Rodumna",
+    "city": "Roanne",
+    "country": "France",
+    "website": "https://crossfitrodumna.fr/"
+  },
+  {
+    "affiliate_id": "27176",
+    "gym_name": "CrossFit Rompsay",
+    "city": "La Rochelle",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "9798",
+    "gym_name": "CrossFit Rouen",
+    "city": "Rouen",
+    "country": "France",
+    "website": "http://www.crossfit-rouen.com/"
+  },
+  {
+    "affiliate_id": "34251",
+    "gym_name": "CrossFit Royan",
+    "city": "Royan",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20142",
+    "gym_name": "CrossFit Rutènes",
+    "city": "Rodez",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34742",
+    "gym_name": "CrossFit Safe",
+    "city": "Lomme",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28857",
+    "gym_name": "CrossFit Saint Etienne",
+    "city": "Saint-Étienne",
+    "country": "France",
+    "website": "https://crossfitsaintetienne.fr/"
+  },
+  {
+    "affiliate_id": "34663",
+    "gym_name": "CrossFit Saint Flour",
+    "city": "Saint-Flour",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31767",
+    "gym_name": "CrossFit Saint Georges d'Orques",
+    "city": "Saint-Georges-d'Orques",
+    "country": "France",
+    "website": "https://www.crossfitsgo.fr/"
+  },
+  {
+    "affiliate_id": "34603",
+    "gym_name": "CrossFit Saint Hilaire de Riez",
+    "city": "St Hilaire de Riez",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15049",
+    "gym_name": "CrossFit Saint Nazaire",
+    "city": "Saint-Nazaire",
+    "country": "France",
+    "website": "http://www.crossfitsaintnazaire.com/"
+  },
+  {
+    "affiliate_id": "30388",
+    "gym_name": "CrossFit Saint Quentin",
+    "city": "Saint-Quentin",
+    "country": "France",
+    "website": "https://www.crossfitsaintquentin.com"
+  },
+  {
+    "affiliate_id": "15146",
+    "gym_name": "CrossFit Saint Simon",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "http://www.crossfitsaintsimon.com/"
+  },
+  {
+    "affiliate_id": "36122",
+    "gym_name": "CrossFit Saint-Chamond",
+    "city": "Saint-Chamond",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33305",
+    "gym_name": "CrossFit SAINT-DIÉ",
+    "city": "Saint-Dié-des-Vosges",
+    "country": "France",
+    "website": "https://www.crossfit-saint-die.fr"
+  },
+  {
+    "affiliate_id": "34520",
+    "gym_name": "CrossFit Saint-Emilion",
+    "city": "Saint-Émilion",
+    "country": "France",
+    "website": "https://www.crossfit-saintemilion.fr"
+  },
+  {
+    "affiliate_id": "15398",
+    "gym_name": "CrossFit Saint-Maur",
+    "city": "Saint-Maur-des-Fossés",
+    "country": "France",
+    "website": "http://crossfit-saint-maur.com/"
+  },
+  {
+    "affiliate_id": "32056",
+    "gym_name": "CrossFit Sainte Consorce",
+    "city": "Sainte-Consorce",
+    "country": "France",
+    "website": "https://www.crossfitsainteconsorce.com/"
+  },
+  {
+    "affiliate_id": "20264",
+    "gym_name": "CrossFit Sainte Maxime",
+    "city": "Sainte-Maxime",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20693",
+    "gym_name": "CrossFit Saintes",
+    "city": "Saintes",
+    "country": "France",
+    "website": "https://www.crossfitsaintes.com/"
+  },
+  {
+    "affiliate_id": "25084",
+    "gym_name": "CrossFit Salamandre",
+    "city": "Châteaubernard",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16548",
+    "gym_name": "CrossFit Salon de Provence",
+    "city": "Salon-de-Provence",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15945",
+    "gym_name": "CrossFit Samarobriva",
+    "city": "Saleux",
+    "country": "France",
+    "website": "http://www.crossfit-samarobriva.fr/"
+  },
+  {
+    "affiliate_id": "32771",
+    "gym_name": "CrossFit Sandglass",
+    "city": "Corcelles-Ferrières",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30325",
+    "gym_name": "CrossFit Sandy Coast",
+    "city": "Saint-Gilles-Croix-de-Vie",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35885",
+    "gym_name": "CrossFit Sanzaru",
+    "city": "Yerres",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32120",
+    "gym_name": "CrossFit Sarlat la Caneda",
+    "city": "Sarlat-la-Canéda",
+    "country": "France",
+    "website": "https://www.crossfitsarlatlacaneda.fr/"
+  },
+  {
+    "affiliate_id": "23729",
+    "gym_name": "CrossFit Sarreguemines",
+    "city": "Sarreguemines",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25515",
+    "gym_name": "CrossFit Saumur",
+    "city": "Saumur",
+    "country": "France",
+    "website": "https://crossfit-saumur.fr/"
+  },
+  {
+    "affiliate_id": "35135",
+    "gym_name": "CrossFit Sea Force",
+    "city": "marennes",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17033",
+    "gym_name": "CrossFit Seahorse",
+    "city": "Saint Mitre les Remparts",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21067",
+    "gym_name": "CrossFit Second Souffle",
+    "city": "Saint-Brice-sous-Forêt",
+    "country": "France",
+    "website": "http://www.crossfit-secondsouffle.com/"
+  },
+  {
+    "affiliate_id": "26809",
+    "gym_name": "CrossFit Secteur 3",
+    "city": "Lyon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17145",
+    "gym_name": "CrossFit Sept Deniers",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "https://crossfitseptdeniers.com/"
+  },
+  {
+    "affiliate_id": "35684",
+    "gym_name": "CrossFit Sequani",
+    "city": "25800",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19246",
+    "gym_name": "CrossFit Serval",
+    "city": "Vitrolles",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20896",
+    "gym_name": "CrossFit Servon",
+    "city": "Servon",
+    "country": "France",
+    "website": "https://formevasion.fr/crossfit-servon/"
+  },
+  {
+    "affiliate_id": "27252",
+    "gym_name": "CrossFit Shenron",
+    "city": "Gond Pontouvre",
+    "country": "France",
+    "website": "https://crossfit-shenron.fr/"
+  },
+  {
+    "affiliate_id": "33984",
+    "gym_name": "CrossFit Shinsekai",
+    "city": "Morangis",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20183",
+    "gym_name": "CrossFit Silver",
+    "city": "Montesson",
+    "country": "France",
+    "website": "http://www.crossfitsilver.fr/"
+  },
+  {
+    "affiliate_id": "33167",
+    "gym_name": "CrossFit Sleipnir",
+    "city": "Évreux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35440",
+    "gym_name": "CrossFit SLV 3000",
+    "city": "Saint Laurent Du Var",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35961",
+    "gym_name": "CrossFit Soissons",
+    "city": "CROUY",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25112",
+    "gym_name": "CrossFit Sorgues",
+    "city": "Sorgues",
+    "country": "France",
+    "website": "https://www.thegymnase.com/crossfit"
+  },
+  {
+    "affiliate_id": "19940",
+    "gym_name": "CrossFit South West Anglet",
+    "city": "Anglet",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34179",
+    "gym_name": "CrossFit SP3C",
+    "city": "Saint-Paul-Trois-Châteaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28621",
+    "gym_name": "CrossFit St Dizier",
+    "city": "Bettancourt-la-Ferrée",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "19163",
+    "gym_name": "CrossFit St Go",
+    "city": "Saint-Gaudens",
+    "country": "France",
+    "website": "http://www.crossfitstgo.com/"
+  },
+  {
+    "affiliate_id": "36001",
+    "gym_name": "CrossFit St. Egreve",
+    "city": "Saint Egreve",
+    "country": "France",
+    "website": "https://crossfit-st-egreve.fr"
+  },
+  {
+    "affiliate_id": "29864",
+    "gym_name": "CrossFit Steel Garden",
+    "city": "La Séguinière",
+    "country": "France",
+    "website": "https://steel-garden.fr/"
+  },
+  {
+    "affiliate_id": "29711",
+    "gym_name": "CrossFit Storm Valley",
+    "city": "Domene",
+    "country": "France",
+    "website": "https://www.crossfitstormvalley.fr"
+  },
+  {
+    "affiliate_id": "35521",
+    "gym_name": "CrossFit StormLions",
+    "city": "Trévenans",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "10727",
+    "gym_name": "CrossFit Strasbourg",
+    "city": "Strasbourg",
+    "country": "France",
+    "website": "http://www.crossfitstrasbourg.com/"
+  },
+  {
+    "affiliate_id": "21454",
+    "gym_name": "CrossFit Strong Bear",
+    "city": "Beauvais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33901",
+    "gym_name": "CrossFit Sud-Ouest",
+    "city": "Serres-Castet",
+    "country": "France",
+    "website": "https://Crossfit-sudouest.fr"
+  },
+  {
+    "affiliate_id": "36046",
+    "gym_name": "CrossFit Summit Belfort",
+    "city": "Danjoutin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28564",
+    "gym_name": "CrossFit Sunway",
+    "city": "Carcassonne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "23984",
+    "gym_name": "CrossFit Symbiote",
+    "city": "Marseille",
+    "country": "France",
+    "website": "https://www.crossfit-symbiote.fr/"
+  },
+  {
+    "affiliate_id": "33856",
+    "gym_name": "CrossFit Tago",
+    "city": "Tagolsheim",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31072",
+    "gym_name": "CrossFit Tahka",
+    "city": "Pont-l'Évêque",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "14979",
+    "gym_name": "CrossFit TANKA",
+    "city": "Colombes",
+    "country": "France",
+    "website": "http://www.crossfittanka.com"
+  },
+  {
+    "affiliate_id": "23157",
+    "gym_name": "CrossFit Tarvos",
+    "city": "Bourges",
+    "country": "France",
+    "website": "http://www.crossfit-tarvos.fr/"
+  },
+  {
+    "affiliate_id": "34894",
+    "gym_name": "CrossFit TeamWolf",
+    "city": "Saint Martin de Crau",
+    "country": "France",
+    "website": "https://crossfit-team-wolf.fr"
+  },
+  {
+    "affiliate_id": "28404",
+    "gym_name": "CrossFit Teli 300",
+    "city": "Saint-Rambert-d'Albon",
+    "country": "France",
+    "website": "https://www.crossfit-teli300.fr/"
+  },
+  {
+    "affiliate_id": "29732",
+    "gym_name": "CrossFit Ter Intensity",
+    "city": "Ploemeur",
+    "country": "France",
+    "website": "https://crossfitterintensity.com"
+  },
+  {
+    "affiliate_id": "30941",
+    "gym_name": "CrossFit Teranga",
+    "city": "Amiens",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21161",
+    "gym_name": "CrossFit Ternay",
+    "city": "Ternay",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34082",
+    "gym_name": "CrossFit Thonon-les-Bains",
+    "city": "Thonon-les-Bains",
+    "country": "France",
+    "website": "https://www.crossfit-thononlesbains.com"
+  },
+  {
+    "affiliate_id": "31080",
+    "gym_name": "CrossFit Thônes",
+    "city": "Thônes",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26079",
+    "gym_name": "CrossFit Tignieu",
+    "city": "Tignieu",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27126",
+    "gym_name": "CrossFit Titus",
+    "city": "Soliers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "3301",
+    "gym_name": "CrossFit Toulouse",
+    "city": "Beauzelle",
+    "country": "France",
+    "website": "https://kulturefit.fr/"
+  },
+  {
+    "affiliate_id": "36031",
+    "gym_name": "CrossFit Tournefeuille",
+    "city": "Tournefeuille",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35841",
+    "gym_name": "CrossFit Trets",
+    "city": "Trets",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18440",
+    "gym_name": "CrossFit Tricassium",
+    "city": "Pont-Sainte-Marie",
+    "country": "France",
+    "website": "https://crossfit-tricassium.fr/"
+  },
+  {
+    "affiliate_id": "34563",
+    "gym_name": "CrossFit Trévoux",
+    "city": "Trévoux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35469",
+    "gym_name": "CrossFit TTP",
+    "city": "La Primaube",
+    "country": "France",
+    "website": "https://ttptraining.fr"
+  },
+  {
+    "affiliate_id": "25931",
+    "gym_name": "CrossFit United Together",
+    "city": "Lattes",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21568",
+    "gym_name": "CrossFit URSAO Serres Castet",
+    "city": "Serres-Castet",
+    "country": "France",
+    "website": "https://www.crossfitursao.com/"
+  },
+  {
+    "affiliate_id": "25185",
+    "gym_name": "CrossFit Vaise District",
+    "city": "Lyon",
+    "country": "France",
+    "website": "http://www.crossfitvaisedistrict.fr"
+  },
+  {
+    "affiliate_id": "29869",
+    "gym_name": "CrossFit Vaison la Romaine",
+    "city": "Vaison la-Romaine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "13643",
+    "gym_name": "CrossFit Valence",
+    "city": "Portes-lès-Valence",
+    "country": "France",
+    "website": "http://crossfit-valence.com/"
+  },
+  {
+    "affiliate_id": "21877",
+    "gym_name": "CrossFit Valenton",
+    "city": "Valenton",
+    "country": "France",
+    "website": "https://www.crossfit-valenton.fr/?fbclid=PAZXh0bgNhZW0CMTEAAaZVZX8aripq03qKkpWp0XjNnkMiXOtQGkzcDm8LS"
+  },
+  {
+    "affiliate_id": "35340",
+    "gym_name": "CrossFit Valkaïa",
+    "city": "PAU",
+    "country": "France",
+    "website": "https://valkaiacrossfit.fr/"
+  },
+  {
+    "affiliate_id": "31362",
+    "gym_name": "CrossFit Valkyrie",
+    "city": "La Chapelle-des-Fougeretz",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17416",
+    "gym_name": "CrossFit Vallee du Gier",
+    "city": "Lorette",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22032",
+    "gym_name": "CrossFit Vauban",
+    "city": "Lille",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35217",
+    "gym_name": "CrossFit Vaunage",
+    "city": "Vergeze",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "25248",
+    "gym_name": "CrossFit Velay",
+    "city": "Monistrol-sur-Loire",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22954",
+    "gym_name": "CrossFit Versailles",
+    "city": "Versailles",
+    "country": "France",
+    "website": "http://crossfit-versailles.com/"
+  },
+  {
+    "affiliate_id": "35727",
+    "gym_name": "CrossFit Vertueux",
+    "city": "Perpignan",
+    "country": "France",
+    "website": "https://www.crossfit-polygone.com/accueil-virtuos/"
+  },
+  {
+    "affiliate_id": "34778",
+    "gym_name": "CrossFit Vesoul",
+    "city": "Vesoul",
+    "country": "France",
+    "website": "https://crossfit-vesoul.fr/"
+  },
+  {
+    "affiliate_id": "21244",
+    "gym_name": "CrossFit Vichy",
+    "city": "Creuzier-le-Vieux",
+    "country": "France",
+    "website": "https://www.crossfit-vichy.fr/"
+  },
+  {
+    "affiliate_id": "16330",
+    "gym_name": "CrossFit VII",
+    "city": "Sète",
+    "country": "France",
+    "website": "http://crossfit-vii.com/"
+  },
+  {
+    "affiliate_id": "35403",
+    "gym_name": "CrossFit Villeurbanne",
+    "city": "Villeurbanne",
+    "country": "France",
+    "website": "https://www.nekocrossfitvilleurbanne.com/"
+  },
+  {
+    "affiliate_id": "31857",
+    "gym_name": "CrossFit Vinca",
+    "city": "Saint-Georges-d'Espéranche",
+    "country": "France",
+    "website": "https://www.crossfitvinca.com/"
+  },
+  {
+    "affiliate_id": "33128",
+    "gym_name": "CrossFit Viniacius",
+    "city": "Vinassan",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31769",
+    "gym_name": "CrossFit Vinkere",
+    "city": "Tomblaine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17030",
+    "gym_name": "CrossFit Viridius",
+    "city": "Saint-Didier-au-Mont-d'Or",
+    "country": "France",
+    "website": "http://crossfitviridius.fr/"
+  },
+  {
+    "affiliate_id": "31624",
+    "gym_name": "CrossFit Visigoth",
+    "city": "Bordères-sur-l'Échez",
+    "country": "France",
+    "website": "https://crossfit-visigoth.com/"
+  },
+  {
+    "affiliate_id": "30358",
+    "gym_name": "CrossFit Vitamin Sea",
+    "city": "Quimperlé",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15134",
+    "gym_name": "CrossFit Vitrolles",
+    "city": "Vitrolles",
+    "country": "France",
+    "website": "http://www.lafrenchco.fr/crossfit-vitrolles/"
+  },
+  {
+    "affiliate_id": "13187",
+    "gym_name": "CrossFit Voiron",
+    "city": "Voiron",
+    "country": "France",
+    "website": "http://www.crossfit-voiron.com/"
+  },
+  {
+    "affiliate_id": "35730",
+    "gym_name": "CrossFit Voreppe",
+    "city": "Voreppe",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34841",
+    "gym_name": "CrossFit Völund",
+    "city": "VERNON",
+    "country": "France",
+    "website": "https://crossfit-volund.fr/"
+  },
+  {
+    "affiliate_id": "24168",
+    "gym_name": "CrossFit W.I.P",
+    "city": "Ecquevilly",
+    "country": "France",
+    "website": "https://crossfitwip.com/"
+  },
+  {
+    "affiliate_id": "31636",
+    "gym_name": "CrossFit Wallaby",
+    "city": "Saint-Loubès",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35375",
+    "gym_name": "CrossFit West District",
+    "city": "Champagne au mont d'or",
+    "country": "France",
+    "website": "http://www.crossfitwestdistrict.fr"
+  },
+  {
+    "affiliate_id": "34072",
+    "gym_name": "CrossFit Wild Squad",
+    "city": "Persan",
+    "country": "France",
+    "website": "https://www.crossfitwildsquad.com/"
+  },
+  {
+    "affiliate_id": "14269",
+    "gym_name": "CrossFit Wonders",
+    "city": "Montreuil",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "31522",
+    "gym_name": "CrossFit Wood Shack",
+    "city": "Villefontaine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28803",
+    "gym_name": "CrossFit WSD",
+    "city": "Boves",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32542",
+    "gym_name": "CrossFit WTS",
+    "city": "Lodeve",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29077",
+    "gym_name": "CrossFit Yggdrasil",
+    "city": "Déville-lès-Rouen",
+    "country": "France",
+    "website": "https://www.crossfit-yggdrasil.com/"
+  },
+  {
+    "affiliate_id": "30024",
+    "gym_name": "CrossFit Yuei",
+    "city": "Bruz",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32892",
+    "gym_name": "CrossFit Yzeure",
+    "city": "Yzeure",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35837",
+    "gym_name": "Côtiere Sport Club CrossFit",
+    "city": "Montluel",
+    "country": "France",
+    "website": "https://www.cotieresportclub.fr/"
+  },
+  {
+    "affiliate_id": "17830",
+    "gym_name": "Darioritum CrossFit",
+    "city": "Vannes",
+    "country": "France",
+    "website": "http://www.darioritum-crossfit-danse.fr/"
+  },
+  {
+    "affiliate_id": "34037",
+    "gym_name": "Dinard CrossFit",
+    "city": "La Richardais",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33570",
+    "gym_name": "District CrossFit Brunstatt-Didenheim",
+    "city": "Brunstatt-Didenheim",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28681",
+    "gym_name": "ELJI CrossFit",
+    "city": "Saint-Georges-des-Coteaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32169",
+    "gym_name": "Emeraude CrossFit",
+    "city": "Dinard",
+    "country": "France",
+    "website": "https://emeraude-crossfit.fr/"
+  },
+  {
+    "affiliate_id": "31717",
+    "gym_name": "Enosis Box CrossFit",
+    "city": "Saint-Fargeau-Ponthierry",
+    "country": "France",
+    "website": "https://www.enosis-box-crossfit.com/"
+  },
+  {
+    "affiliate_id": "21865",
+    "gym_name": "Escale CrossFit",
+    "city": "Clichy",
+    "country": "France",
+    "website": "https://escalecrossfit.com/"
+  },
+  {
+    "affiliate_id": "28978",
+    "gym_name": "Etxea CrossFit",
+    "city": "Anglet",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35847",
+    "gym_name": "Eunoia CrossFit",
+    "city": "Annemasse",
+    "country": "France",
+    "website": "https://eunoia-crossfit.fr"
+  },
+  {
+    "affiliate_id": "22300",
+    "gym_name": "Fair Fight CrossFit",
+    "city": "Le Havre",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34057",
+    "gym_name": "Farmer CrossFit",
+    "city": "Plaisir",
+    "country": "France",
+    "website": "https://www.farmer-training.com/"
+  },
+  {
+    "affiliate_id": "34518",
+    "gym_name": "Feodalys CrossFit",
+    "city": "Saint-André-de-Corcy",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27343",
+    "gym_name": "Forez CrossFit",
+    "city": "Lezigneux",
+    "country": "France",
+    "website": "https://forezcrossfit.fr"
+  },
+  {
+    "affiliate_id": "21303",
+    "gym_name": "FWA CrossFit",
+    "city": "La Madeleine",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28410",
+    "gym_name": "Fysi CrossFit Troyes",
+    "city": "La Chapelle-Saint-Luc",
+    "country": "France",
+    "website": "http://www.fysicrossfittroyes.fr"
+  },
+  {
+    "affiliate_id": "23229",
+    "gym_name": "Genum CrossFit",
+    "city": "Castelculier",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34434",
+    "gym_name": "Goldenback CrossFit",
+    "city": "Wattrelos",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21277",
+    "gym_name": "HandStand CrossFit",
+    "city": "Saint-Malo",
+    "country": "France",
+    "website": "https://handstandcrossfit.com/"
+  },
+  {
+    "affiliate_id": "35528",
+    "gym_name": "Helios CrossFit",
+    "city": "Beauzelle",
+    "country": "France",
+    "website": "http://helioscrossfit.fr"
+  },
+  {
+    "affiliate_id": "36345",
+    "gym_name": "Human Blossom CrossFit Marlenheim",
+    "city": "Marlenheim",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27552",
+    "gym_name": "Human Blossom CrossFit Molsheim",
+    "city": "Molsheim",
+    "country": "France",
+    "website": "https://humanblossomcrossfit.com"
+  },
+  {
+    "affiliate_id": "31396",
+    "gym_name": "Human First CrossFit",
+    "city": "Auch",
+    "country": "France",
+    "website": "https://humanfirst-crossfit.com"
+  },
+  {
+    "affiliate_id": "28738",
+    "gym_name": "Hygie CrossFit",
+    "city": "Seclin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16698",
+    "gym_name": "Immanis CrossFit",
+    "city": "Ostwald",
+    "country": "France",
+    "website": "http://immanis-crossfit.fr/"
+  },
+  {
+    "affiliate_id": "17430",
+    "gym_name": "Irok CrossFit",
+    "city": "Albertville",
+    "country": "France",
+    "website": "http://www.irokcrossfit.com/"
+  },
+  {
+    "affiliate_id": "34557",
+    "gym_name": "Jo Factory CrossFit",
+    "city": "Gargenville",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "30355",
+    "gym_name": "Kalliste CrossFit",
+    "city": "Ajaccio",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34054",
+    "gym_name": "Kastell Paol CrossFit",
+    "city": "Saint-Pol-de-Léon",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32526",
+    "gym_name": "Kintsu CrossFit",
+    "city": "Sierentz",
+    "country": "France",
+    "website": "https://www.kintsucrossfit.com/"
+  },
+  {
+    "affiliate_id": "34685",
+    "gym_name": "Kitsune CrossFit",
+    "city": "Bessines",
+    "country": "France",
+    "website": "https://kitsunecrossfit.com/"
+  },
+  {
+    "affiliate_id": "31489",
+    "gym_name": "KÅyÅ CrossFit",
+    "city": "La Bassée",
+    "country": "France",
+    "website": "https://www.crossfitkoyo.fr/"
+  },
+  {
+    "affiliate_id": "21448",
+    "gym_name": "L'Arene CrossFit Fontenay Sous Bois",
+    "city": "Fontenay-sous-Bois",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34570",
+    "gym_name": "L'Arene CrossFit Gradignan",
+    "city": "Gradignan",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28197",
+    "gym_name": "L'atelier CrossFit",
+    "city": "Castres",
+    "country": "France",
+    "website": "https://lateliercrossfit.com/"
+  },
+  {
+    "affiliate_id": "28651",
+    "gym_name": "L-R CrossFit",
+    "city": "Montélimar",
+    "country": "France",
+    "website": "http://lr-crossfit-montelimar.fr/"
+  },
+  {
+    "affiliate_id": "30444",
+    "gym_name": "La Box CrossFit Bonaparte",
+    "city": "La Roche Sur Yon",
+    "country": "France",
+    "website": "https://laboxcrossfitbonaparte.fr/"
+  },
+  {
+    "affiliate_id": "32260",
+    "gym_name": "La Cabane CrossFit",
+    "city": "La Teste-de-Buch",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20637",
+    "gym_name": "La Defense Factory CrossFit",
+    "city": "Puteaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22508",
+    "gym_name": "La Fabrique CrossFit",
+    "city": "Moissac",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33479",
+    "gym_name": "La Salle CrossFit",
+    "city": "Aubenas",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35965",
+    "gym_name": "LC Isara CrossFit",
+    "city": "Saint-Clair-du-Rhône",
+    "country": "France",
+    "website": "https://lc-isara.fr/"
+  },
+  {
+    "affiliate_id": "28001",
+    "gym_name": "Le Carré CrossFit",
+    "city": "Le Coteau",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35707",
+    "gym_name": "Le Village CrossFit LR",
+    "city": "La Rochelle",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27348",
+    "gym_name": "M34 CrossFit East",
+    "city": "Castelanau-le-lez",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28523",
+    "gym_name": "M34 CrossFit Initial",
+    "city": "Montpellier",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "22836",
+    "gym_name": "M34 CrossFit South",
+    "city": "Pérols",
+    "country": "France",
+    "website": "https://m34crossfitsouth.fr/"
+  },
+  {
+    "affiliate_id": "29574",
+    "gym_name": "MADMA CrossFit",
+    "city": "Roncq",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "18264",
+    "gym_name": "Magic CrossFit",
+    "city": "Romorantin-Lanthenay",
+    "country": "France",
+    "website": "http://magic-crossfit.com/"
+  },
+  {
+    "affiliate_id": "35716",
+    "gym_name": "Maison.Aim CrossFit",
+    "city": "Bordeaux",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "32718",
+    "gym_name": "Makitha CrossFit",
+    "city": "Champagne-au-Mont-d'Or",
+    "country": "France",
+    "website": "http://makitha-crossfit.fr/"
+  },
+  {
+    "affiliate_id": "34343",
+    "gym_name": "MCR CrossFit",
+    "city": "Béziers",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "5676",
+    "gym_name": "Menton CrossFit",
+    "city": "Menton",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35793",
+    "gym_name": "Neo CrossFit",
+    "city": "Issoire",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20389",
+    "gym_name": "Nero CrossFit",
+    "city": "Strasbourg",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "15874",
+    "gym_name": "Orange 84 CrossFit",
+    "city": "Orange",
+    "country": "France",
+    "website": "http://www.orange84crossfit.com/"
+  },
+  {
+    "affiliate_id": "12778",
+    "gym_name": "Oski CrossFit",
+    "city": "Épagny",
+    "country": "France",
+    "website": "https://oskicrossfit.com/"
+  },
+  {
+    "affiliate_id": "36356",
+    "gym_name": "Pegaze CrossFit",
+    "city": "Mayenne",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "33558",
+    "gym_name": "Pendragon CrossFit",
+    "city": "Compiègne",
+    "country": "France",
+    "website": "https://pendragoncrossfit.com/"
+  },
+  {
+    "affiliate_id": "25193",
+    "gym_name": "Ponts-Jumeaux CrossFit",
+    "city": "Toulouse",
+    "country": "France",
+    "website": "http://www.ponts-jumeaux-crossfit.com/"
+  },
+  {
+    "affiliate_id": "30820",
+    "gym_name": "Pyrénéus CrossFit",
+    "city": "Montgailhard",
+    "country": "France",
+    "website": "https://pyreneus-crossfit.com/"
+  },
+  {
+    "affiliate_id": "14994",
+    "gym_name": "R CrossFit",
+    "city": "Paris",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "28670",
+    "gym_name": "Reach Your Summit CrossFit",
+    "city": "Châtenois",
+    "country": "France",
+    "website": "https://www.instagram.com/reach_your_summit_crossfit/"
+  },
+  {
+    "affiliate_id": "20020",
+    "gym_name": "Remes CrossFit",
+    "city": "Champfleury",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34701",
+    "gym_name": "RKT CrossFit",
+    "city": "Saint Quentin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "17591",
+    "gym_name": "Rupella CrossFit",
+    "city": "Lagord",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "16285",
+    "gym_name": "Ruroni CrossFit",
+    "city": "Saint-Ouen-sur-Seine",
+    "country": "France",
+    "website": "https://www.ruroni-crossfit.com/"
+  },
+  {
+    "affiliate_id": "27213",
+    "gym_name": "Ryù CrossFit",
+    "city": "Amiens",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27054",
+    "gym_name": "Saint Pierre du Mont CrossFit",
+    "city": "Saint-Pierre-du-Mont",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "26672",
+    "gym_name": "Sapaudia CrossFit",
+    "city": "Francin",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "21633",
+    "gym_name": "Silex CrossFit",
+    "city": "Saint-Grégoire",
+    "country": "France",
+    "website": "https://www.silex-crossfit.com/"
+  },
+  {
+    "affiliate_id": "16393",
+    "gym_name": "Silvaticus CrossFit",
+    "city": "Paris",
+    "country": "France",
+    "website": "https://www.silvaticus.fr/"
+  },
+  {
+    "affiliate_id": "35548",
+    "gym_name": "Silvaticus CrossFit 2",
+    "city": "Paris",
+    "country": "France",
+    "website": "https://www.silvaticus.fr/"
+  },
+  {
+    "affiliate_id": "22156",
+    "gym_name": "ST40 CrossFit",
+    "city": "Soustons",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35236",
+    "gym_name": "StrongShip CrossFit",
+    "city": "Breuil Magné",
+    "country": "France",
+    "website": "https://www.instagram.com/strongshipcf/"
+  },
+  {
+    "affiliate_id": "34813",
+    "gym_name": "Studio 2D CrossFit",
+    "city": "Mercurol-Veaunes",
+    "country": "France",
+    "website": "http://www.studio2d.coach"
+  },
+  {
+    "affiliate_id": "24595",
+    "gym_name": "Summum CrossFit",
+    "city": "Sathonay-Camp",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "34975",
+    "gym_name": "Sunny CrossFit Cintegabelle",
+    "city": "cintegabelle",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "20795",
+    "gym_name": "Talos CrossFit",
+    "city": "Bourg-en-Bresse",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "27848",
+    "gym_name": "TRIBOK CrossFit",
+    "city": "Bernolsheim",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35448",
+    "gym_name": "TTN CrossFit",
+    "city": "Montpellier",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29036",
+    "gym_name": "Two Goats CrossFit",
+    "city": "Saint-Jean-de-Thouars",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "35467",
+    "gym_name": "Vienne CrossFit",
+    "city": "VIENNE",
+    "country": "France"
+  },
+  {
+    "affiliate_id": "29622",
+    "gym_name": "Vinea Fortis CrossFit",
+    "city": "Auxerre",
+    "country": "France",
+    "website": "https://traininggaf.fr/"
+  },
+  {
+    "affiliate_id": "35034",
+    "gym_name": "Virtus Honor CrossFit",
+    "city": "THIANT",
+    "country": "France",
+    "website": "https://www.virtushonor.com/"
+  },
+  {
+    "affiliate_id": "28421",
+    "gym_name": "WarZone CrossFit",
+    "city": "Marseille",
+    "country": "France",
+    "website": "https://www.warzone-crossfit.com"
+  },
+  {
+    "affiliate_id": "26763",
+    "gym_name": "Wild Bear CrossFit",
+    "city": "Theix-Noyalo",
+    "country": "France",
+    "website": "https://wildbearcrossfit.com"
+  }
+]
