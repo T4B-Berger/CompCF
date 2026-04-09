@@ -63,11 +63,27 @@ const flagFromCountryCode = (code: string) =>
     .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
 
 const getRegionCodes = () => {
-  if (typeof Intl.supportedValuesOf === 'function') {
-    return Intl.supportedValuesOf('region').filter((code) => /^[A-Z]{2}$/.test(code))
+  const displayNames = new Intl.DisplayNames(['fr'], { type: 'region' })
+  const regionCodes: string[] = []
+
+  for (let first = 65; first <= 90; first += 1) {
+    for (let second = 65; second <= 90; second += 1) {
+      const code = String.fromCharCode(first, second)
+      let label: string | undefined
+
+      try {
+        label = displayNames.of(code)
+      } catch {
+        label = undefined
+      }
+
+      if (label && label !== code) {
+        regionCodes.push(code)
+      }
+    }
   }
 
-  return ['FR', 'DE', 'ES', 'IT', 'GB', 'US', 'CA', 'AU', 'BR', 'JP']
+  return regionCodes
 }
 
 export const getCountryOptions = () => {
