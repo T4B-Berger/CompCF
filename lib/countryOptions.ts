@@ -98,3 +98,21 @@ export const getCountryOptions = () => {
 
   return france ? [france, ...europe, ...rest] : [...europe, ...rest]
 }
+
+export const resolveCountryCode = (
+  rawCountry: string | null | undefined,
+  options: CountryOption[]
+) => {
+  const normalized = (rawCountry || '').trim()
+  if (!normalized) return 'FR'
+
+  const upper = normalized.toUpperCase()
+  const byCode = options.find((option) => option.code === upper)
+  if (byCode) return byCode.code
+
+  const lower = normalized.toLowerCase()
+  const byName = options.find((option) => option.name.toLowerCase() === lower)
+  if (byName) return byName.code
+
+  return 'FR'
+}

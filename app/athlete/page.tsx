@@ -9,7 +9,7 @@ import {
   getRegistrationReadiness,
   type RegistrationReadinessCode,
 } from '../../lib/registrationReadiness'
-import { getCountryOptions } from '../../lib/countryOptions'
+import { getCountryOptions, resolveCountryCode } from '../../lib/countryOptions'
 import {
   AlertTriangle,
   CalendarDays,
@@ -130,7 +130,7 @@ export default function AthletePage() {
     dateOfBirth: '',
     affiliate: '',
     city: '',
-    country: 'France',
+    country: 'FR',
   })
   const countryOptions = useMemo(() => getCountryOptions(), [])
   const boxes = useMemo(() => franceBoxes as BoxDatasetItem[], [])
@@ -152,10 +152,7 @@ export default function AthletePage() {
 
     setProfile(data)
     if (data) {
-      const normalizedCountry =
-        countryOptions.find((option) => option.name === (data.country || ''))?.name ||
-        countryOptions.find((option) => option.code === 'FR')?.name ||
-        'France'
+      const normalizedCountryCode = resolveCountryCode(data.country, countryOptions)
       const savedAffiliate = (data.affiliate || '').trim()
       const knownBox = boxesByName.get(savedAffiliate.toLowerCase())
 
@@ -165,7 +162,7 @@ export default function AthletePage() {
         dateOfBirth: data.date_of_birth || '',
         affiliate: data.affiliate || '',
         city: data.city || '',
-        country: normalizedCountry,
+        country: normalizedCountryCode,
       })
 
       if (savedAffiliate === INDEPENDENT_AFFILIATE_LABEL) {
@@ -503,7 +500,7 @@ export default function AthletePage() {
   }, [affiliateMode, boxes, normalizedAffiliateQuery])
   const selectedCountryOption = useMemo(
     () =>
-      countryOptions.find((option) => option.name === profileForm.country) ||
+      countryOptions.find((option) => option.code === profileForm.country) ||
       countryOptions[0],
     [countryOptions, profileForm.country]
   )
@@ -893,7 +890,7 @@ export default function AthletePage() {
                         if (!selected) return
                         setProfileForm((prev) => ({
                           ...prev,
-                          country: selected.name,
+                          country: selected.code,
                         }))
                       }}
                     >
