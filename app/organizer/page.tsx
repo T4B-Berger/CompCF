@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import type { User } from '@supabase/supabase-js'
 import { supabase } from '../../lib/supabaseClient'
 import {
   CalendarDays,
@@ -44,7 +45,7 @@ type RegistrationDetail = {
 }
 
 export default function OrganizerPage() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -53,9 +54,24 @@ export default function OrganizerPage() {
   const [eventName, setEventName] = useState('')
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
-  const [publishFeedback, setPublishFeedback] = useState<string | null>(null)
+  const [publishFeedback, setPublishFeedback] = useState<{
+    eventId: string
+    message: string
+    kind: 'success' | 'error'
+  } | null>(null)
+  const [eventInsights, setEventInsights] = useState<
+    Record<
+      string,
+      {
+        activeDivisions: number
+        activeCategories: number
+        categoriesWithActivePricing: number
+        blockers: string[]
+      }
+    >
+  >({})
 
-  const loadProfile = async (userId: string) => {
+  const loadProfile = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
       .select('*')
@@ -63,18 +79,126 @@ export default function OrganizerPage() {
       .single()
 
     setProfile(data)
-  }
+  }, [])
 
-  const loadEvents = async () => {
-    const { data } = await supabase
-      .from('events')
-      .select('*')
-      .order('created_at', { ascending: false })
+  const loadEventInsights = useCallback(async (sourceEvents: EventItem[]) => {
+    if (sourceEvents.length === 0) {
+      setEventInsights({})
+      return
+    }
 
-    setEvents((data || []) as EventItem[])
-  }
+    const now = new Date()
+    const eventIds = sourceEvents.map((event) => event.id)
 
-  const loadRegistrations = async (currentEvents?: EventItem[]) => {
+    const { data: divisions } = await supabase
+      .from('event_divisions')
+      .select('id, event_id, is_active')
+      .in('event_id', eventIds)
+
+    const { data: categories } = await supabase
+      .from('event_categories')
+      .select('id, event_id, division_id, is_active')
+      .in('event_id', eventIds)
+
+    const categoryIds = ((categories || []) as Array<{ id: string }>).map(
+      (category) => category.id
+    )
+
+    const { data: pricing } = categoryIds.length
+      ? await supabase
+          .from('category_pricing_tiers')
+          .select('category_id, starts_at, ends_at, is_active')
+          .in('category_id', categoryIds)
+      : {
+          data: [] as Array<{
+            category_id: string
+            starts_at: string | null
+            ends_at: string | null
+            is_active: boolean
+          }>,
+        }
+
+    const activeDivisionsByEvent = new Map<string, number>()
+    ;(divisions || []).forEach((division) => {
+      if (!division.is_active) return
+      activeDivisionsByEvent.set(
+        division.event_id,
+        (activeDivisionsByEvent.get(division.event_id) || 0) + 1
+      )
+    })
+
+    const categoriesByEvent = new Map<
+      string,
+      Array<{ id: string; division_id?: string | null; is_active: boolean }>
+    >()
+    ;(categories || []).forEach((category) => {
+      if (!categoriesByEvent.has(category.event_id)) {
+        categoriesByEvent.set(category.event_id, [])
+      }
+      categoriesByEvent.get(category.event_id)?.push(category)
+    })
+
+    const activePricingByCategory = new Map<string, number>()
+    ;(pricing || []).forEach((tier) => {
+      if (!tier.is_active) return
+      const startsAtValid = !tier.starts_at || new Date(tier.starts_at) <= now
+      const endsAtValid = !tier.ends_at || new Date(tier.ends_at) >= now
+      if (!startsAtValid || !endsAtValid) return
+      activePricingByCategory.set(
+        tier.category_id,
+        (activePricingByCategory.get(tier.category_id) || 0) + 1
+      )
+    })
+
+    const nextInsights: Record<
+      string,
+      {
+        activeDivisions: number
+        activeCategories: number
+        categoriesWithActivePricing: number
+        blockers: string[]
+      }
+    > = {}
+
+    sourceEvents.forEach((event) => {
+      const eventCategories = categoriesByEvent.get(event.id) || []
+      const activeCategories = eventCategories.filter((category) => category.is_active)
+      const categoriesWithoutDivision = activeCategories.filter(
+        (category) => !category.division_id
+      )
+      const categoriesWithActivePricing = activeCategories.filter(
+        (category) => activePricingByCategory.get(category.id) === 1
+      )
+      const categoriesWithPricingIssues = activeCategories.filter(
+        (category) => (activePricingByCategory.get(category.id) || 0) !== 1
+      )
+
+      const blockers: string[] = []
+      if ((activeDivisionsByEvent.get(event.id) || 0) === 0) {
+        blockers.push('Ajouter au moins une division active.')
+      }
+      if (activeCategories.length === 0) {
+        blockers.push('Ajouter au moins une catégorie active.')
+      }
+      if (categoriesWithoutDivision.length > 0) {
+        blockers.push('Lier chaque catégorie active à une division.')
+      }
+      if (categoriesWithPricingIssues.length > 0) {
+        blockers.push('Assurer exactement un palier tarifaire actif par catégorie.')
+      }
+
+      nextInsights[event.id] = {
+        activeDivisions: activeDivisionsByEvent.get(event.id) || 0,
+        activeCategories: activeCategories.length,
+        categoriesWithActivePricing: categoriesWithActivePricing.length,
+        blockers,
+      }
+    })
+
+    setEventInsights(nextInsights)
+  }, [])
+
+  const loadRegistrations = useCallback(async (currentEvents?: EventItem[]) => {
     const sourceEvents = currentEvents || events
     const ownEventIds = new Set(sourceEvents.map((event) => event.id))
 
@@ -88,7 +212,19 @@ export default function OrganizerPage() {
     )
 
     setRegistrations(ownRegistrations as RegistrationDetail[])
-  }
+  }, [events])
+
+  const loadEvents = useCallback(async () => {
+    const { data } = await supabase
+      .from('events')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    const nextEvents = (data || []) as EventItem[]
+    setEvents(nextEvents)
+    await loadEventInsights(nextEvents)
+    await loadRegistrations(nextEvents)
+  }, [loadEventInsights, loadRegistrations])
 
   useEffect(() => {
     const checkUser = async () => {
@@ -105,12 +241,13 @@ export default function OrganizerPage() {
 
         const safeEvents = (eventsData || []) as EventItem[]
         setEvents(safeEvents)
+        await loadEventInsights(safeEvents)
         await loadRegistrations(safeEvents)
       }
     }
 
     checkUser()
-  }, [])
+  }, [loadEventInsights, loadProfile, loadRegistrations])
 
   const login = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -218,7 +355,11 @@ export default function OrganizerPage() {
     const failures = await validateEventBeforePublish(eventId)
 
     if (failures.length > 0) {
-      setPublishFeedback(failures.join(' '))
+      setPublishFeedback({
+        eventId,
+        message: failures.join(' '),
+        kind: 'error',
+      })
       return
     }
 
@@ -228,11 +369,19 @@ export default function OrganizerPage() {
       .eq('id', eventId)
 
     if (error) {
-      setPublishFeedback(error.message || 'Impossible de publier l’événement pour le moment.')
+      setPublishFeedback({
+        eventId,
+        message: error.message || 'Impossible de publier l’événement pour le moment.',
+        kind: 'error',
+      })
       return
     }
 
-    setPublishFeedback('Événement publié avec une structure minimale valide.')
+    setPublishFeedback({
+      eventId,
+      message: 'Événement publié avec une structure minimale valide.',
+      kind: 'success',
+    })
     await loadEvents()
   }
 
@@ -447,12 +596,6 @@ export default function OrganizerPage() {
             </div>
 
             <div className="mt-6 space-y-4">
-              {publishFeedback && (
-                <div className="rounded-2xl border border-sky-400/20 bg-sky-500/10 p-4 text-sm text-sky-100">
-                  {publishFeedback}
-                </div>
-              )}
-
               {events.length === 0 && (
                 <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-slate-300">
                   Aucun événement pour le moment.
@@ -494,6 +637,43 @@ export default function OrganizerPage() {
                         </button>
                       )}
                     </div>
+                  </div>
+
+                  <div className="mt-4 space-y-3 border-t border-white/10 pt-4">
+                    <div className="grid gap-2 text-xs text-slate-300 sm:grid-cols-3">
+                      <div className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+                        Divisions actives:{' '}
+                        {eventInsights[event.id]?.activeDivisions ?? 0}
+                      </div>
+                      <div className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+                        Catégories actives:{' '}
+                        {eventInsights[event.id]?.activeCategories ?? 0}
+                      </div>
+                      <div className="rounded-lg border border-white/10 bg-white/5 px-3 py-2">
+                        Catégories avec tarif valide:{' '}
+                        {eventInsights[event.id]?.categoriesWithActivePricing ?? 0}
+                      </div>
+                    </div>
+
+                    {(eventInsights[event.id]?.blockers.length || 0) > 0 && (
+                      <ul className="space-y-1 rounded-lg border border-amber-400/20 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+                        {eventInsights[event.id]?.blockers.map((blocker) => (
+                          <li key={blocker}>• {blocker}</li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {publishFeedback?.eventId === event.id && (
+                      <div
+                        className={`rounded-lg border px-3 py-2 text-xs ${
+                          publishFeedback.kind === 'success'
+                            ? 'border-emerald-400/20 bg-emerald-500/10 text-emerald-100'
+                            : 'border-rose-400/20 bg-rose-500/10 text-rose-100'
+                        }`}
+                      >
+                        {publishFeedback.message}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
