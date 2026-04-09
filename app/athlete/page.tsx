@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '../../lib/supabaseClient'
 import { isEmailVerified } from '../../lib/authVerification'
@@ -9,6 +9,7 @@ import {
   getRegistrationReadiness,
   type RegistrationReadinessCode,
 } from '../../lib/registrationReadiness'
+import { getCountryOptions, resolveCountryCode } from '../../lib/countryOptions'
 import {
   AlertTriangle,
   CalendarDays,
@@ -23,6 +24,7 @@ import {
 } from 'lucide-react'
 import { SiteHeader } from '../../components/marketing/site-header'
 import { SiteFooter } from '../../components/marketing/site-footer'
+import franceBoxes from '../../data/boxes/france-boxes.json'
 
 type Profile = {
   id: string
@@ -85,6 +87,16 @@ type RegistrationRpcResult = {
   id: string
 }
 
+type BoxDatasetItem = {
+  affiliate_id: string
+  gym_name: string
+  city: string
+  country: string
+  website?: string
+}
+
+type AffiliateMode = 'known' | 'custom' | 'independent'
+
 const readinessMessages: Record<RegistrationReadinessCode, string> = {
   email_not_verified: 'Vérifie ton email pour activer les futures inscriptions.',
   missing_first_name: 'Ajoute ton prénom dans le profil athlète.',
@@ -92,6 +104,8 @@ const readinessMessages: Record<RegistrationReadinessCode, string> = {
   missing_date_of_birth: 'Ajoute ta date de naissance dans le profil athlète.',
   missing_country: 'Ajoute ton pays de résidence dans le profil athlète.',
 }
+
+const INDEPENDENT_AFFILIATE_LABEL = 'Indépendant / Sans box'
 
 export default function AthletePage() {
   const [user, setUser] = useState<User | null>(null)
@@ -106,16 +120,30 @@ export default function AthletePage() {
   const [registrationFeedback, setRegistrationFeedback] = useState('')
   const [registrationError, setRegistrationError] = useState('')
   const [submittingCategoryId, setSubmittingCategoryId] = useState<string | null>(null)
+  const [affiliateMode, setAffiliateMode] = useState<AffiliateMode>('known')
+  const [affiliateQuery, setAffiliateQuery] = useState('')
+  const [selectedAffiliateId, setSelectedAffiliateId] = useState<string | null>(null)
+  const [customAffiliateName, setCustomAffiliateName] = useState('')
   const [profileForm, setProfileForm] = useState({
     firstName: '',
     lastName: '',
     dateOfBirth: '',
     affiliate: '',
     city: '',
-    country: '',
+    country: 'FR',
   })
+  const countryOptions = useMemo(() => getCountryOptions(), [])
+  const boxes = useMemo(() => franceBoxes as BoxDatasetItem[], [])
+  const boxesById = useMemo(
+    () => new Map(boxes.map((box) => [box.affiliate_id, box])),
+    [boxes]
+  )
+  const boxesByName = useMemo(
+    () => new Map(boxes.map((box) => [box.gym_name.toLowerCase(), box])),
+    [boxes]
+  )
 
-  const loadProfile = async (userId: string) => {
+  const loadProfile = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
       .select('*')
@@ -124,16 +152,37 @@ export default function AthletePage() {
 
     setProfile(data)
     if (data) {
+      const normalizedCountryCode = resolveCountryCode(data.country, countryOptions)
+      const savedAffiliate = (data.affiliate || '').trim()
+      const knownBox = boxesByName.get(savedAffiliate.toLowerCase())
+
       setProfileForm({
         firstName: data.first_name || '',
         lastName: data.last_name || '',
         dateOfBirth: data.date_of_birth || '',
         affiliate: data.affiliate || '',
         city: data.city || '',
-        country: data.country || '',
+        country: normalizedCountryCode,
       })
+
+      if (savedAffiliate === INDEPENDENT_AFFILIATE_LABEL) {
+        setAffiliateMode('independent')
+        setSelectedAffiliateId(null)
+        setAffiliateQuery('')
+        setCustomAffiliateName('')
+      } else if (knownBox) {
+        setAffiliateMode('known')
+        setSelectedAffiliateId(knownBox.affiliate_id)
+        setAffiliateQuery(knownBox.gym_name)
+        setCustomAffiliateName('')
+      } else {
+        setAffiliateMode('custom')
+        setSelectedAffiliateId(null)
+        setAffiliateQuery('')
+        setCustomAffiliateName(savedAffiliate)
+      }
     }
-  }
+  }, [boxesByName, countryOptions])
 
   const uploadProfilePhoto = async (file: File) => {
     if (!user) return
@@ -181,13 +230,26 @@ export default function AthletePage() {
     if (!user) return
     setProfileFeedback('')
 
+    const selectedBox = selectedAffiliateId ? boxesById.get(selectedAffiliateId) : null
+    const affiliateValue =
+      affiliateMode === 'independent'
+        ? INDEPENDENT_AFFILIATE_LABEL
+        : affiliateMode === 'custom'
+          ? customAffiliateName.trim()
+          : selectedBox?.gym_name || ''
+
+    if (affiliateMode === 'known' && !selectedBox) {
+      setProfileFeedback('Sélectionne une box suggérée ou choisis un autre mode.')
+      return
+    }
+
     const { error } = await supabase
       .from('profiles')
       .update({
         first_name: profileForm.firstName || null,
         last_name: profileForm.lastName || null,
         date_of_birth: profileForm.dateOfBirth || null,
-        affiliate: profileForm.affiliate || null,
+        affiliate: affiliateValue || null,
         city: profileForm.city || null,
         country: profileForm.country || null,
         profile_photo_url: profile?.profile_photo_url || null,
@@ -336,7 +398,7 @@ export default function AthletePage() {
     }
 
     checkUser()
-  }, [])
+  }, [loadProfile])
 
   const login = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -425,6 +487,23 @@ export default function AthletePage() {
       hint: readinessMessages.missing_country,
     },
   ]
+  const normalizedAffiliateQuery = affiliateQuery.trim().toLowerCase()
+  const affiliateSuggestions = useMemo(() => {
+    if (affiliateMode !== 'known' || normalizedAffiliateQuery.length < 2) return []
+
+    return boxes
+      .filter((box) => {
+        const haystack = `${box.gym_name} ${box.city} ${box.country}`.toLowerCase()
+        return haystack.includes(normalizedAffiliateQuery)
+      })
+      .slice(0, 8)
+  }, [affiliateMode, boxes, normalizedAffiliateQuery])
+  const selectedCountryOption = useMemo(
+    () =>
+      countryOptions.find((option) => option.code === profileForm.country) ||
+      countryOptions[0],
+    [countryOptions, profileForm.country]
+  )
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -787,28 +866,147 @@ export default function AthletePage() {
                 />
                 <input
                   className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Pays"
-                  value={profileForm.country}
-                  onChange={(e) =>
-                    setProfileForm((prev) => ({ ...prev, country: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Affiliate / Box"
-                  value={profileForm.affiliate}
-                  onChange={(e) =>
-                    setProfileForm((prev) => ({ ...prev, affiliate: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                   placeholder="Ville"
                   value={profileForm.city}
                   onChange={(e) =>
                     setProfileForm((prev) => ({ ...prev, city: e.target.value }))
                   }
                 />
+              </div>
+
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <label className="space-y-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                    Pays de résidence
+                  </span>
+                  <div className="relative">
+                    <select
+                      className="w-full appearance-none rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 pr-10 text-white outline-none"
+                      value={selectedCountryOption?.code || 'FR'}
+                      onChange={(e) => {
+                        const selected = countryOptions.find(
+                          (option) => option.code === e.target.value
+                        )
+                        if (!selected) return
+                        setProfileForm((prev) => ({
+                          ...prev,
+                          country: selected.code,
+                        }))
+                      }}
+                    >
+                      {countryOptions.map((option) => (
+                        <option key={option.code} value={option.code}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                      ▾
+                    </span>
+                  </div>
+                </label>
+
+                <div className="space-y-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                    Affiliate / Box
+                  </span>
+                  <div className="grid gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setAffiliateMode('known')}
+                      className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold ${
+                        affiliateMode === 'known'
+                          ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                          : 'border-white/10 bg-slate-950/70 text-slate-300'
+                      }`}
+                    >
+                      Choisir une box connue
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAffiliateMode('custom')}
+                      className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold ${
+                        affiliateMode === 'custom'
+                          ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                          : 'border-white/10 bg-slate-950/70 text-slate-300'
+                      }`}
+                    >
+                      Ma box n’est pas dans la liste
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAffiliateMode('independent')}
+                      className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold ${
+                        affiliateMode === 'independent'
+                          ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                          : 'border-white/10 bg-slate-950/70 text-slate-300'
+                      }`}
+                    >
+                      Je suis indépendant / sans box
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-2">
+                {affiliateMode === 'known' && (
+                  <>
+                    <input
+                      className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Rechercher une box (ex: trap)"
+                      value={affiliateQuery}
+                      onChange={(e) => {
+                        setAffiliateQuery(e.target.value)
+                        setSelectedAffiliateId(null)
+                      }}
+                    />
+                    {affiliateSuggestions.length > 0 && (
+                      <div className="max-h-56 space-y-2 overflow-auto rounded-xl border border-white/10 bg-slate-950/80 p-2">
+                        {affiliateSuggestions.map((box) => (
+                          <button
+                            key={box.affiliate_id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedAffiliateId(box.affiliate_id)
+                              setAffiliateQuery(box.gym_name)
+                            }}
+                            className={`w-full rounded-lg border px-3 py-2 text-left ${
+                              selectedAffiliateId === box.affiliate_id
+                                ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                                : 'border-white/10 bg-white/5 text-slate-200'
+                            }`}
+                          >
+                            <div className="text-sm font-semibold">{box.gym_name}</div>
+                            <div className="text-xs text-slate-300">
+                              {box.city}, {box.country}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {affiliateQuery.trim().length >= 2 && affiliateSuggestions.length === 0 && (
+                      <div className="rounded-xl border border-amber-400/25 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+                        Aucune box trouvée. Choisis “Ma box n’est pas dans la liste” pour saisir
+                        un nom personnalisé.
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {affiliateMode === 'custom' && (
+                  <input
+                    className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                    placeholder="Nom de ta box (saisie libre)"
+                    value={customAffiliateName}
+                    onChange={(e) => setCustomAffiliateName(e.target.value)}
+                  />
+                )}
+
+                {affiliateMode === 'independent' && (
+                  <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                    Le profil sera enregistré comme : {INDEPENDENT_AFFILIATE_LABEL}.
+                  </div>
+                )}
               </div>
             </div>
           </div>
