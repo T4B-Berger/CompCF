@@ -10,9 +10,12 @@ import {
   type RegistrationReadinessCode,
 } from '../../lib/registrationReadiness'
 import {
+  AlertTriangle,
   CalendarDays,
   Camera,
+  CheckCircle2,
   LogOut,
+  MailCheck,
   Medal,
   Ticket,
   Trophy,
@@ -367,6 +370,10 @@ export default function AthletePage() {
   }
 
   const upcomingRegistrations = useMemo(() => registrations.length, [registrations])
+  const upcomingEventsCount = useMemo(
+    () => events.filter((event) => new Date(event.start_date) >= new Date()).length,
+    [events]
+  )
   const registrationsByEventAndCategory = useMemo(() => {
     return new Set(registrations.map((item) => `${item.event_id}:${item.category_id}`))
   }, [registrations])
@@ -382,6 +389,42 @@ export default function AthletePage() {
       country: profileForm.country,
     },
   })
+  const readinessMissingSet = useMemo(
+    () => new Set(registrationReadiness.missing),
+    [registrationReadiness.missing]
+  )
+  const availableCategoryCount = useMemo(
+    () =>
+      events.reduce((total, event) => total + ((categoriesByEvent[event.id] || []).length), 0),
+    [categoriesByEvent, events]
+  )
+  const profileChecklist = [
+    {
+      label: 'Email vérifié',
+      done: isEmailVerified(user),
+      hint: readinessMessages.email_not_verified,
+    },
+    {
+      label: 'Prénom',
+      done: !readinessMissingSet.has('missing_first_name'),
+      hint: readinessMessages.missing_first_name,
+    },
+    {
+      label: 'Nom',
+      done: !readinessMissingSet.has('missing_last_name'),
+      hint: readinessMessages.missing_last_name,
+    },
+    {
+      label: 'Date de naissance',
+      done: !readinessMissingSet.has('missing_date_of_birth'),
+      hint: readinessMessages.missing_date_of_birth,
+    },
+    {
+      label: 'Pays',
+      done: !readinessMissingSet.has('missing_country'),
+      hint: readinessMessages.missing_country,
+    },
+  ]
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -558,6 +601,102 @@ export default function AthletePage() {
           </div>
         </div>
 
+        <div className="mt-10 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
+            <div className="flex items-start gap-3">
+              <MailCheck className="mt-0.5 h-5 w-5 text-sky-300" />
+              <div>
+                <h2 className="text-2xl font-semibold text-white">
+                  Compte et vérification
+                </h2>
+                <p className="mt-2 text-sm text-slate-300">
+                  Vérifie rapidement l’état de ton compte avant de gérer ton inscription.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                <div className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                  Vérification email
+                </div>
+                <div
+                  className={`mt-2 inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
+                    isEmailVerified(user)
+                      ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200'
+                      : 'border-amber-400/30 bg-amber-500/10 text-amber-200'
+                  }`}
+                >
+                  {isEmailVerified(user) ? 'Email vérifié' : 'Email à vérifier'}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                <div className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                  Prochaine action
+                </div>
+                <p className="mt-2 text-sm text-slate-200">
+                  {registrationReadiness.ready
+                    ? 'Ton compte est prêt. Tu peux choisir une catégorie et t’inscrire.'
+                    : 'Complète les éléments signalés dans la section readiness ci-dessous.'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-300" />
+              <div>
+                <h2 className="text-2xl font-semibold text-white">
+                  Readiness inscription
+                </h2>
+                <p className="mt-2 text-sm text-slate-300">
+                  Validation rapide des prérequis avant inscription.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className={`mt-5 rounded-2xl border px-4 py-3 text-sm ${
+                registrationReadiness.ready
+                  ? 'border-emerald-400/25 bg-emerald-500/10 text-emerald-100'
+                  : 'border-amber-400/25 bg-amber-500/10 text-amber-100'
+              }`}
+            >
+              <p className="font-semibold">
+                {registrationReadiness.ready
+                  ? 'Prêt pour inscription.'
+                  : 'Profil incomplet : complète les éléments manquants.'}
+              </p>
+            </div>
+
+            <div className="mt-5 space-y-2">
+              {profileChecklist.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2"
+                >
+                  <div>
+                    <div className="text-sm font-medium text-white">{item.label}</div>
+                    {!item.done && (
+                      <div className="mt-1 text-xs text-amber-200">{item.hint}</div>
+                    )}
+                  </div>
+                  <span
+                    className={`mt-0.5 inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+                      item.done
+                        ? 'border border-emerald-400/25 bg-emerald-500/10 text-emerald-200'
+                        : 'border border-amber-400/25 bg-amber-500/10 text-amber-200'
+                    }`}
+                  >
+                    {item.done ? 'OK' : 'À faire'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
@@ -565,7 +704,7 @@ export default function AthletePage() {
                 Profil athlète
               </h2>
               <p className="mt-2 text-sm text-slate-300">
-                Complète ton profil pour faciliter inscription, vérification et suivi.
+                Mets à jour tes informations personnelles avant de lancer une inscription.
               </p>
             </div>
             <span
@@ -674,40 +813,9 @@ export default function AthletePage() {
             </div>
           </div>
 
-          <div
-            className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${
-              registrationReadiness.ready
-                ? 'border-emerald-400/25 bg-emerald-500/10 text-emerald-100'
-                : 'border-amber-400/25 bg-amber-500/10 text-amber-100'
-            }`}
-          >
-            <p className="font-semibold">
-              {registrationReadiness.ready
-                ? 'Tu es prêt pour le futur flux d’inscription.'
-                : 'Pré-requis à compléter avant le futur flux d’inscription :'}
-            </p>
-            {!registrationReadiness.ready && (
-              <ul className="mt-2 list-disc space-y-1 pl-5">
-                {registrationReadiness.missing.map((code) => (
-                  <li key={code}>{readinessMessages[code]}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-
           {profileFeedback && (
             <div className="mt-4 rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
               {profileFeedback}
-            </div>
-          )}
-          {registrationFeedback && (
-            <div className="mt-4 rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
-              {registrationFeedback}
-            </div>
-          )}
-          {registrationError && (
-            <div className="mt-4 rounded-xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-              {registrationError}
             </div>
           )}
 
@@ -721,14 +829,34 @@ export default function AthletePage() {
 
         <div className="mt-10 grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-sky-300" />
-              <h2 className="text-2xl font-semibold text-white">
-                Événements publiés
-              </h2>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <CalendarDays className="h-5 w-5 text-sky-300" />
+                <h2 className="text-2xl font-semibold text-white">
+                  Événements et catégories disponibles
+                </h2>
+              </div>
+              <div className="text-right text-xs text-slate-300">
+                <div>{upcomingEventsCount} événements à venir</div>
+                <div>{availableCategoryCount} catégories actives</div>
+              </div>
             </div>
+            <p className="mt-2 text-sm text-slate-300">
+              Choisis une catégorie avec un tarif actif pour créer ton inscription.
+            </p>
 
             <div className="mt-6 space-y-4">
+              {registrationError && (
+                <div className="rounded-xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                  {registrationError}
+                </div>
+              )}
+              {registrationFeedback && (
+                <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                  {registrationFeedback}
+                </div>
+              )}
+
               {events.length === 0 && (
                 <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-slate-300">
                   Aucun événement publié pour le moment.
@@ -740,12 +868,20 @@ export default function AthletePage() {
                   key={event.id}
                   className="rounded-2xl border border-white/10 bg-slate-950/70 p-5"
                 >
-                  <div className="text-lg font-semibold text-white">
-                    {event.name}
+                  <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <div className="text-lg font-semibold text-white">
+                        {event.name}
+                      </div>
+                      <div className="mt-1 text-sm text-slate-400">
+                        {event.start_date} → {event.end_date}
+                      </div>
+                    </div>
+                    <span className="inline-flex rounded-full border border-sky-400/20 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-100">
+                      Publié
+                    </span>
                   </div>
-                  <div className="mt-2 text-sm text-slate-400">
-                    {event.start_date} → {event.end_date}
-                  </div>
+
                   <div className="mt-4 space-y-3">
                     {(categoriesByEvent[event.id] || []).length === 0 && (
                       <div className="rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3 text-sm text-slate-300">
@@ -756,10 +892,12 @@ export default function AthletePage() {
                       const isAlreadyRegistered = registrationsByEventAndCategory.has(
                         `${event.id}:${category.id}`
                       )
+                      const registrationBlocked =
+                        !registrationReadiness.ready || !category.pricingTier
                       const disabled =
-                        !registrationReadiness.ready ||
-                        !category.pricingTier ||
-                        isAlreadyRegistered
+                        registrationBlocked ||
+                        isAlreadyRegistered ||
+                        submittingCategoryId === category.id
 
                       return (
                         <div
@@ -776,10 +914,18 @@ export default function AthletePage() {
                                   ? `${category.pricingTier.name} · ${(category.pricingTier.price_cents / 100).toFixed(2)} €`
                                   : 'Aucun tarif actif'}
                               </div>
+                              {registrationBlocked && !isAlreadyRegistered && (
+                                <div className="mt-2 inline-flex items-center gap-1 text-[11px] text-amber-200">
+                                  <AlertTriangle className="h-3.5 w-3.5" />
+                                  {!registrationReadiness.ready
+                                    ? 'Readiness incomplète'
+                                    : 'Tarif actif manquant'}
+                                </div>
+                              )}
                             </div>
                             <button
                               onClick={() => createRegistration(event.id, category.id)}
-                              disabled={disabled || submittingCategoryId === category.id}
+                              disabled={disabled}
                               className="rounded-lg bg-gradient-to-r from-fuchsia-500 to-sky-500 px-4 py-2 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
                             >
                               {isAlreadyRegistered
@@ -805,6 +951,9 @@ export default function AthletePage() {
                 Mes inscriptions
               </h2>
             </div>
+            <p className="mt-2 text-sm text-slate-300">
+              Historique de tes inscriptions validées depuis le dashboard.
+            </p>
 
             <div className="mt-6 space-y-4">
               {registrations.length === 0 && (
