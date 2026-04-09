@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '../../lib/supabaseClient'
 import {
@@ -49,6 +49,17 @@ type RegistrationDetail = {
   athlete_email: string
 }
 
+type RegistrationStatus = 'pending' | 'confirmed' | 'cancelled'
+
+const REGISTRATION_STATUS_OPTIONS: Array<{
+  value: RegistrationStatus
+  label: string
+}> = [
+  { value: 'pending', label: 'En attente' },
+  { value: 'confirmed', label: 'Confirmée' },
+  { value: 'cancelled', label: 'Annulée' },
+]
+
 export default function AdminPage() {
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
@@ -70,6 +81,14 @@ export default function AdminPage() {
   })
   const [events, setEvents] = useState<EventItem[]>([])
   const [registrations, setRegistrations] = useState<RegistrationDetail[]>([])
+  const [registrationSearch, setRegistrationSearch] = useState('')
+  const [registrationEventFilter, setRegistrationEventFilter] = useState('all')
+  const [registrationStatusFilter, setRegistrationStatusFilter] = useState('all')
+  const [selectedRegistrationId, setSelectedRegistrationId] = useState('')
+  const [registrationStatus, setRegistrationStatus] =
+    useState<RegistrationStatus>('pending')
+  const [registrationEditFeedback, setRegistrationEditFeedback] = useState('')
+  const [savingRegistration, setSavingRegistration] = useState(false)
 
   const loadProfile = async (userId: string) => {
     const { data } = await supabase
@@ -149,6 +168,11 @@ export default function AdminPage() {
     setAthleteProfiles([])
     setEvents([])
     setRegistrations([])
+    setSelectedRegistrationId('')
+    setRegistrationSearch('')
+    setRegistrationEventFilter('all')
+    setRegistrationStatusFilter('all')
+    setRegistrationEditFeedback('')
   }
 
   const saveAthleteProfile = async () => {
@@ -178,6 +202,101 @@ export default function AdminPage() {
     await loadAdminData()
     setAthleteEditFeedback('Profil athlète mis à jour.')
     setSavingAthlete(false)
+  }
+
+  const selectedRegistration = useMemo(
+    () => registrations.find((item) => item.id === selectedRegistrationId) || null,
+    [registrations, selectedRegistrationId]
+  )
+
+  const registrationEventOptions = useMemo(() => {
+    return Array.from(new Set(registrations.map((item) => item.event_name))).sort((a, b) =>
+      a.localeCompare(b, 'fr')
+    )
+  }, [registrations])
+
+  const filteredRegistrations = useMemo(() => {
+    const search = registrationSearch.trim().toLowerCase()
+
+    return registrations.filter((item) => {
+      if (registrationEventFilter !== 'all' && item.event_name !== registrationEventFilter) {
+        return false
+      }
+
+      if (registrationStatusFilter !== 'all' && item.status !== registrationStatusFilter) {
+        return false
+      }
+
+      if (!search) return true
+
+      const haystack = [
+        item.athlete_email,
+        item.event_name,
+        item.category_name,
+        item.status,
+      ]
+        .join(' ')
+        .toLowerCase()
+
+      return haystack.includes(search)
+    })
+  }, [registrations, registrationEventFilter, registrationStatusFilter, registrationSearch])
+
+  const selectRegistration = (item: RegistrationDetail) => {
+    setSelectedRegistrationId(item.id)
+    setRegistrationEditFeedback('')
+    const status = REGISTRATION_STATUS_OPTIONS.some((option) => option.value === item.status)
+      ? (item.status as RegistrationStatus)
+      : 'pending'
+    setRegistrationStatus(status)
+
+    const linkedAthlete = athleteProfiles.find((profileItem) => profileItem.id === item.athlete_id)
+    if (!linkedAthlete) {
+      setSelectedAthleteId('')
+      setAthleteForm({
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        affiliate: '',
+        city: '',
+        country: '',
+        profilePhotoUrl: '',
+      })
+      return
+    }
+
+    setSelectedAthleteId(linkedAthlete.id)
+    setAthleteEditFeedback('')
+    setAthleteForm({
+      firstName: linkedAthlete.first_name || '',
+      lastName: linkedAthlete.last_name || '',
+      dateOfBirth: linkedAthlete.date_of_birth || '',
+      affiliate: linkedAthlete.affiliate || '',
+      city: linkedAthlete.city || '',
+      country: linkedAthlete.country || '',
+      profilePhotoUrl: linkedAthlete.profile_photo_url || '',
+    })
+  }
+
+  const saveRegistrationStatus = async () => {
+    if (!selectedRegistrationId) return
+    setSavingRegistration(true)
+    setRegistrationEditFeedback('')
+
+    const { error } = await supabase
+      .from('registrations')
+      .update({ status: registrationStatus })
+      .eq('id', selectedRegistrationId)
+
+    if (error) {
+      setRegistrationEditFeedback("Impossible de mettre à jour le statut d'inscription.")
+      setSavingRegistration(false)
+      return
+    }
+
+    await loadAdminData()
+    setRegistrationEditFeedback('Statut d’inscription mis à jour.')
+    setSavingRegistration(false)
   }
 
   if (!user) {
@@ -333,8 +452,20 @@ export default function AdminPage() {
                   </div>
                   <button
                     onClick={() => {
+                      const linkedRegistration = registrations.find(
+                        (registration) => registration.athlete_id === item.id
+                      )
+
+                      if (linkedRegistration) {
+                        selectRegistration(linkedRegistration)
+                        return
+                      }
+
+                      setSelectedRegistrationId('')
                       setSelectedAthleteId(item.id)
-                      setAthleteEditFeedback('')
+                      setAthleteEditFeedback(
+                        "Cet athlète n'a pas d'inscription active à corriger pour le moment."
+                      )
                       setAthleteForm({
                         firstName: item.first_name || '',
                         lastName: item.last_name || '',
@@ -347,7 +478,7 @@ export default function AdminPage() {
                     }}
                     className="mt-3 rounded-lg border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-white hover:bg-white/10"
                   >
-                    Modifier ce profil
+                    Ouvrir depuis ses inscriptions
                   </button>
                 </div>
               ))}
@@ -375,127 +506,239 @@ export default function AdminPage() {
           </div>
 
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
-            <h2 className="text-2xl font-semibold text-white">Inscriptions</h2>
+            <h2 className="text-2xl font-semibold text-white">Inscriptions athlètes</h2>
+            <p className="mt-2 text-sm text-slate-300">
+              Recherche rapide + filtres MVP pour corriger un inscrit.
+            </p>
+
+            <div className="mt-6 space-y-3">
+              <input
+                className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                placeholder="Rechercher (email, événement, catégorie...)"
+                value={registrationSearch}
+                onChange={(e) => setRegistrationSearch(e.target.value)}
+              />
+              <div className="grid gap-3 md:grid-cols-2">
+                <select
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none"
+                  value={registrationEventFilter}
+                  onChange={(e) => setRegistrationEventFilter(e.target.value)}
+                >
+                  <option value="all">Tous les événements</option>
+                  {registrationEventOptions.map((eventName) => (
+                    <option key={eventName} value={eventName}>
+                      {eventName}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none"
+                  value={registrationStatusFilter}
+                  onChange={(e) => setRegistrationStatusFilter(e.target.value)}
+                >
+                  <option value="all">Tous les statuts</option>
+                  {REGISTRATION_STATUS_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div className="mt-6 space-y-4">
-              {registrations.map((registration) => (
+              {filteredRegistrations.map((registration) => (
                 <div
                   key={registration.id}
-                  className="rounded-2xl border border-white/10 bg-slate-950/70 p-4"
+                  className={`rounded-2xl border bg-slate-950/70 p-4 ${
+                    selectedRegistrationId === registration.id
+                      ? 'border-fuchsia-400/40'
+                      : 'border-white/10'
+                  }`}
                 >
                   <div className="font-medium text-white">
-                    {registration.event_name}
+                    {registration.athlete_email}
                   </div>
                   <div className="mt-2 text-sm text-slate-300">
-                    {registration.category_name}
-                  </div>
-                  <div className="mt-2 text-sm text-slate-400">
-                    {registration.athlete_email}
+                    {registration.event_name} · {registration.category_name}
                   </div>
                   <div className="mt-3 inline-flex rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300">
                     {registration.status}
                   </div>
+                  <button
+                    onClick={() => selectRegistration(registration)}
+                    className="mt-3 rounded-lg border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-white hover:bg-white/10"
+                  >
+                    Voir et corriger
+                  </button>
                 </div>
               ))}
+
+              {filteredRegistrations.length === 0 && (
+                <div className="rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-300">
+                  Aucune inscription ne correspond aux filtres actuels.
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <div className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-6">
           <h2 className="text-2xl font-semibold text-white">
-            Édition du profil athlète
+            Détail inscription + correction athlète
           </h2>
           <p className="mt-2 text-sm text-slate-300">
-            Capacité admin MVP : consulter et corriger les informations profil
-            athlète sans ouvrir un back-office générique.
+            Capacité admin MVP : corriger un profil athlète inscrit et piloter
+            son statut d’inscription.
           </p>
 
-          {!selectedAthleteId && (
+          {!selectedRegistration && (
             <div className="mt-6 rounded-xl border border-white/10 bg-slate-950/70 p-4 text-sm text-slate-300">
-              Sélectionne un athlète dans la liste pour éditer son profil.
+              Sélectionne une inscription dans la colonne “Inscriptions athlètes”.
             </div>
           )}
 
-          {selectedAthleteId && (
+          {selectedRegistration && (
             <div className="mt-6 space-y-4">
-              <div className="grid gap-4 md:grid-cols-2">
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Prénom"
-                  value={athleteForm.firstName}
-                  onChange={(e) =>
-                    setAthleteForm((prev) => ({ ...prev, firstName: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Nom"
-                  value={athleteForm.lastName}
-                  onChange={(e) =>
-                    setAthleteForm((prev) => ({ ...prev, lastName: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  type="date"
-                  placeholder="Date de naissance"
-                  value={athleteForm.dateOfBirth}
-                  onChange={(e) =>
-                    setAthleteForm((prev) => ({ ...prev, dateOfBirth: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Pays"
-                  value={athleteForm.country}
-                  onChange={(e) =>
-                    setAthleteForm((prev) => ({ ...prev, country: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Affiliate / Box"
-                  value={athleteForm.affiliate}
-                  onChange={(e) =>
-                    setAthleteForm((prev) => ({ ...prev, affiliate: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Ville"
-                  value={athleteForm.city}
-                  onChange={(e) =>
-                    setAthleteForm((prev) => ({ ...prev, city: e.target.value }))
-                  }
-                />
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                <div className="text-sm text-slate-400">Inscription sélectionnée</div>
+                <div className="mt-2 text-white">
+                  {selectedRegistration.athlete_email}
+                </div>
+                <div className="mt-2 text-sm text-slate-300">
+                  {selectedRegistration.event_name} · {selectedRegistration.category_name}
+                </div>
+                <div className="mt-2 text-sm text-slate-400">
+                  Créée le {new Date(selectedRegistration.created_at).toLocaleString('fr-FR')}
+                </div>
               </div>
 
-              <input
-                className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                placeholder="URL photo de profil"
-                value={athleteForm.profilePhotoUrl}
-                onChange={(e) =>
-                  setAthleteForm((prev) => ({
-                    ...prev,
-                    profilePhotoUrl: e.target.value,
-                  }))
-                }
-              />
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                <div className="text-sm font-semibold text-white">
+                  Statut de l’inscription
+                </div>
+                <div className="mt-3 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+                  <select
+                    className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none"
+                    value={registrationStatus}
+                    onChange={(e) =>
+                      setRegistrationStatus(e.target.value as RegistrationStatus)
+                    }
+                  >
+                    {REGISTRATION_STATUS_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    onClick={saveRegistrationStatus}
+                    disabled={savingRegistration}
+                    className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
+                  >
+                    {savingRegistration ? 'Sauvegarde...' : 'Enregistrer le statut'}
+                  </button>
+                </div>
+                {registrationEditFeedback && (
+                  <div className="mt-3 rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
+                    {registrationEditFeedback}
+                  </div>
+                )}
+              </div>
 
-              {athleteEditFeedback && (
-                <div className="rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
-                  {athleteEditFeedback}
+              {!selectedAthleteId && (
+                <div className="rounded-xl border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                  Profil athlète introuvable pour cette inscription. Le statut peut
+                  néanmoins être modifié.
                 </div>
               )}
 
-              <button
-                onClick={saveAthleteProfile}
-                disabled={savingAthlete}
-                className="rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
-              >
-                {savingAthlete
-                  ? 'Sauvegarde...'
-                  : 'Enregistrer les modifications'}
-              </button>
+              {selectedAthleteId && (
+                <>
+                  <div className="text-sm font-semibold text-white">
+                    Édition du profil athlète lié
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <input
+                      className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Prénom"
+                      value={athleteForm.firstName}
+                      onChange={(e) =>
+                        setAthleteForm((prev) => ({ ...prev, firstName: e.target.value }))
+                      }
+                    />
+                    <input
+                      className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Nom"
+                      value={athleteForm.lastName}
+                      onChange={(e) =>
+                        setAthleteForm((prev) => ({ ...prev, lastName: e.target.value }))
+                      }
+                    />
+                    <input
+                      className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      type="date"
+                      placeholder="Date de naissance"
+                      value={athleteForm.dateOfBirth}
+                      onChange={(e) =>
+                        setAthleteForm((prev) => ({ ...prev, dateOfBirth: e.target.value }))
+                      }
+                    />
+                    <input
+                      className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Pays"
+                      value={athleteForm.country}
+                      onChange={(e) =>
+                        setAthleteForm((prev) => ({ ...prev, country: e.target.value }))
+                      }
+                    />
+                    <input
+                      className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Affiliate / Box"
+                      value={athleteForm.affiliate}
+                      onChange={(e) =>
+                        setAthleteForm((prev) => ({ ...prev, affiliate: e.target.value }))
+                      }
+                    />
+                    <input
+                      className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Ville"
+                      value={athleteForm.city}
+                      onChange={(e) =>
+                        setAthleteForm((prev) => ({ ...prev, city: e.target.value }))
+                      }
+                    />
+                  </div>
+
+                  <input
+                    className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                    placeholder="URL photo de profil"
+                    value={athleteForm.profilePhotoUrl}
+                    onChange={(e) =>
+                      setAthleteForm((prev) => ({
+                        ...prev,
+                        profilePhotoUrl: e.target.value,
+                      }))
+                    }
+                  />
+
+                  {athleteEditFeedback && (
+                    <div className="rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
+                      {athleteEditFeedback}
+                    </div>
+                  )}
+
+                  <button
+                    onClick={saveAthleteProfile}
+                    disabled={savingAthlete}
+                    className="rounded-xl bg-gradient-to-r from-fuchsia-500 to-sky-500 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60"
+                  >
+                    {savingAthlete
+                      ? 'Sauvegarde...'
+                      : 'Enregistrer les modifications'}
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>
