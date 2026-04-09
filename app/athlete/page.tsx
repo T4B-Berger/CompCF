@@ -231,6 +231,11 @@ export default function AthletePage() {
     setProfileFeedback('')
 
     const selectedBox = selectedAffiliateId ? boxesById.get(selectedAffiliateId) : null
+    const normalizedFirstName = profileForm.firstName.trim()
+    const normalizedLastName = profileForm.lastName.trim()
+    const normalizedCity = profileForm.city.trim()
+    const normalizedCountry = profileForm.country.trim().toUpperCase()
+    const normalizedDateOfBirth = profileForm.dateOfBirth.trim()
     const affiliateValue =
       affiliateMode === 'independent'
         ? INDEPENDENT_AFFILIATE_LABEL
@@ -243,21 +248,55 @@ export default function AthletePage() {
       return
     }
 
+    if (normalizedDateOfBirth) {
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      const birthDate = new Date(`${normalizedDateOfBirth}T00:00:00`)
+
+      if (Number.isNaN(birthDate.getTime()) || birthDate >= today) {
+        setProfileFeedback('La date de naissance doit être une date passée.')
+        return
+      }
+    }
+
     const { error } = await supabase
       .from('profiles')
       .update({
-        first_name: profileForm.firstName || null,
-        last_name: profileForm.lastName || null,
-        date_of_birth: profileForm.dateOfBirth || null,
+        first_name: normalizedFirstName || null,
+        last_name: normalizedLastName || null,
+        date_of_birth: normalizedDateOfBirth || null,
         affiliate: affiliateValue || null,
-        city: profileForm.city || null,
-        country: profileForm.country || null,
+        city: normalizedCity || null,
+        country: normalizedCountry || null,
         profile_photo_url: profile?.profile_photo_url || null,
       })
       .eq('id', user.id)
 
     if (error) {
-      setProfileFeedback('Impossible de sauvegarder le profil pour le moment.')
+      const lowerMessage = (error.message || '').toLowerCase()
+      if (lowerMessage.includes('profiles_date_of_birth_in_past')) {
+        setProfileFeedback('La date de naissance doit être une date passée.')
+        return
+      }
+      if (lowerMessage.includes('profiles_first_name_not_blank')) {
+        setProfileFeedback('Le prénom ne peut pas contenir uniquement des espaces.')
+        return
+      }
+      if (lowerMessage.includes('profiles_last_name_not_blank')) {
+        setProfileFeedback('Le nom ne peut pas contenir uniquement des espaces.')
+        return
+      }
+      if (lowerMessage.includes('profiles_country_not_blank')) {
+        setProfileFeedback('Le pays doit contenir une valeur valide.')
+        return
+      }
+
+      const errorDetails = [error.message, error.details, error.hint]
+        .filter(Boolean)
+        .join(' · ')
+      setProfileFeedback(
+        `Impossible de sauvegarder le profil pour le moment. (${errorDetails || error.code || 'erreur inconnue'})`
+      )
       return
     }
 
