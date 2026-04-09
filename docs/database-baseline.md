@@ -99,6 +99,20 @@ Because current runtime authenticates from client-side Supabase auth, policies a
 - `profiles` includes minimal athlete onboarding fields for registration readiness: `first_name`, `last_name`, `date_of_birth`, `affiliate`, `city`, `country`, `profile_photo_url`.
 - This is intentionally a minimal MVP profile baseline (no social/community profile expansion).
 
+## Live migration application note (critical)
+- Merging a SQL migration file into Git **does not** update the live Supabase database by itself.
+- For production/staging reliability, migrations must be explicitly applied to the exact Supabase project used by the deployed app.
+- Recommended operator workflow:
+  1. Confirm deployment environment variables (`NEXT_PUBLIC_SUPABASE_URL`) and the intended Supabase project ref match.
+  2. From a linked Supabase CLI context, run:
+     - `supabase migration list`
+     - `supabase db push`
+     - `supabase db diff --linked` (should be empty after sync)
+  3. Verify required profile columns directly:
+     - `select column_name from information_schema.columns where table_schema = 'public' and table_name = 'profiles' and column_name in ('date_of_birth','affiliate','city','country','profile_photo_url') order by column_name;`
+  4. If schema cache lag is suspected, force PostgREST schema refresh:
+     - `select pg_notify('pgrst', 'reload schema');`
+
 ## Registration pricing-tier traceability baseline
 - `registrations` now stores the canonical `pricing_tier_id` selected at creation time.
 - Registration creation logic resolves the currently valid active tier server-side and persists that foreign key.
