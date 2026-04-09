@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from '../../lib/supabaseClient'
 import { isEmailVerified } from '../../lib/authVerification'
@@ -9,10 +9,14 @@ import {
   getRegistrationReadiness,
   type RegistrationReadinessCode,
 } from '../../lib/registrationReadiness'
+import { getCountryOptions, resolveCountryCode } from '../../lib/countryOptions'
 import {
+  AlertTriangle,
   CalendarDays,
   Camera,
+  CheckCircle2,
   LogOut,
+  MailCheck,
   Medal,
   Ticket,
   Trophy,
@@ -20,6 +24,7 @@ import {
 } from 'lucide-react'
 import { SiteHeader } from '../../components/marketing/site-header'
 import { SiteFooter } from '../../components/marketing/site-footer'
+import franceBoxes from '../../data/boxes/france-boxes.json'
 
 type Profile = {
   id: string
@@ -82,6 +87,16 @@ type RegistrationRpcResult = {
   id: string
 }
 
+type BoxDatasetItem = {
+  affiliate_id: string
+  gym_name: string
+  city: string
+  country: string
+  website?: string
+}
+
+type AffiliateMode = 'known' | 'custom' | 'independent'
+
 const readinessMessages: Record<RegistrationReadinessCode, string> = {
   email_not_verified: 'Vérifie ton email pour activer les futures inscriptions.',
   missing_first_name: 'Ajoute ton prénom dans le profil athlète.',
@@ -89,6 +104,8 @@ const readinessMessages: Record<RegistrationReadinessCode, string> = {
   missing_date_of_birth: 'Ajoute ta date de naissance dans le profil athlète.',
   missing_country: 'Ajoute ton pays de résidence dans le profil athlète.',
 }
+
+const INDEPENDENT_AFFILIATE_LABEL = 'Indépendant / Sans box'
 
 export default function AthletePage() {
   const [user, setUser] = useState<User | null>(null)
@@ -103,16 +120,30 @@ export default function AthletePage() {
   const [registrationFeedback, setRegistrationFeedback] = useState('')
   const [registrationError, setRegistrationError] = useState('')
   const [submittingCategoryId, setSubmittingCategoryId] = useState<string | null>(null)
+  const [affiliateMode, setAffiliateMode] = useState<AffiliateMode>('known')
+  const [affiliateQuery, setAffiliateQuery] = useState('')
+  const [selectedAffiliateId, setSelectedAffiliateId] = useState<string | null>(null)
+  const [customAffiliateName, setCustomAffiliateName] = useState('')
   const [profileForm, setProfileForm] = useState({
     firstName: '',
     lastName: '',
     dateOfBirth: '',
     affiliate: '',
     city: '',
-    country: '',
+    country: 'FR',
   })
+  const countryOptions = useMemo(() => getCountryOptions(), [])
+  const boxes = useMemo(() => franceBoxes as BoxDatasetItem[], [])
+  const boxesById = useMemo(
+    () => new Map(boxes.map((box) => [box.affiliate_id, box])),
+    [boxes]
+  )
+  const boxesByName = useMemo(
+    () => new Map(boxes.map((box) => [box.gym_name.toLowerCase(), box])),
+    [boxes]
+  )
 
-  const loadProfile = async (userId: string) => {
+  const loadProfile = useCallback(async (userId: string) => {
     const { data } = await supabase
       .from('profiles')
       .select('*')
@@ -121,16 +152,37 @@ export default function AthletePage() {
 
     setProfile(data)
     if (data) {
+      const normalizedCountryCode = resolveCountryCode(data.country, countryOptions)
+      const savedAffiliate = (data.affiliate || '').trim()
+      const knownBox = boxesByName.get(savedAffiliate.toLowerCase())
+
       setProfileForm({
         firstName: data.first_name || '',
         lastName: data.last_name || '',
         dateOfBirth: data.date_of_birth || '',
         affiliate: data.affiliate || '',
         city: data.city || '',
-        country: data.country || '',
+        country: normalizedCountryCode,
       })
+
+      if (savedAffiliate === INDEPENDENT_AFFILIATE_LABEL) {
+        setAffiliateMode('independent')
+        setSelectedAffiliateId(null)
+        setAffiliateQuery('')
+        setCustomAffiliateName('')
+      } else if (knownBox) {
+        setAffiliateMode('known')
+        setSelectedAffiliateId(knownBox.affiliate_id)
+        setAffiliateQuery(knownBox.gym_name)
+        setCustomAffiliateName('')
+      } else {
+        setAffiliateMode('custom')
+        setSelectedAffiliateId(null)
+        setAffiliateQuery('')
+        setCustomAffiliateName(savedAffiliate)
+      }
     }
-  }
+  }, [boxesByName, countryOptions])
 
   const uploadProfilePhoto = async (file: File) => {
     if (!user) return
@@ -178,13 +230,26 @@ export default function AthletePage() {
     if (!user) return
     setProfileFeedback('')
 
+    const selectedBox = selectedAffiliateId ? boxesById.get(selectedAffiliateId) : null
+    const affiliateValue =
+      affiliateMode === 'independent'
+        ? INDEPENDENT_AFFILIATE_LABEL
+        : affiliateMode === 'custom'
+          ? customAffiliateName.trim()
+          : selectedBox?.gym_name || ''
+
+    if (affiliateMode === 'known' && !selectedBox) {
+      setProfileFeedback('Sélectionne une box suggérée ou choisis un autre mode.')
+      return
+    }
+
     const { error } = await supabase
       .from('profiles')
       .update({
         first_name: profileForm.firstName || null,
         last_name: profileForm.lastName || null,
         date_of_birth: profileForm.dateOfBirth || null,
-        affiliate: profileForm.affiliate || null,
+        affiliate: affiliateValue || null,
         city: profileForm.city || null,
         country: profileForm.country || null,
         profile_photo_url: profile?.profile_photo_url || null,
@@ -333,7 +398,7 @@ export default function AthletePage() {
     }
 
     checkUser()
-  }, [])
+  }, [loadProfile])
 
   const login = async () => {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -367,6 +432,10 @@ export default function AthletePage() {
   }
 
   const upcomingRegistrations = useMemo(() => registrations.length, [registrations])
+  const upcomingEventsCount = useMemo(
+    () => events.filter((event) => new Date(event.start_date) >= new Date()).length,
+    [events]
+  )
   const registrationsByEventAndCategory = useMemo(() => {
     return new Set(registrations.map((item) => `${item.event_id}:${item.category_id}`))
   }, [registrations])
@@ -382,6 +451,59 @@ export default function AthletePage() {
       country: profileForm.country,
     },
   })
+  const readinessMissingSet = useMemo(
+    () => new Set(registrationReadiness.missing),
+    [registrationReadiness.missing]
+  )
+  const availableCategoryCount = useMemo(
+    () =>
+      events.reduce((total, event) => total + ((categoriesByEvent[event.id] || []).length), 0),
+    [categoriesByEvent, events]
+  )
+  const profileChecklist = [
+    {
+      label: 'Email vérifié',
+      done: isEmailVerified(user),
+      hint: readinessMessages.email_not_verified,
+    },
+    {
+      label: 'Prénom',
+      done: !readinessMissingSet.has('missing_first_name'),
+      hint: readinessMessages.missing_first_name,
+    },
+    {
+      label: 'Nom',
+      done: !readinessMissingSet.has('missing_last_name'),
+      hint: readinessMessages.missing_last_name,
+    },
+    {
+      label: 'Date de naissance',
+      done: !readinessMissingSet.has('missing_date_of_birth'),
+      hint: readinessMessages.missing_date_of_birth,
+    },
+    {
+      label: 'Pays',
+      done: !readinessMissingSet.has('missing_country'),
+      hint: readinessMessages.missing_country,
+    },
+  ]
+  const normalizedAffiliateQuery = affiliateQuery.trim().toLowerCase()
+  const affiliateSuggestions = useMemo(() => {
+    if (affiliateMode !== 'known' || normalizedAffiliateQuery.length < 2) return []
+
+    return boxes
+      .filter((box) => {
+        const haystack = `${box.gym_name} ${box.city} ${box.country}`.toLowerCase()
+        return haystack.includes(normalizedAffiliateQuery)
+      })
+      .slice(0, 8)
+  }, [affiliateMode, boxes, normalizedAffiliateQuery])
+  const selectedCountryOption = useMemo(
+    () =>
+      countryOptions.find((option) => option.code === profileForm.country) ||
+      countryOptions[0],
+    [countryOptions, profileForm.country]
+  )
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -558,6 +680,102 @@ export default function AthletePage() {
           </div>
         </div>
 
+        <div className="mt-10 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
+            <div className="flex items-start gap-3">
+              <MailCheck className="mt-0.5 h-5 w-5 text-sky-300" />
+              <div>
+                <h2 className="text-2xl font-semibold text-white">
+                  Compte et vérification
+                </h2>
+                <p className="mt-2 text-sm text-slate-300">
+                  Vérifie rapidement l’état de ton compte avant de gérer ton inscription.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                <div className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                  Vérification email
+                </div>
+                <div
+                  className={`mt-2 inline-flex rounded-full border px-3 py-1 text-xs font-semibold ${
+                    isEmailVerified(user)
+                      ? 'border-emerald-400/30 bg-emerald-500/10 text-emerald-200'
+                      : 'border-amber-400/30 bg-amber-500/10 text-amber-200'
+                  }`}
+                >
+                  {isEmailVerified(user) ? 'Email vérifié' : 'Email à vérifier'}
+                </div>
+              </div>
+              <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+                <div className="text-xs uppercase tracking-[0.16em] text-slate-400">
+                  Prochaine action
+                </div>
+                <p className="mt-2 text-sm text-slate-200">
+                  {registrationReadiness.ready
+                    ? 'Ton compte est prêt. Tu peux choisir une catégorie et t’inscrire.'
+                    : 'Complète les éléments signalés dans la section readiness ci-dessous.'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-300" />
+              <div>
+                <h2 className="text-2xl font-semibold text-white">
+                  Readiness inscription
+                </h2>
+                <p className="mt-2 text-sm text-slate-300">
+                  Validation rapide des prérequis avant inscription.
+                </p>
+              </div>
+            </div>
+
+            <div
+              className={`mt-5 rounded-2xl border px-4 py-3 text-sm ${
+                registrationReadiness.ready
+                  ? 'border-emerald-400/25 bg-emerald-500/10 text-emerald-100'
+                  : 'border-amber-400/25 bg-amber-500/10 text-amber-100'
+              }`}
+            >
+              <p className="font-semibold">
+                {registrationReadiness.ready
+                  ? 'Prêt pour inscription.'
+                  : 'Profil incomplet : complète les éléments manquants.'}
+              </p>
+            </div>
+
+            <div className="mt-5 space-y-2">
+              {profileChecklist.map((item) => (
+                <div
+                  key={item.label}
+                  className="flex items-start justify-between gap-3 rounded-xl border border-white/10 bg-slate-950/70 px-3 py-2"
+                >
+                  <div>
+                    <div className="text-sm font-medium text-white">{item.label}</div>
+                    {!item.done && (
+                      <div className="mt-1 text-xs text-amber-200">{item.hint}</div>
+                    )}
+                  </div>
+                  <span
+                    className={`mt-0.5 inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+                      item.done
+                        ? 'border border-emerald-400/25 bg-emerald-500/10 text-emerald-200'
+                        : 'border border-amber-400/25 bg-amber-500/10 text-amber-200'
+                    }`}
+                  >
+                    {item.done ? 'OK' : 'À faire'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <div className="mt-10 rounded-[28px] border border-white/10 bg-white/5 p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
@@ -565,7 +783,7 @@ export default function AthletePage() {
                 Profil athlète
               </h2>
               <p className="mt-2 text-sm text-slate-300">
-                Complète ton profil pour faciliter inscription, vérification et suivi.
+                Mets à jour tes informations personnelles avant de lancer une inscription.
               </p>
             </div>
             <span
@@ -648,22 +866,6 @@ export default function AthletePage() {
                 />
                 <input
                   className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Pays"
-                  value={profileForm.country}
-                  onChange={(e) =>
-                    setProfileForm((prev) => ({ ...prev, country: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
-                  placeholder="Affiliate / Box"
-                  value={profileForm.affiliate}
-                  onChange={(e) =>
-                    setProfileForm((prev) => ({ ...prev, affiliate: e.target.value }))
-                  }
-                />
-                <input
-                  className="rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
                   placeholder="Ville"
                   value={profileForm.city}
                   onChange={(e) =>
@@ -671,43 +873,147 @@ export default function AthletePage() {
                   }
                 />
               </div>
-            </div>
-          </div>
 
-          <div
-            className={`mt-6 rounded-2xl border px-4 py-3 text-sm ${
-              registrationReadiness.ready
-                ? 'border-emerald-400/25 bg-emerald-500/10 text-emerald-100'
-                : 'border-amber-400/25 bg-amber-500/10 text-amber-100'
-            }`}
-          >
-            <p className="font-semibold">
-              {registrationReadiness.ready
-                ? 'Tu es prêt pour le futur flux d’inscription.'
-                : 'Pré-requis à compléter avant le futur flux d’inscription :'}
-            </p>
-            {!registrationReadiness.ready && (
-              <ul className="mt-2 list-disc space-y-1 pl-5">
-                {registrationReadiness.missing.map((code) => (
-                  <li key={code}>{readinessMessages[code]}</li>
-                ))}
-              </ul>
-            )}
+              <div className="mt-4 grid gap-4 md:grid-cols-2">
+                <label className="space-y-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                    Pays de résidence
+                  </span>
+                  <div className="relative">
+                    <select
+                      className="w-full appearance-none rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 pr-10 text-white outline-none"
+                      value={selectedCountryOption?.code || 'FR'}
+                      onChange={(e) => {
+                        const selected = countryOptions.find(
+                          (option) => option.code === e.target.value
+                        )
+                        if (!selected) return
+                        setProfileForm((prev) => ({
+                          ...prev,
+                          country: selected.code,
+                        }))
+                      }}
+                    >
+                      {countryOptions.map((option) => (
+                        <option key={option.code} value={option.code}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                      ▾
+                    </span>
+                  </div>
+                </label>
+
+                <div className="space-y-2">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
+                    Affiliate / Box
+                  </span>
+                  <div className="grid gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setAffiliateMode('known')}
+                      className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold ${
+                        affiliateMode === 'known'
+                          ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                          : 'border-white/10 bg-slate-950/70 text-slate-300'
+                      }`}
+                    >
+                      Choisir une box connue
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAffiliateMode('custom')}
+                      className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold ${
+                        affiliateMode === 'custom'
+                          ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                          : 'border-white/10 bg-slate-950/70 text-slate-300'
+                      }`}
+                    >
+                      Ma box n’est pas dans la liste
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAffiliateMode('independent')}
+                      className={`rounded-xl border px-3 py-2 text-left text-xs font-semibold ${
+                        affiliateMode === 'independent'
+                          ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                          : 'border-white/10 bg-slate-950/70 text-slate-300'
+                      }`}
+                    >
+                      Je suis indépendant / sans box
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-4 space-y-2">
+                {affiliateMode === 'known' && (
+                  <>
+                    <input
+                      className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                      placeholder="Rechercher une box (ex: trap)"
+                      value={affiliateQuery}
+                      onChange={(e) => {
+                        setAffiliateQuery(e.target.value)
+                        setSelectedAffiliateId(null)
+                      }}
+                    />
+                    {affiliateSuggestions.length > 0 && (
+                      <div className="max-h-56 space-y-2 overflow-auto rounded-xl border border-white/10 bg-slate-950/80 p-2">
+                        {affiliateSuggestions.map((box) => (
+                          <button
+                            key={box.affiliate_id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedAffiliateId(box.affiliate_id)
+                              setAffiliateQuery(box.gym_name)
+                            }}
+                            className={`w-full rounded-lg border px-3 py-2 text-left ${
+                              selectedAffiliateId === box.affiliate_id
+                                ? 'border-sky-400/30 bg-sky-500/10 text-sky-100'
+                                : 'border-white/10 bg-white/5 text-slate-200'
+                            }`}
+                          >
+                            <div className="text-sm font-semibold">{box.gym_name}</div>
+                            <div className="text-xs text-slate-300">
+                              {box.city}, {box.country}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {affiliateQuery.trim().length >= 2 && affiliateSuggestions.length === 0 && (
+                      <div className="rounded-xl border border-amber-400/25 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+                        Aucune box trouvée. Choisis “Ma box n’est pas dans la liste” pour saisir
+                        un nom personnalisé.
+                      </div>
+                    )}
+                  </>
+                )}
+
+                {affiliateMode === 'custom' && (
+                  <input
+                    className="w-full rounded-xl border border-white/10 bg-slate-950/80 px-4 py-3 text-white outline-none placeholder:text-slate-500"
+                    placeholder="Nom de ta box (saisie libre)"
+                    value={customAffiliateName}
+                    onChange={(e) => setCustomAffiliateName(e.target.value)}
+                  />
+                )}
+
+                {affiliateMode === 'independent' && (
+                  <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                    Le profil sera enregistré comme : {INDEPENDENT_AFFILIATE_LABEL}.
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           {profileFeedback && (
             <div className="mt-4 rounded-xl border border-sky-400/20 bg-sky-500/10 px-4 py-3 text-sm text-sky-100">
               {profileFeedback}
-            </div>
-          )}
-          {registrationFeedback && (
-            <div className="mt-4 rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
-              {registrationFeedback}
-            </div>
-          )}
-          {registrationError && (
-            <div className="mt-4 rounded-xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-              {registrationError}
             </div>
           )}
 
@@ -721,14 +1027,34 @@ export default function AthletePage() {
 
         <div className="mt-10 grid gap-8 xl:grid-cols-[1.05fr_0.95fr]">
           <div className="rounded-[28px] border border-white/10 bg-white/5 p-6">
-            <div className="flex items-center gap-3">
-              <CalendarDays className="h-5 w-5 text-sky-300" />
-              <h2 className="text-2xl font-semibold text-white">
-                Événements publiés
-              </h2>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <CalendarDays className="h-5 w-5 text-sky-300" />
+                <h2 className="text-2xl font-semibold text-white">
+                  Événements et catégories disponibles
+                </h2>
+              </div>
+              <div className="text-right text-xs text-slate-300">
+                <div>{upcomingEventsCount} événements à venir</div>
+                <div>{availableCategoryCount} catégories actives</div>
+              </div>
             </div>
+            <p className="mt-2 text-sm text-slate-300">
+              Choisis une catégorie avec un tarif actif pour créer ton inscription.
+            </p>
 
             <div className="mt-6 space-y-4">
+              {registrationError && (
+                <div className="rounded-xl border border-amber-400/25 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+                  {registrationError}
+                </div>
+              )}
+              {registrationFeedback && (
+                <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                  {registrationFeedback}
+                </div>
+              )}
+
               {events.length === 0 && (
                 <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-5 text-slate-300">
                   Aucun événement publié pour le moment.
@@ -740,12 +1066,20 @@ export default function AthletePage() {
                   key={event.id}
                   className="rounded-2xl border border-white/10 bg-slate-950/70 p-5"
                 >
-                  <div className="text-lg font-semibold text-white">
-                    {event.name}
+                  <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                    <div>
+                      <div className="text-lg font-semibold text-white">
+                        {event.name}
+                      </div>
+                      <div className="mt-1 text-sm text-slate-400">
+                        {event.start_date} → {event.end_date}
+                      </div>
+                    </div>
+                    <span className="inline-flex rounded-full border border-sky-400/20 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-100">
+                      Publié
+                    </span>
                   </div>
-                  <div className="mt-2 text-sm text-slate-400">
-                    {event.start_date} → {event.end_date}
-                  </div>
+
                   <div className="mt-4 space-y-3">
                     {(categoriesByEvent[event.id] || []).length === 0 && (
                       <div className="rounded-xl border border-white/10 bg-slate-900/70 px-4 py-3 text-sm text-slate-300">
@@ -756,10 +1090,12 @@ export default function AthletePage() {
                       const isAlreadyRegistered = registrationsByEventAndCategory.has(
                         `${event.id}:${category.id}`
                       )
+                      const registrationBlocked =
+                        !registrationReadiness.ready || !category.pricingTier
                       const disabled =
-                        !registrationReadiness.ready ||
-                        !category.pricingTier ||
-                        isAlreadyRegistered
+                        registrationBlocked ||
+                        isAlreadyRegistered ||
+                        submittingCategoryId === category.id
 
                       return (
                         <div
@@ -776,10 +1112,18 @@ export default function AthletePage() {
                                   ? `${category.pricingTier.name} · ${(category.pricingTier.price_cents / 100).toFixed(2)} €`
                                   : 'Aucun tarif actif'}
                               </div>
+                              {registrationBlocked && !isAlreadyRegistered && (
+                                <div className="mt-2 inline-flex items-center gap-1 text-[11px] text-amber-200">
+                                  <AlertTriangle className="h-3.5 w-3.5" />
+                                  {!registrationReadiness.ready
+                                    ? 'Readiness incomplète'
+                                    : 'Tarif actif manquant'}
+                                </div>
+                              )}
                             </div>
                             <button
                               onClick={() => createRegistration(event.id, category.id)}
-                              disabled={disabled || submittingCategoryId === category.id}
+                              disabled={disabled}
                               className="rounded-lg bg-gradient-to-r from-fuchsia-500 to-sky-500 px-4 py-2 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
                             >
                               {isAlreadyRegistered
@@ -805,6 +1149,9 @@ export default function AthletePage() {
                 Mes inscriptions
               </h2>
             </div>
+            <p className="mt-2 text-sm text-slate-300">
+              Historique de tes inscriptions validées depuis le dashboard.
+            </p>
 
             <div className="mt-6 space-y-4">
               {registrations.length === 0 && (
