@@ -165,7 +165,12 @@ export default function AthletePage() {
         country: normalizedCountryCode,
       })
 
-      if (savedAffiliate === INDEPENDENT_AFFILIATE_LABEL) {
+      if (!savedAffiliate) {
+        setAffiliateMode('known')
+        setSelectedAffiliateId(null)
+        setAffiliateQuery('')
+        setCustomAffiliateName('')
+      } else if (savedAffiliate === INDEPENDENT_AFFILIATE_LABEL) {
         setAffiliateMode('independent')
         setSelectedAffiliateId(null)
         setAffiliateQuery('')
